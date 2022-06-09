@@ -1,19 +1,25 @@
-export default function Header() {
-  return (
-    <div>
-      <h1>잡행어사</h1>
-      <style jsx>
-        {`
-          div {
-          }
-          h1 {
-            text-align: center;
+import React from 'react';
 
-            font-size: 50px;
-            background-color: tomato;
-          }
-        `}
-      </style>
-    </div>
-  );
-}
+type Props = {};
+
+const Header = (props: Props) => {
+    return (
+        <div>
+            <h1>잡행어사</h1>
+            <style jsx>
+                {`
+                    div {
+                    }
+                    h1 {
+                        text-align: center;
+
+                        font-size: 50px;
+                        background-color: tomato;
+                    }
+                `}
+            </style>
+        </div>
+    );
+};
+
+export default Header;

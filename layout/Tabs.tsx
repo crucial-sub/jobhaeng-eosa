@@ -2,6 +2,8 @@ import React from 'react';
 
 type Props = {};
 
-export default function Tabs({}: Props) {
+const Tabs = ({}: Props) => {
     return <div>Tabs</div>;
-}
+};
+
+export default Tabs;
