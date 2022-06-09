@@ -2,6 +2,8 @@ import React from 'react';
 
 type Props = {};
 
-export default function Join({}: Props) {
-    return <div>J</div>;
-}
+const Join = (props: Props) => {
+    return <div>join</div>;
+};
+
+export default Join;
