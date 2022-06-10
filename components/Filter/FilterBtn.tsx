@@ -9,7 +9,7 @@ const FilterBtn = (props: Props) => {
 
 const FilterButton = styled.button`
     width: 20%;
-    line-height: 5vh;
+    height: 100%;
     text-align: center;
     border: none;
 `;

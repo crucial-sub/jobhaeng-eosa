@@ -13,10 +13,8 @@ const Footer = ({}: Props) => {
 };
 
 const FooterBox = styled.div`
-    position: absolute;
     width: 100%;
-    height: 10vh;
-    bottom: 0;
+    flex: 1 1 0;
     background-color: aliceblue;
     display: flex;
     align-items: center;

@@ -21,9 +21,9 @@ const Header = (props: Props) => {
 
 const HeaderContainer = styled.header`
     width: 100%;
-    height: 13vh;
-    position: absolute;
-    top: 0;
+    flex: 1.5 1 0;
+    display: flex;
+    flex-direction: column;
 `;
 
 const Title = styled.h1`
@@ -37,6 +37,7 @@ const Title = styled.h1`
 `;
 
 const HeaderBox = styled.div`
+    height: 100%;
     display: flex;
     width: 100%;
 `;
