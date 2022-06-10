@@ -6,13 +6,13 @@ const Container = ({ children }: GlobalLayoutProps) => {
 };
 
 const Wrapper = styled.div`
-    position: relative;
+    display: flex;
+    flex-direction: column;
     margin: 0 auto;
     max-width: 390px;
     height: 844px;
     max-height: 100vh;
     background-color: tomato;
-    position: relative;
 `;
 
 export default Container;

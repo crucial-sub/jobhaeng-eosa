@@ -16,18 +16,18 @@ const Search = (props: Props) => {
 const SearchBox = styled.div`
     position: relative;
     width: 60%;
-    height: 5vh;
+    height: 100%;
     & svg {
         position: absolute;
-        right: 5px;
-        height: 6vh;
-        top: -2px;
+        right: 7%;
+        height: 100%;
+        top: 0;
     }
 `;
 
 const SearchInput = styled.input`
     width: 100%;
-    height: 5vh;
+    height: 100%;
     position: relative;
     text-align: center;
     border: none;

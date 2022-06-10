@@ -15,7 +15,7 @@ const LoginBtn = (props: Props) => {
 const Login = styled.button`
     position: relative;
     width: 20%;
-    line-height: 5vh;
+    height: 100%;
     text-align: center;
     border: none;
 `;
