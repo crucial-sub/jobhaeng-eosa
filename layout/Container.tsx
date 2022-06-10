@@ -9,7 +9,9 @@ const Wrapper = styled.div`
     margin: 0 auto;
     max-width: 390px;
     height: 844px;
+    max-height: 100vh;
     background-color: tomato;
+    position: relative;
 `;
 
 export default Container;
