@@ -6,6 +6,7 @@ const Container = ({ children }: GlobalLayoutProps) => {
 };
 
 const Wrapper = styled.div`
+    position: relative;
     margin: 0 auto;
     max-width: 390px;
     height: 844px;
