@@ -1,25 +1,22 @@
 import React from 'react';
+import styled from '@emotion/styled';
 
 type Props = {};
 
 const Header = (props: Props) => {
     return (
-        <div>
-            <h1>잡행어사</h1>
-            <style jsx>
-                {`
-                    div {
-                    }
-                    h1 {
-                        text-align: center;
-
-                        font-size: 50px;
-                        background-color: tomato;
-                    }
-                `}
-            </style>
-        </div>
+        <HeaderContainer>
+            <Title>잡행어사</Title>
+        </HeaderContainer>
     );
 };
+
+const HeaderContainer = styled.div``;
+
+const Title = styled.h1`
+    text-align: center;
+    font-size: 35px;
+    background-color: skyblue;
+`;
 
 export default Header;
