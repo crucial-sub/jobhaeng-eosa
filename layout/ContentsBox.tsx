@@ -6,7 +6,7 @@ const ContentsBox = ({ children }: GlobalLayoutProps) => {
 };
 
 const ContentsWrapper = styled.div`
-    width: 100%;
+    max-width: 100%;
     flex: 7.5 1 0;
 `;
 

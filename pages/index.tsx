@@ -1,14 +1,21 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
-import Image from 'next/image';
-import Header from 'layout/Header';
+import styled from '@emotion/styled';
+import ItemList from 'components/ItemList/ItemList';
 
 const Home: NextPage = () => {
     return (
-        <div>
-            <section></section>
-        </div>
+        <ItemWrapper>
+            <ItemList />
+        </ItemWrapper>
     );
 };
+
+const ItemWrapper = styled.div`
+    max-width: 90%;
+    height: 90%;
+    margin: 7.5% auto;
+    overflow: auto;
+    background-color: aliceblue;
+`;
 
 export default Home;
