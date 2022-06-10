@@ -14,13 +14,27 @@ interface PostListTypes {
         date: string;
         address: string;
         reward: number | string;
-        ongoing?: boolean;
+        ongoing: boolean;
     }[];
 }
 
 const sampleData = [
     {
         title: '화장지 좀 가져다 주실 분',
+        date: new Date().toLocaleDateString(),
+        address: '회기동',
+        reward: '3,000원',
+        ongoing: true,
+    },
+    {
+        title: '면접 연습 상대 구해요',
+        date: new Date().toLocaleDateString(),
+        address: '회기동',
+        reward: '20,000원',
+        ongoing: false,
+    },
+    {
+        title: '강아지 산책 좀 대신 시켜주실 분?',
         date: new Date().toLocaleDateString(),
         address: '회기동',
         reward: '10,000원',
