@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import Container from 'layout/Container';
 import Header from 'layout/Header';
 import ContentsBox from 'layout/ContentsBox';
+import Footer from 'layout/Footer';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     return (
@@ -11,6 +12,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
             <ContentsBox>
                 <Component {...pageProps} />
             </ContentsBox>
+            <Footer />
         </Container>
     );
 };
