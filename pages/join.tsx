@@ -4,7 +4,7 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
 } from 'firebase/auth';
-import { authService } from '../firebase';
+import { authService } from 'fbase';
 
 type Props = {};
 
