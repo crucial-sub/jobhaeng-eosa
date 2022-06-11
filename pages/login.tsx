@@ -52,7 +52,7 @@ const LoginForm = styled.form`
     }
 `;
 
-const LoginBtn = styled.form`
+const LoginBtn = styled.button`
     width: 100%;
     height: 4vh;
     line-height: 4vh;
