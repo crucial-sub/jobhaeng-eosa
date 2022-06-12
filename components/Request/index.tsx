@@ -26,10 +26,10 @@ const Request = (props: Props) => {
 
     return (
         <Form onSubmit={handleSubmit}>
-            <RequestTitle />
-            <RequestReward />
-            <RequestLocation />
-            <RequestDetail />
+            <RequestTitle request={request} />
+            <RequestReward request={request} />
+            <RequestLocation request={request} />
+            <RequestDetail request={request} />
             <RequestSubmit type="submit" value="요청하기" />
         </Form>
     );
