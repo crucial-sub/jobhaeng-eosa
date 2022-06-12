@@ -14,21 +14,26 @@ import RequestDetail from './RequestDetail';
 import RequestLocation from './RequestLocation';
 import RequestReward from './RequestReward';
 import RequestTitle from './RequestTitle';
+import { useRouter } from 'next/router';
 
 type Props = {};
 
 const Request = (props: Props) => {
     const dispatch = useDispatch();
     const { request } = useSelector((state: RootState) => state.request);
+    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const collectionRef = collection(dbService, 'items');
-        const docRef = await addDoc(collectionRef, {
-            ...request,
-            date: serverTimestamp(),
-        });
-        dispatch(requestAction.request(requestInitialState.request));
+        if (confirm('잡행어사 출두를 요청하시겠습니까?')) {
+            const collectionRef = collection(dbService, 'items');
+            const docRef = await addDoc(collectionRef, {
+                ...request,
+                date: serverTimestamp(),
+            });
+            dispatch(requestAction.request(requestInitialState.request));
+            router.push('/');
+        } else return;
     };
 
     return (
