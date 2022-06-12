@@ -1,7 +1,7 @@
 import { combineReducers, configureStore, createSlice } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
 
-interface ItemTypes {
+export interface ItemTypes {
     title: string;
     date: string;
     location: string;
@@ -29,8 +29,36 @@ const itemListSlice = createSlice({
     },
 });
 
+interface RequestTypes {
+    request: ItemTypes;
+}
+
+const requestInitialState: RequestTypes = {
+    request: {
+        title: '',
+        date: '',
+        location: '',
+        reward: '',
+        ongoing: false,
+        contents: '',
+        userId: '',
+        id: '',
+    },
+};
+
+const requestSlice = createSlice({
+    name: 'request',
+    initialState: requestInitialState,
+    reducers: {
+        request(state, action) {
+            state.request = action.payload;
+        },
+    },
+});
+
 const rootReducer = combineReducers({
     itemList: itemListSlice.reducer,
+    request: requestSlice.reducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -39,10 +67,12 @@ const makeStore = () =>
     configureStore({
         reducer: {
             itemList: itemListSlice.reducer,
+            request: requestSlice.reducer,
         },
     });
 
 export const itemListAction = itemListSlice.actions;
+export const requestAction = requestSlice.actions;
 
 export const wrapper = createWrapper(makeStore, {
     debug: process.env.NODE_ENV !== 'production',
