@@ -12,7 +12,6 @@ import RequestTitle from './RequestTitle';
 type Props = {};
 
 const Request = (props: Props) => {
-    // const [request, setRequest] = useState({});
     const { request } = useSelector((state: RootState) => state.request);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

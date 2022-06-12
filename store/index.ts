@@ -9,7 +9,7 @@ export interface ItemTypes {
     ongoing: boolean;
     contents?: string;
     userId?: string;
-    id: string;
+    id?: string;
 }
 interface ItemListTypes {
     itemList: ItemTypes[];
@@ -42,7 +42,6 @@ const requestInitialState: RequestTypes = {
         ongoing: false,
         contents: '',
         userId: '',
-        id: '',
     },
 };
 
