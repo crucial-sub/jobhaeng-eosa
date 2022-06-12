@@ -33,7 +33,7 @@ interface RequestTypes {
     request: ItemTypes;
 }
 
-const requestInitialState: RequestTypes = {
+export const requestInitialState: RequestTypes = {
     request: {
         title: '',
         date: '',
@@ -51,6 +51,9 @@ const requestSlice = createSlice({
     reducers: {
         request(state, action) {
             state.request = action.payload;
+        },
+        init(state, action) {
+            state.request = requestInitialState.request;
         },
     },
 });
