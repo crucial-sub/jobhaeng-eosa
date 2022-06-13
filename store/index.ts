@@ -74,11 +74,11 @@ const searchSlice = createSlice({
 });
 
 interface checkLoginTypes {
-    checkLogin: boolean;
+    checkLogin: boolean | null;
 }
 
 const checkLoginInitialSate: checkLoginTypes = {
-    checkLogin: false,
+    checkLogin: null,
 };
 
 const loginSlice = createSlice({
