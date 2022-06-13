@@ -35,6 +35,8 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         <Container>
             {checkLogin === false ? (
                 <Login />
+            ) : checkLogin === null ? (
+                <>Loading</>
             ) : (
                 <>
                     <Header />
