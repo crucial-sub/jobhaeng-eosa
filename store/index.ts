@@ -73,10 +73,29 @@ const searchSlice = createSlice({
     },
 });
 
+interface checkLoginTypes {
+    checkLogin: boolean;
+}
+
+const checkLoginInitialSate: checkLoginTypes = {
+    checkLogin: false,
+};
+
+const loginSlice = createSlice({
+    name: 'login',
+    initialState: checkLoginInitialSate,
+    reducers: {
+        login(state, action) {
+            state.checkLogin = action.payload;
+        },
+    },
+});
+
 const rootReducer = combineReducers({
     itemList: itemListSlice.reducer,
     request: requestSlice.reducer,
     search: searchSlice.reducer,
+    login: loginSlice.reducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -87,12 +106,14 @@ const makeStore = () =>
             itemList: itemListSlice.reducer,
             request: requestSlice.reducer,
             search: searchSlice.reducer,
+            login: loginSlice.reducer,
         },
     });
 
 export const itemListAction = itemListSlice.actions;
 export const requestAction = requestSlice.actions;
 export const searchAction = searchSlice.actions;
+export const loginAction = loginSlice.actions;
 
 export const wrapper = createWrapper(makeStore, {
     debug: process.env.NODE_ENV !== 'production',
