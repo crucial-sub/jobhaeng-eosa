@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import {
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-} from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { authService } from 'fbase';
 
 type Props = {};
@@ -11,7 +8,6 @@ type Props = {};
 const Join = (props: Props) => {
     const [email, setEmail] = useState('');
     const [Password, setPassword] = useState('');
-    // const [error, setError] = useState('');
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const {
