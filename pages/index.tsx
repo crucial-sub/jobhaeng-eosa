@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import styled from '@emotion/styled';
-import ItemList from 'components/ItemList/ItemList';
+import ItemList from 'components/ItemList';
 import RequestBtn from 'components/Request/RequestBtn';
 
 const Home: NextPage = () => {

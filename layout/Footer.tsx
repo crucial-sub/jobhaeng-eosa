@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import Tab from 'components/Tab/Tab';
+import Tab from 'components/Tab';
 
 type Props = {};
 

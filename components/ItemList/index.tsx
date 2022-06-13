@@ -61,6 +61,7 @@ const ItemList = (props: Props) => {
 const PostBox = styled.div`
     display: flex;
     margin: 20px;
+    cursor: pointer;
 `;
 
 export default ItemList;

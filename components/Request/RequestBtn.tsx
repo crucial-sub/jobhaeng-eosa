@@ -23,6 +23,7 @@ const Button = styled.div`
     & svg {
         color: green;
         font-size: 50px;
+        cursor: pointer;
     }
 `;
 
