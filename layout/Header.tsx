@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import FilterBtn from 'components/Filter/FilterBtn';
 import SearchBox from 'components/Search';
-import LoginBtn from 'components/User/LoginBtn';
+import Link from 'next/link';
 
 type Props = {};
 
@@ -13,7 +13,9 @@ const Header = (props: Props) => {
             <HeaderBox>
                 <FilterBtn />
                 <SearchBox />
-                <LoginBtn />
+                <Link href="/login">
+                    <Login>Login</Login>
+                </Link>
             </HeaderBox>
         </HeaderContainer>
     );
@@ -40,6 +42,14 @@ const HeaderBox = styled.div`
     height: 100%;
     display: flex;
     width: 100%;
+`;
+
+const Login = styled.button`
+    position: relative;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    border: none;
 `;
 
 export default Header;
