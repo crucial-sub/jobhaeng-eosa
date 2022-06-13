@@ -2,14 +2,14 @@ import { combineReducers, configureStore, createSlice } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
 
 export interface ItemTypes {
-    title: string;
-    date: string;
-    location: string;
-    reward: number | string;
-    ongoing: boolean;
+    title?: string;
+    date?: string;
+    location?: string;
+    reward?: number | string;
+    ongoing?: boolean;
     contents?: string;
     userId?: string;
-    id?: string;
+    id?: string | undefined;
 }
 interface ItemListTypes {
     itemList: ItemTypes[];
@@ -23,7 +23,7 @@ const itemListSlice = createSlice({
     name: 'itemlist',
     initialState: itemListInitialState,
     reducers: {
-        itemList(state, action) {
+        load(state, action) {
             state.itemList = action.payload;
         },
     },
@@ -51,9 +51,6 @@ const requestSlice = createSlice({
     reducers: {
         request(state, action) {
             state.request = action.payload;
-        },
-        init(state, action) {
-            state.request = requestInitialState.request;
         },
     },
 });
