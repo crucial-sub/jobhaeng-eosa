@@ -5,7 +5,7 @@ import Header from 'layout/Header';
 import ContentsBox from 'layout/ContentsBox';
 import Footer from 'layout/Footer';
 import { loginAction, RootState, wrapper } from 'store';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -22,6 +22,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     useEffect(() => {
         const auth = getAuth();
         onAuthStateChanged(auth, (user) => {
+            console.log('user', user);
             if (user) {
                 dispatch(loginAction.login(!checkLogin));
             } else {
@@ -29,10 +30,12 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
             }
         });
     }, []);
-    console.log(checkLogin);
+    console.log('dd', checkLogin);
     return (
         <Container>
-            {checkLogin ? (
+            {checkLogin === false ? (
+                <Login />
+            ) : (
                 <>
                     <Header />
                     <ContentsBox>
@@ -40,8 +43,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
                     </ContentsBox>
                     <Footer />
                 </>
-            ) : (
-                <Login />
             )}
         </Container>
     );
