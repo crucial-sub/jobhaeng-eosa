@@ -55,9 +55,28 @@ const requestSlice = createSlice({
     },
 });
 
+interface searchResultTypes {
+    searchResult: ItemTypes[];
+}
+
+const searchInitialState: searchResultTypes = {
+    searchResult: [],
+};
+
+const searchSlice = createSlice({
+    name: 'search',
+    initialState: searchInitialState,
+    reducers: {
+        search(state, action) {
+            state.searchResult = action.payload;
+        },
+    },
+});
+
 const rootReducer = combineReducers({
     itemList: itemListSlice.reducer,
     request: requestSlice.reducer,
+    search: searchSlice.reducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -67,11 +86,13 @@ const makeStore = () =>
         reducer: {
             itemList: itemListSlice.reducer,
             request: requestSlice.reducer,
+            search: searchSlice.reducer,
         },
     });
 
 export const itemListAction = itemListSlice.actions;
 export const requestAction = requestSlice.actions;
+export const searchAction = searchSlice.actions;
 
 export const wrapper = createWrapper(makeStore, {
     debug: process.env.NODE_ENV !== 'production',

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import FilterBtn from 'components/Filter/FilterBtn';
-import SearchBox from 'components/Search/Search';
+import SearchBox from 'components/Search';
 import LoginBtn from 'components/User/LoginBtn';
 
 type Props = {};
