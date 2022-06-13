@@ -1,24 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import Link from 'next/link';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { authService } from 'fbase';
 
 type Props = {};
 
 const Login = (props: Props) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const {
+            target: { name, value },
+        } = event;
+        if (name === 'email') {
+            setEmail(value);
+        } else if (name === 'password') {
+            setPassword(value);
+        }
+    };
+
+    const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        let data;
+        data = await signInWithEmailAndPassword(authService, email, password);
+    };
     return (
         <LoginBox>
-            <LoginForm>
+            <LoginForm onSubmit={onSubmit}>
                 <div>
                     <label htmlFor="email">Email</label>
-                    <input id="email" />
+                    <input
+                        name="email"
+                        type="text"
+                        id="email"
+                        value={email}
+                        onChange={onChange}
+                        placeholder="Email"
+                        required
+                    />
                 </div>
                 <div>
                     <label htmlFor="password">PW</label>
-                    <input id="password" />
+                    <input
+                        name="password"
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={onChange}
+                        placeholder="password"
+                        required
+                    />
                 </div>
-                <div>
-                    <LoginBtn>로그인</LoginBtn>
-                </div>
+
+                <LoginBtn type="submit" value={'Login'} />
             </LoginForm>
             <Link href="/join">
                 <JoinBtn>회원가입</JoinBtn>
@@ -52,7 +87,7 @@ const LoginForm = styled.form`
     }
 `;
 
-const LoginBtn = styled.button`
+const LoginBtn = styled.input`
     width: 100%;
     height: 4vh;
     line-height: 4vh;
