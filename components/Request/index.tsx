@@ -1,15 +1,10 @@
 import styled from '@emotion/styled';
 import { dbService } from 'fbase';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import {
-    ItemTypes,
-    requestAction,
-    requestInitialState,
-    RootState,
-} from 'store';
+import { requestAction, requestInitialState, RootState } from 'store';
 import RequestDetail from './RequestDetail';
 import RequestLocation from './RequestLocation';
 import RequestReward from './RequestReward';
@@ -32,7 +27,7 @@ const Request = (props: Props) => {
                 date: serverTimestamp(),
             });
             dispatch(requestAction.request(requestInitialState.request));
-            router.push('/');
+            router.push(`/items/${docRef.id}`);
         } else return;
     };
 
