@@ -47,7 +47,7 @@ const LoginPage = (props: Props) => {
         dispatch(joinAction.join(!clickJoin));
     };
 
-    console.log(authService.currentUser);
+    console.log('어스서비스 큐렌유저', authService.currentUser);
     return (
         <LoginBox>
             <LoginForm onSubmit={onSubmit}>

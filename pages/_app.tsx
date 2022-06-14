@@ -18,14 +18,13 @@ import LoginJoin from 'components/LoginJoin';
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     const router = useRouter();
     const path = router.pathname;
-    console.log(path);
     const dispatch = useDispatch();
     const { clickJoin } = useSelector((state: RootState) => state.join);
     const { checkLogin } = useSelector((state: RootState) => state.login);
     useEffect(() => {
         const auth = getAuth();
         onAuthStateChanged(auth, (user) => {
-            console.log('user', user);
+            console.log('유즈이펙트 유저', user);
             if (user) {
                 dispatch(loginAction.login(!checkLogin));
             } else {
@@ -33,7 +32,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
             }
         });
     }, []);
-    console.log('dd', clickJoin);
     return (
         <Container>
             {checkLogin === false ? (
