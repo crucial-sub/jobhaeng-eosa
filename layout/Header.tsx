@@ -3,19 +3,33 @@ import styled from '@emotion/styled';
 import FilterBtn from 'components/Filter/FilterBtn';
 import SearchBox from 'components/Search';
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
+import { RootState } from 'store';
+import { authService } from 'fbase';
 
 type Props = {};
 
 const Header = (props: Props) => {
+    const { checkLogin } = useSelector((state: RootState) => state.login);
+
+    const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        authService.signOut();
+    };
     return (
         <HeaderContainer>
             <Title>잡행어사</Title>
             <HeaderBox>
                 <FilterBtn />
                 <SearchBox />
-                <Link href="/login">
-                    <Login>Login</Login>
-                </Link>
+                {checkLogin ? (
+                    <Link href="/">
+                        <Logout onClick={onClick}>Logout</Logout>
+                    </Link>
+                ) : (
+                    <Link href="/login">
+                        <Login>Login</Login>
+                    </Link>
+                )}
             </HeaderBox>
         </HeaderContainer>
     );
@@ -45,6 +59,14 @@ const HeaderBox = styled.div`
 `;
 
 const Login = styled.button`
+    position: relative;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    border: none;
+`;
+
+const Logout = styled.button`
     position: relative;
     width: 20%;
     height: 100%;
