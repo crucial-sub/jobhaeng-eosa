@@ -4,12 +4,17 @@ import Link from 'next/link';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { authService } from 'fbase';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { joinAction, RootState } from 'store';
+import { useSelector } from 'react-redux';
 
 type Props = {};
 
 const LoginPage = (props: Props) => {
     // const [login, setLogin] = useState(false);
     const router = useRouter();
+    const dispatch = useDispatch();
+    const { clickJoin } = useSelector((state: RootState) => state.join);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -36,6 +41,10 @@ const LoginPage = (props: Props) => {
             setError(err);
             console.log(error);
         }
+    };
+
+    const onClick = (event: React.MouseEvent<HTMLDivElement>) => {
+        dispatch(joinAction.join(!clickJoin));
     };
 
     console.log(authService.currentUser);
@@ -70,9 +79,9 @@ const LoginPage = (props: Props) => {
                 <LoginBtn type="submit" value={'Login'} />
                 <p>{error ? `${error}` : <></>}</p>
             </LoginForm>
-            <Link href="/join">
-                <JoinBtn>회원가입</JoinBtn>
-            </Link>
+            {/* <Link href="/join"> */}
+            <JoinBtn onClick={onClick}>회원가입</JoinBtn>
+            {/* </Link> */}
         </LoginBox>
     );
 };
