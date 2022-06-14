@@ -12,12 +12,15 @@ import { useSelector } from 'react-redux';
 import Login from './login';
 import Join from './join';
 import { useRouter } from 'next/router';
+import Loading from 'components/Loading';
+import LoginJoin from 'components/LoginJoin';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     const router = useRouter();
     const path = router.pathname;
     console.log(path);
     const dispatch = useDispatch();
+    const { clickJoin } = useSelector((state: RootState) => state.join);
     const { checkLogin } = useSelector((state: RootState) => state.login);
     useEffect(() => {
         const auth = getAuth();
@@ -30,14 +33,12 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
             }
         });
     }, []);
-    console.log('dd', checkLogin);
+    console.log('dd', clickJoin);
     return (
         <Container>
             {checkLogin === false ? (
-                <Login />
-            ) : checkLogin === null ? (
-                <>Loading</>
-            ) : (
+                <LoginJoin />
+            ) : checkLogin !== null ? (
                 <>
                     <Header />
                     <ContentsBox>
@@ -45,6 +46,8 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
                     </ContentsBox>
                     <Footer />
                 </>
+            ) : (
+                <Loading />
             )}
         </Container>
     );

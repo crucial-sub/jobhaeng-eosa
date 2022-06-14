@@ -91,11 +91,30 @@ const loginSlice = createSlice({
     },
 });
 
+interface clickJoinTypes {
+    clickJoin: boolean;
+}
+
+const checkJoinInitialState: clickJoinTypes = {
+    clickJoin: false,
+};
+
+const joinSlice = createSlice({
+    name: 'join',
+    initialState: checkJoinInitialState,
+    reducers: {
+        join(state, action) {
+            state.clickJoin = action.payload;
+        },
+    },
+});
+
 const rootReducer = combineReducers({
     itemList: itemListSlice.reducer,
     request: requestSlice.reducer,
     search: searchSlice.reducer,
     login: loginSlice.reducer,
+    join: joinSlice.reducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -107,6 +126,7 @@ const makeStore = () =>
             request: requestSlice.reducer,
             search: searchSlice.reducer,
             login: loginSlice.reducer,
+            join: joinSlice.reducer,
         },
     });
 
@@ -114,6 +134,7 @@ export const itemListAction = itemListSlice.actions;
 export const requestAction = requestSlice.actions;
 export const searchAction = searchSlice.actions;
 export const loginAction = loginSlice.actions;
+export const joinAction = joinSlice.actions;
 
 export const wrapper = createWrapper(makeStore, {
     debug: process.env.NODE_ENV !== 'production',

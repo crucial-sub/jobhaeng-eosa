@@ -37,7 +37,7 @@ const JoinPage = (props: Props) => {
                 Password,
             );
             dispatch(loginAction.login(!checkLogin));
-            router.push('/');
+            // router.push('/');
         } catch (err: any) {
             setError(err);
             console.log(error);
