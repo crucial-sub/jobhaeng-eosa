@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { authService } from 'fbase';
+import { authService, dbService } from 'fbase';
 import Error from 'next/error';
 import Router, { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { loginAction, RootState } from 'store';
 import { useSelector } from 'react-redux';
+import { addDoc, collection } from 'firebase/firestore';
 
 type Props = {};
 
@@ -36,14 +37,19 @@ const JoinPage = (props: Props) => {
                 email,
                 Password,
             );
+            console.log('uid', data.user.uid, 'email', data.user.email);
             dispatch(loginAction.login(!checkLogin));
-            // router.push('/');
+
+            const collectionRef = collection(dbService, 'users');
+            const docRef = await addDoc(collectionRef, {
+                uid: data.user.uid,
+                email: data.user.email,
+            });
         } catch (err: any) {
             setError(err);
             console.log(error);
         }
     };
-    console.log(checkLogin);
     return (
         <RegistBox>
             <RegistForm onSubmit={onSubmit}>
