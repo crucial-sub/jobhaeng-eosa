@@ -109,6 +109,36 @@ const joinSlice = createSlice({
     },
 });
 
+export interface userDataTypes {
+    currentUser: {
+        uid: string;
+        nickName?: string;
+        email: string;
+        address?: string;
+        phoneNumber?: string;
+    };
+}
+
+export const currentUserInitialState: userDataTypes = {
+    currentUser: {
+        uid: '',
+        nickName: '',
+        email: '',
+        address: '',
+        phoneNumber: '',
+    },
+};
+
+const currentUserSlice = createSlice({
+    name: 'currentUser',
+    initialState: currentUserInitialState,
+    reducers: {
+        user(state, action) {
+            state.currentUser = action.payload;
+        },
+    },
+});
+
 const rootReducer = combineReducers({
     itemList: itemListSlice.reducer,
     request: requestSlice.reducer,
