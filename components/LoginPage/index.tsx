@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { authService } from 'fbase';
+import { authService, dbService } from 'fbase';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { joinAction, RootState } from 'store';
+import { currentUserAction, joinAction, RootState } from 'store';
 import { useSelector } from 'react-redux';
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 
 type Props = {};
 
@@ -37,6 +38,12 @@ const LoginPage = (props: Props) => {
                 email,
                 password,
             );
+            const collectionRef = collection(dbService, 'users');
+            const docsRef = await getDocs(collectionRef);
+            const user = docsRef.docs
+                .find((doc) => (doc.data().uid = authService.currentUser?.uid))
+                ?.data();
+            dispatch(currentUserAction.user(user));
         } catch (err: any) {
             setError(err);
             console.log(error);
@@ -46,8 +53,6 @@ const LoginPage = (props: Props) => {
     const onClick = (event: React.MouseEvent<HTMLDivElement>) => {
         dispatch(joinAction.join(!clickJoin));
     };
-
-    console.log('어스서비스 큐렌유저', authService.currentUser);
     return (
         <LoginBox>
             <LoginForm onSubmit={onSubmit}>
