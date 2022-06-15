@@ -4,16 +4,18 @@ import FilterBtn from 'components/Filter/FilterBtn';
 import SearchBox from 'components/Search';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
-import { RootState } from 'store';
+import { currentUserAction, RootState } from 'store';
 import { authService } from 'fbase';
+import { useDispatch } from 'react-redux';
 
 type Props = {};
 
 const Header = (props: Props) => {
     const { checkLogin } = useSelector((state: RootState) => state.login);
-
+    const dispatch = useDispatch();
     const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         authService.signOut();
+        dispatch(currentUserAction.user(null));
     };
     return (
         <HeaderContainer>
