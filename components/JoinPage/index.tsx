@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+    createUserWithEmailAndPassword,
+    GithubAuthProvider,
+    GoogleAuthProvider,
+    signInWithPopup,
+} from 'firebase/auth';
 import { authService, dbService } from 'fbase';
 import Error from 'next/error';
 import Router, { useRouter } from 'next/router';
@@ -29,6 +34,28 @@ const JoinPage = (props: Props) => {
             setPassword(value);
         }
     };
+
+    const onSocailClick = async (
+        event: React.MouseEvent<HTMLButtonElement>,
+    ) => {
+        // const name = event.currentTarget.name;
+        // console.log(name);
+        // const {
+        //     target: { name },
+        // } = event;
+        // if (name === 'google') {
+        // }
+        const provider = new GoogleAuthProvider();
+
+        const data = await signInWithPopup(authService, provider);
+        console.log(data);
+        const collectionRef = collection(dbService, 'users');
+        const docRef = await addDoc(collectionRef, {
+            uid: data.user.uid,
+            email: data.user.email,
+        });
+    };
+
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
@@ -82,6 +109,9 @@ const JoinPage = (props: Props) => {
                 <RegistBtn type="submit" value={'Create Account'} />
                 <p>{error ? `${error}` : <></>}</p>
             </RegistForm>
+            <GoogleJoin onClick={onSocailClick} name="google">
+                구글회원가입
+            </GoogleJoin>
         </RegistBox>
     );
 };
@@ -127,4 +157,13 @@ const RegistBtn = styled.input`
     cursor: pointer;
 `;
 
+const GoogleJoin = styled.button`
+    width: 100%:
+    height: 4vh;
+    line-height: 4vh;
+    text-align: center;
+    border: none;
+    background-color: skyblue;
+    cursor:pointer;
+`;
 export default JoinPage;
