@@ -9,7 +9,7 @@ const Tab = (props: Props) => {
     const tabArr = [
         ['글', ''],
         ['채팅', 'chats'],
-        ['마이페이지', 'user/1'],
+        ['마이페이지', 'user'],
     ];
     const [clicked, setClicked] = useState('');
 

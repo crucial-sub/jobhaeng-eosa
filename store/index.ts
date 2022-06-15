@@ -145,6 +145,7 @@ const rootReducer = combineReducers({
     search: searchSlice.reducer,
     login: loginSlice.reducer,
     join: joinSlice.reducer,
+    currentUser: currentUserSlice.reducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -157,6 +158,7 @@ const makeStore = () =>
             search: searchSlice.reducer,
             login: loginSlice.reducer,
             join: joinSlice.reducer,
+            currentUser: currentUserSlice.reducer,
         },
     });
 
@@ -165,6 +167,7 @@ export const requestAction = requestSlice.actions;
 export const searchAction = searchSlice.actions;
 export const loginAction = loginSlice.actions;
 export const joinAction = joinSlice.actions;
+export const currentUserAction = currentUserSlice.actions;
 
 export const wrapper = createWrapper(makeStore, {
     debug: process.env.NODE_ENV !== 'production',

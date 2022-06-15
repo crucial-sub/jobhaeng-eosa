@@ -24,7 +24,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     useEffect(() => {
         const auth = getAuth();
         onAuthStateChanged(auth, (user) => {
-            console.log('유즈이펙트 유저', user);
             if (user) {
                 dispatch(loginAction.login(!checkLogin));
             } else {
