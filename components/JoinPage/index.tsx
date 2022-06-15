@@ -2,17 +2,15 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import {
     createUserWithEmailAndPassword,
-    GithubAuthProvider,
     GoogleAuthProvider,
     signInWithPopup,
 } from 'firebase/auth';
 import { authService, dbService } from 'fbase';
-import Error from 'next/error';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { loginAction, RootState } from 'store';
+import { currentUserAction, loginAction, RootState } from 'store';
 import { useSelector } from 'react-redux';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, getDoc } from 'firebase/firestore';
 
 type Props = {};
 
@@ -54,6 +52,9 @@ const JoinPage = (props: Props) => {
             uid: data.user.uid,
             email: data.user.email,
         });
+        const user = (await getDoc(docRef)).data();
+        dispatch(currentUserAction.user(user));
+        router.push('/user/edit');
     };
 
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -64,7 +65,6 @@ const JoinPage = (props: Props) => {
                 email,
                 Password,
             );
-            console.log('uid', data.user.uid, 'email', data.user.email);
             dispatch(loginAction.login(!checkLogin));
 
             const collectionRef = collection(dbService, 'users');
@@ -72,6 +72,9 @@ const JoinPage = (props: Props) => {
                 uid: data.user.uid,
                 email: data.user.email,
             });
+            const user = (await getDoc(docRef)).data();
+            dispatch(currentUserAction.user(user));
+            router.push('/user/edit');
         } catch (err: any) {
             setError(err);
             console.log(error);
@@ -158,12 +161,12 @@ const RegistBtn = styled.input`
 `;
 
 const GoogleJoin = styled.button`
-    width: 100%:
+    width: 100%;
     height: 4vh;
     line-height: 4vh;
     text-align: center;
     border: none;
     background-color: skyblue;
-    cursor:pointer;
+    cursor: pointer;
 `;
 export default JoinPage;
