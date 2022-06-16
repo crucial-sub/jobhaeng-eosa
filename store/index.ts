@@ -9,11 +9,6 @@ import { createWrapper } from 'next-redux-wrapper';
 import { persistStore, persistReducer } from 'redux-persist';
 import logger from 'redux-logger';
 import storage from 'redux-persist/lib/storage';
-const persistConfig = {
-    key: 'root',
-    version: 1,
-    storage,
-};
 
 export interface ItemTypes {
     title?: string;
@@ -88,11 +83,11 @@ const searchSlice = createSlice({
 });
 
 interface checkLoginTypes {
-    checkLogin: boolean | null;
+    checkLogin: boolean;
 }
 
 const checkLoginInitialSate: checkLoginTypes = {
-    checkLogin: null,
+    checkLogin: false,
 };
 
 const loginSlice = createSlice({
@@ -161,9 +156,16 @@ const rootReducer = combineReducers({
     join: joinSlice.reducer,
     currentUser: currentUserSlice.reducer,
 });
-export const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export type RootState = ReturnType<typeof rootReducer>;
+
+const persistConfig = {
+    key: 'root',
+    version: 1,
+    storage,
+};
+
+export const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const makeConfiguredStore = (reducer: Reducer) =>
     createStore(reducer, undefined, applyMiddleware(logger));
@@ -179,6 +181,8 @@ const makeStore = () => {
         return { persistor, ...store };
     }
 };
+
+export const persistor = persistStore(makeConfiguredStore(persistedReducer));
 
 export const itemListAction = itemListSlice.actions;
 export const requestAction = requestSlice.actions;

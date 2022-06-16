@@ -30,18 +30,14 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         const auth = getAuth();
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                dispatch(loginAction.login(!checkLogin));
-            } else {
-                dispatch(loginAction.login(false));
+                dispatch(loginAction.login(true));
             }
         });
     }, []);
     return (
         <PersistGate persistor={persistor} loading={<div>loading...</div>}>
             <Container>
-                {checkLogin === false ? (
-                    <LoginJoin />
-                ) : checkLogin !== null ? (
+                {checkLogin ? (
                     <>
                         <Header />
                         <ContentsBox>
@@ -50,7 +46,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
                         <Footer />
                     </>
                 ) : (
-                    <Loading />
+                    <LoginJoin />
                 )}
             </Container>
         </PersistGate>
