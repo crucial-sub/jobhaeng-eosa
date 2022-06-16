@@ -41,7 +41,7 @@ const LoginPage = (props: Props) => {
             const collectionRef = collection(dbService, 'users');
             const docsRef = await getDocs(collectionRef);
             const user = docsRef.docs
-                .find((doc) => (doc.data().uid = authService.currentUser?.uid))
+                .find((doc) => doc.data().uid === authService.currentUser?.uid)
                 ?.data();
             dispatch(currentUserAction.user(user));
         } catch (err: any) {

@@ -1,5 +1,19 @@
-import { combineReducers, configureStore, createSlice } from '@reduxjs/toolkit';
+import {
+    applyMiddleware,
+    combineReducers,
+    createSlice,
+    createStore,
+    Reducer,
+} from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
+import { persistStore, persistReducer } from 'redux-persist';
+import logger from 'redux-logger';
+import storage from 'redux-persist/lib/storage';
+const persistConfig = {
+    key: 'root',
+    version: 1,
+    storage,
+};
 
 export interface ItemTypes {
     title?: string;
@@ -147,20 +161,24 @@ const rootReducer = combineReducers({
     join: joinSlice.reducer,
     currentUser: currentUserSlice.reducer,
 });
+export const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-const makeStore = () =>
-    configureStore({
-        reducer: {
-            itemList: itemListSlice.reducer,
-            request: requestSlice.reducer,
-            search: searchSlice.reducer,
-            login: loginSlice.reducer,
-            join: joinSlice.reducer,
-            currentUser: currentUserSlice.reducer,
-        },
-    });
+const makeConfiguredStore = (reducer: Reducer) =>
+    createStore(reducer, undefined, applyMiddleware(logger));
+const makeStore = () => {
+    const isServer = typeof window === 'undefined';
+
+    if (isServer) {
+        return makeConfiguredStore(rootReducer);
+    } else {
+        // we need it only on client side
+        const store = makeConfiguredStore(persistedReducer);
+        let persistor = persistStore(store);
+        return { persistor, ...store };
+    }
+};
 
 export const itemListAction = itemListSlice.actions;
 export const requestAction = requestSlice.actions;
