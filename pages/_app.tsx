@@ -14,8 +14,21 @@ import Join from './join';
 import { useRouter } from 'next/router';
 import Loading from 'components/Loading';
 import LoginJoin from 'components/LoginJoin';
+import {
+    collection,
+    DocumentData,
+    getDocs,
+    onSnapshot,
+    orderBy,
+    Query,
+    query,
+    QueryDocumentSnapshot,
+    where,
+} from 'firebase/firestore';
+import { dbService } from 'fbase';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
+    const [userUid, setUserUid] = useState('');
     const router = useRouter();
     const path = router.pathname;
     const dispatch = useDispatch();
@@ -25,12 +38,27 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         const auth = getAuth();
         onAuthStateChanged(auth, (user) => {
             if (user) {
+                setUserUid(user.uid);
                 dispatch(loginAction.login(!checkLogin));
             } else {
                 dispatch(loginAction.login(false));
             }
         });
     }, []);
+    useEffect(() => {
+        const collectionRef = collection(dbService, 'users');
+        const q = query(collectionRef, where('uid', '==', userUid));
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+            const userArray = querySnapshot.docs.map(
+                (doc: QueryDocumentSnapshot<DocumentData>) => ({
+                    ...doc.data(),
+                }),
+            );
+            console.log(userArray);
+        });
+        return unsubscribe;
+    }, [userUid]);
+
     return (
         <Container>
             {checkLogin === false ? (
