@@ -64,24 +64,6 @@ const requestSlice = createSlice({
     },
 });
 
-interface searchResultTypes {
-    searchResult: ItemTypes[];
-}
-
-const searchInitialState: searchResultTypes = {
-    searchResult: [],
-};
-
-const searchSlice = createSlice({
-    name: 'search',
-    initialState: searchInitialState,
-    reducers: {
-        search(state, action) {
-            state.searchResult = action.payload;
-        },
-    },
-});
-
 interface checkLoginTypes {
     checkLogin: boolean;
 }
@@ -151,7 +133,6 @@ const currentUserSlice = createSlice({
 const rootReducer = combineReducers({
     itemList: itemListSlice.reducer,
     request: requestSlice.reducer,
-    search: searchSlice.reducer,
     login: loginSlice.reducer,
     join: joinSlice.reducer,
     currentUser: currentUserSlice.reducer,
@@ -186,7 +167,6 @@ export const persistor = persistStore(makeConfiguredStore(persistedReducer));
 
 export const itemListAction = itemListSlice.actions;
 export const requestAction = requestSlice.actions;
-export const searchAction = searchSlice.actions;
 export const loginAction = loginSlice.actions;
 export const joinAction = joinSlice.actions;
 export const currentUserAction = currentUserSlice.actions;
