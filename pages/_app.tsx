@@ -14,6 +14,10 @@ import Join from './join';
 import { useRouter } from 'next/router';
 import Loading from 'components/Loading';
 import LoginJoin from 'components/LoginJoin';
+import { dbService } from 'fbase';
+import { createStore } from '@reduxjs/toolkit';
+import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
 import {
     collection,
     DocumentData,
@@ -25,16 +29,11 @@ import {
     QueryDocumentSnapshot,
     where,
 } from 'firebase/firestore';
-import { dbService } from 'fbase';
-import { createStore } from '@reduxjs/toolkit';
-import { persistStore } from 'redux-persist';
-import { PersistGate } from 'redux-persist/integration/react';
-
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
-    const [userUid, setUserUid] = useState('');
     const store = createStore(persistedReducer);
     const persistor = persistStore(store);
+    const [userUid, setUserUid] = useState('');
     const router = useRouter();
     const path = router.pathname;
     const dispatch = useDispatch();
