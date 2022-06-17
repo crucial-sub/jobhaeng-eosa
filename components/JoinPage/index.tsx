@@ -8,9 +8,10 @@ import {
 import { authService, dbService } from 'fbase';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { currentUserAction, loginAction, RootState } from 'store';
+import { loginAction, RootState } from 'store';
 import { useSelector } from 'react-redux';
 import { addDoc, collection, getDoc } from 'firebase/firestore';
+import BacktoLogin from './BacktoLogin';
 
 type Props = {};
 
@@ -105,6 +106,7 @@ const JoinPage = (props: Props) => {
             <GoogleJoin onClick={onSocailClick} name="google">
                 구글회원가입
             </GoogleJoin>
+            <BacktoLogin />
         </RegistBox>
     );
 };
