@@ -4,7 +4,13 @@ import Container from 'layout/Container';
 import Header from 'layout/Header';
 import ContentsBox from 'layout/ContentsBox';
 import Footer from 'layout/Footer';
-import { loginAction, persistedReducer, RootState, wrapper } from 'store';
+import {
+    currentUserAction,
+    loginAction,
+    persistedReducer,
+    RootState,
+    wrapper,
+} from 'store';
 import { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
@@ -14,7 +20,7 @@ import Join from './join';
 import { useRouter } from 'next/router';
 import Loading from 'components/Loading';
 import LoginJoin from 'components/LoginJoin';
-import { dbService } from 'fbase';
+import { authService, dbService } from 'fbase';
 import { createStore } from '@reduxjs/toolkit';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -57,10 +63,10 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
                     ...doc.data(),
                 }),
             );
-            console.log(userArray);
+            dispatch(currentUserAction.user(userArray[0]));
         });
         return unsubscribe;
-    }, [userUid]);
+    }, [authService.currentUser]);
 
     return (
         <PersistGate persistor={persistor} loading={<div>loading...</div>}>

@@ -38,12 +38,11 @@ const LoginPage = (props: Props) => {
                 email,
                 password,
             );
-            const collectionRef = collection(dbService, 'users');
-            const docsRef = await getDocs(collectionRef);
-            const user = docsRef.docs
-                .find((doc) => doc.data().uid === authService.currentUser?.uid)
-                ?.data();
-            dispatch(currentUserAction.user(user));
+            // const collectionRef = collection(dbService, 'users');
+            // const docsRef = await getDocs(collectionRef);
+            // const user = docsRef.docs
+            //     .find((doc) => doc.data().uid === authService.currentUser?.uid)
+            //     ?.data();
         } catch (err: any) {
             setError(err);
             console.log(error);

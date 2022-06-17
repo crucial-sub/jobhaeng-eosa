@@ -4,7 +4,7 @@ import FilterBtn from 'components/Filter/FilterBtn';
 import SearchBox from 'components/Search';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
-import { currentUserAction, loginAction, RootState } from 'store';
+import { currentUserAction, joinAction, loginAction, RootState } from 'store';
 import { authService } from 'fbase';
 import { useDispatch } from 'react-redux';
 import { persistor } from 'store';
@@ -18,6 +18,7 @@ const Header = (props: Props) => {
         authService.signOut();
         dispatch(loginAction.login(false));
         dispatch(currentUserAction.user(null));
+        dispatch(joinAction.join(false));
         await persistor.purge();
     };
     return (
