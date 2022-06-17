@@ -4,7 +4,7 @@ import Container from 'layout/Container';
 import Header from 'layout/Header';
 import ContentsBox from 'layout/ContentsBox';
 import Footer from 'layout/Footer';
-import { loginAction, RootState, wrapper } from 'store';
+import { loginAction, persistedReducer, RootState, wrapper } from 'store';
 import { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
@@ -26,9 +26,15 @@ import {
     where,
 } from 'firebase/firestore';
 import { dbService } from 'fbase';
+import { createStore } from '@reduxjs/toolkit';
+import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
+
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     const [userUid, setUserUid] = useState('');
+    const store = createStore(persistedReducer);
+    const persistor = persistStore(store);
     const router = useRouter();
     const path = router.pathname;
     const dispatch = useDispatch();
@@ -39,9 +45,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 setUserUid(user.uid);
-                dispatch(loginAction.login(!checkLogin));
-            } else {
-                dispatch(loginAction.login(false));
+                dispatch(loginAction.login(true));
             }
         });
     }, []);
@@ -60,21 +64,21 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     }, [userUid]);
 
     return (
-        <Container>
-            {checkLogin === false ? (
-                <LoginJoin />
-            ) : checkLogin !== null ? (
-                <>
-                    <Header />
-                    <ContentsBox>
-                        <Component {...pageProps} />
-                    </ContentsBox>
-                    <Footer />
-                </>
-            ) : (
-                <Loading />
-            )}
-        </Container>
+        <PersistGate persistor={persistor} loading={<div>loading...</div>}>
+            <Container>
+                {checkLogin ? (
+                    <>
+                        <Header />
+                        <ContentsBox>
+                            <Component {...pageProps} />
+                        </ContentsBox>
+                        <Footer />
+                    </>
+                ) : (
+                    <LoginJoin />
+                )}
+            </Container>
+        </PersistGate>
     );
 };
 
