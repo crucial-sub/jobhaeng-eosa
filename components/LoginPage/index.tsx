@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { currentUserAction, joinAction, RootState } from 'store';
 import { useSelector } from 'react-redux';
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
+import GoogleLogin from './GoogleLogin';
 
 type Props = {};
 
@@ -83,9 +84,8 @@ const LoginPage = (props: Props) => {
                 <LoginBtn type="submit" value={'Login'} />
                 <p>{error ? `${error}` : <></>}</p>
             </LoginForm>
-            {/* <Link href="/join"> */}
+            <GoogleLogin />
             <JoinBtn onClick={onClick}>회원가입</JoinBtn>
-            {/* </Link> */}
         </LoginBox>
     );
 };
