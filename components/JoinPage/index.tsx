@@ -8,7 +8,7 @@ import {
 import { authService, dbService } from 'fbase';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { joinAction, loginAction, RootState } from 'store';
+import { currentUserAction, joinAction, loginAction, RootState } from 'store';
 import { useSelector } from 'react-redux';
 import { addDoc, collection, getDoc } from 'firebase/firestore';
 import BacktoLogin from './BacktoLogin';
