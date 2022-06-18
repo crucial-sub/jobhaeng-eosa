@@ -144,6 +144,7 @@ const persistConfig = {
     key: 'root',
     version: 1,
     storage,
+    blacklist: ['join', 'currentUser'],
 };
 
 export const persistedReducer = persistReducer(persistConfig, rootReducer);

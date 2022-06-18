@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import {
     createUserWithEmailAndPassword,
@@ -8,9 +8,10 @@ import {
 import { authService, dbService } from 'fbase';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { currentUserAction, loginAction, RootState } from 'store';
+import { joinAction, loginAction, RootState } from 'store';
 import { useSelector } from 'react-redux';
 import { addDoc, collection, getDoc } from 'firebase/firestore';
+import BacktoLogin from './BacktoLogin';
 
 type Props = {};
 
@@ -70,6 +71,18 @@ const JoinPage = (props: Props) => {
             console.log(error);
         }
     };
+
+    useEffect(() => {
+        router.beforePopState(() => {
+            dispatch(joinAction.join(false));
+            router.push('/');
+            return false;
+        });
+
+        return () => {
+            router.beforePopState(() => false);
+        };
+    }, []);
     return (
         <RegistBox>
             <RegistForm onSubmit={onSubmit}>
@@ -105,6 +118,7 @@ const JoinPage = (props: Props) => {
             <GoogleJoin onClick={onSocailClick} name="google">
                 구글회원가입
             </GoogleJoin>
+            <BacktoLogin />
         </RegistBox>
     );
 };

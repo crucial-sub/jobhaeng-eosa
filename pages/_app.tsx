@@ -15,10 +15,6 @@ import { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import Login from './login';
-import Join from './join';
-import { useRouter } from 'next/router';
-import Loading from 'components/Loading';
 import LoginJoin from 'components/LoginJoin';
 import { authService, dbService } from 'fbase';
 import { createStore } from '@reduxjs/toolkit';
@@ -27,10 +23,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import {
     collection,
     DocumentData,
-    getDocs,
     onSnapshot,
-    orderBy,
-    Query,
     query,
     QueryDocumentSnapshot,
     where,
@@ -40,10 +33,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     const store = createStore(persistedReducer);
     const persistor = persistStore(store);
     const [userUid, setUserUid] = useState('');
-    const router = useRouter();
-    const path = router.pathname;
     const dispatch = useDispatch();
-    const { clickJoin } = useSelector((state: RootState) => state.join);
     const { checkLogin } = useSelector((state: RootState) => state.login);
     useEffect(() => {
         const auth = getAuth();
@@ -55,18 +45,20 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         });
     }, []);
     useEffect(() => {
-        const collectionRef = collection(dbService, 'users');
-        const q = query(collectionRef, where('uid', '==', userUid));
-        const unsubscribe = onSnapshot(q, (querySnapshot) => {
-            const userArray = querySnapshot.docs.map(
-                (doc: QueryDocumentSnapshot<DocumentData>) => ({
-                    ...doc.data(),
-                }),
-            );
-            dispatch(currentUserAction.user(userArray[0]));
-        });
-        return unsubscribe;
-    }, [authService.currentUser]);
+        if (userUid) {
+            const collectionRef = collection(dbService, 'users');
+            const q = query(collectionRef, where('uid', '==', userUid));
+            const unsubscribe = onSnapshot(q, (querySnapshot) => {
+                const userArray = querySnapshot.docs.map(
+                    (doc: QueryDocumentSnapshot<DocumentData>) => ({
+                        ...doc.data(),
+                    }),
+                );
+                dispatch(currentUserAction.user(userArray[0]));
+            });
+            return unsubscribe;
+        }
+    }, [authService.currentUser, userUid]);
 
     return (
         <PersistGate persistor={persistor} loading={<div>loading...</div>}>
