@@ -59,12 +59,13 @@ const JoinPage = (props: Props) => {
                 Password,
             );
             dispatch(loginAction.login(!checkLogin));
-
             const collectionRef = collection(dbService, 'users');
             const docRef = await addDoc(collectionRef, {
                 uid: data.user.uid,
                 email: data.user.email,
             });
+            const user = (await getDoc(docRef)).data();
+            dispatch(currentUserAction.user(user));
             router.push('/user/edit');
         } catch (err: any) {
             setError(err);
