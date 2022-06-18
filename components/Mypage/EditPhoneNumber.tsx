@@ -1,14 +1,9 @@
 import React from 'react';
+import { userDataTypes } from 'store';
 
 type Props = {
     handleChange: React.ChangeEventHandler<HTMLInputElement>;
-    userInfo: {
-        uid: string;
-        nickName?: string;
-        email: string;
-        address?: string;
-        phoneNumber?: string;
-    };
+    userInfo: userDataTypes;
 };
 
 const EditPhoneNumber = (props: Props) => {
