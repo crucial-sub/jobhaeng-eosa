@@ -17,6 +17,9 @@ const Request = (props: Props) => {
     const dispatch = useDispatch();
     const { request } = useSelector((state: RootState) => state.request);
     const router = useRouter();
+    const { currentUser } = useSelector(
+        (state: RootState) => state.currentUser,
+    );
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -25,6 +28,8 @@ const Request = (props: Props) => {
             const docRef = await addDoc(collectionRef, {
                 ...request,
                 date: serverTimestamp(),
+                nickName: currentUser.nickName,
+                userId: currentUser.uid,
             });
             dispatch(requestAction.request(requestInitialState.request));
             router.push(`/items/${docRef.id}`);
