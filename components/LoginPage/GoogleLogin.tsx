@@ -18,7 +18,6 @@ const GoogleLogin = (props: Props) => {
         const collectionRef = collection(dbService, 'users');
         const docsRef = await getDocs(collectionRef);
         const isExist = docsRef.docs.some((doc) => doc.data().uid === uid);
-        console.log('존재하냐???', isExist);
         if (!isExist) {
             const docRef = await addDoc(collectionRef, {
                 uid: uid,
