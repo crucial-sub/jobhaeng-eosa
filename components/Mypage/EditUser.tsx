@@ -1,13 +1,12 @@
 import styled from '@emotion/styled';
 import { dbService } from 'fbase';
-import { update } from 'firebase/database';
 import {
-    addDoc,
     collection,
     query,
     where,
     doc,
     updateDoc,
+    onSnapshot,
 } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
@@ -22,8 +21,6 @@ const EditUser = (props: Props) => {
     const { currentUser } = useSelector(
         (state: RootState) => state.currentUser,
     );
-    const [edittedUser, setEdittedUser] = useState(currentUser);
-    const [userInfos, setUserInfos] = useState();
     const dispatch = useDispatch();
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {
@@ -59,26 +56,28 @@ const EditUser = (props: Props) => {
             );
         }
     };
-    console.log(currentUser);
     const collectionRef = collection(dbService, 'users');
     const q = query(collectionRef, where('uid', '==', currentUser.uid));
-    console.log(q);
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (confirm('정보를 수정하시겠습니까?')) {
-            const collectionRef = collection(dbService, 'users');
-            if (q) {
-            } else if (!q) {
-                const docRef = await addDoc(collectionRef, {
-                    ...currentUser,
+            const unsubscribe = onSnapshot(q, (querySnapshot) => {
+                querySnapshot.forEach(async (document) => {
+                    if (document.data().uid === currentUser.uid) {
+                        const userRef = await updateDoc(
+                            doc(dbService, 'users', document.id),
+                            {
+                                ...currentUser,
+                            },
+                        );
+                    }
                 });
-            }
+            });
             dispatch(
                 currentUserAction.user(currentUserInitialState.currentUser),
             );
             router.push(`/`);
         }
-        // dispatch(currentUserAction.user(edittedUser));
         router.push('/user');
     };
 

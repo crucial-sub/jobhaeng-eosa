@@ -48,8 +48,6 @@ const JoinPage = (props: Props) => {
                 uid: data.user.uid,
                 email: data.user.email,
             });
-            const user = (await getDoc(docRef)).data();
-            dispatch(currentUserAction.user(user));
             router.push('/user/edit');
         } catch (err: any) {
             setError(err);

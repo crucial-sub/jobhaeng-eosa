@@ -25,10 +25,6 @@ const ItemList = (props: Props) => {
         const collectionRef = collection(dbService, 'items');
         const q = query(collectionRef, orderBy('date', 'desc'));
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
-            // console.log('q: ', q);
-            // console.log('querySnapshot: ', querySnapshot);
-            // console.log('docs: ', ...querySnapshot.docs);
-            // console.log('doc.data(): ', querySnapshot.docs[0].data());
             const itemsArray = querySnapshot.docs.map(
                 (doc: QueryDocumentSnapshot<DocumentData>) => ({
                     ...doc.data(),
