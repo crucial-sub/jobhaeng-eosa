@@ -9,10 +9,14 @@ import {
     onSnapshot,
 } from 'firebase/firestore';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { currentUserAction, currentUserInitialState, RootState } from 'store';
+import EditAddress from './EditAddress';
+import EditEmail from './EditEmail';
+import EditNickName from './EditNickName';
+import EditPhoneNumber from './EditPhoneNumber';
 
 type Props = {};
 
@@ -21,44 +25,24 @@ const EditUser = (props: Props) => {
     const { currentUser } = useSelector(
         (state: RootState) => state.currentUser,
     );
+    const [userInfo, setUserInfo] = useState(currentUser);
     const dispatch = useDispatch();
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {
             target: { name, value },
         } = e;
-        if (name === 'email') {
-            dispatch(
-                currentUserAction.user({
-                    ...currentUser,
-                    email: value,
-                }),
-            );
-        } else if (name === 'nickName') {
-            dispatch(
-                currentUserAction.user({
-                    ...currentUser,
-                    nickName: value,
-                }),
-            );
+        if (name === 'nickName') {
+            setUserInfo({ ...userInfo, nickName: value });
         } else if (name === 'phoneNumber') {
-            dispatch(
-                currentUserAction.user({
-                    ...currentUser,
-                    phoneNumber: value,
-                }),
-            );
+            setUserInfo({ ...userInfo, phoneNumber: value });
         } else if (name === 'address') {
-            dispatch(
-                currentUserAction.user({
-                    ...currentUser,
-                    address: value,
-                }),
-            );
+            setUserInfo({ ...userInfo, address: value });
         }
     };
-    const collectionRef = collection(dbService, 'users');
-    const q = query(collectionRef, where('uid', '==', currentUser.uid));
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        const collectionRef = collection(dbService, 'users');
+        const q = query(collectionRef, where('uid', '==', currentUser.uid));
         e.preventDefault();
         if (confirm('정보를 수정하시겠습니까?')) {
             const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -67,68 +51,30 @@ const EditUser = (props: Props) => {
                         const userRef = await updateDoc(
                             doc(dbService, 'users', document.id),
                             {
-                                ...currentUser,
+                                ...userInfo,
                             },
                         );
                     }
                 });
             });
-            dispatch(
-                currentUserAction.user(currentUserInitialState.currentUser),
-            );
+            if (userInfo) {
+                dispatch(currentUserAction.user(userInfo));
+            }
             router.push(`/`);
         }
         router.push('/user');
     };
 
+    useEffect(() => {
+        setUserInfo(() => currentUser);
+    }, [currentUser]);
+
     return (
         <EditForm onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor="email">이메일</label>
-                <input
-                    name="email"
-                    type="text"
-                    id="email"
-                    value={currentUser.email}
-                    onChange={handleChange}
-                    readOnly
-                />
-            </div>
-            <div>
-                <label htmlFor="nickName">닉네임</label>
-                <input
-                    name="nickName"
-                    type="text"
-                    id="nickName"
-                    value={currentUser.nickName ? currentUser.nickName : ' '}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label htmlFor="phoneNumber">핸드폰번호</label>
-                <input
-                    name="phoneNumber"
-                    type="text"
-                    id="phoneNumber"
-                    value={
-                        currentUser.phoneNumber ? currentUser.phoneNumber : ' '
-                    }
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label htmlFor="address">주소</label>
-                <input
-                    name="address"
-                    type="text"
-                    id="address"
-                    value={currentUser.address ? currentUser.address : ' '}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+            <EditEmail handleChange={handleChange} userInfo={userInfo} />
+            <EditNickName handleChange={handleChange} userInfo={userInfo} />
+            <EditPhoneNumber handleChange={handleChange} userInfo={userInfo} />
+            <EditAddress handleChange={handleChange} userInfo={userInfo} />
             <input type="submit" value={'update User'} />
         </EditForm>
     );
