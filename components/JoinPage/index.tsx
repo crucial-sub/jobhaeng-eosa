@@ -8,7 +8,7 @@ import {
 import { authService, dbService } from 'fbase';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { joinAction, loginAction, RootState } from 'store';
+import { currentUserAction, joinAction, loginAction, RootState } from 'store';
 import { useSelector } from 'react-redux';
 import { addDoc, collection, getDoc } from 'firebase/firestore';
 import BacktoLogin from './BacktoLogin';
@@ -43,12 +43,13 @@ const JoinPage = (props: Props) => {
                 Password,
             );
             dispatch(loginAction.login(!checkLogin));
-
             const collectionRef = collection(dbService, 'users');
             const docRef = await addDoc(collectionRef, {
                 uid: data.user.uid,
                 email: data.user.email,
             });
+            const user = (await getDoc(docRef)).data();
+            dispatch(currentUserAction.user(user));
             router.push('/user/edit');
         } catch (err: any) {
             setError(err);
