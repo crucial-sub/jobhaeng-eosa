@@ -23,7 +23,10 @@ const Header = (props: Props) => {
     };
     return (
         <HeaderContainer>
-            <Title>잡행어사</Title>
+            <Link href={'/'}>
+                <Title>잡행어사</Title>
+            </Link>
+
             <HeaderBox>
                 <FilterBtn />
                 <SearchBox />
@@ -56,6 +59,7 @@ const Title = styled.h1`
     text-align: center;
     font-size: 35px;
     background-color: skyblue;
+    cursor: pointer;
 `;
 
 const HeaderBox = styled.div`
@@ -78,6 +82,7 @@ const Logout = styled.button`
     height: 100%;
     text-align: center;
     border: none;
+    cursor: pointer;
 `;
 
 export default Header;
