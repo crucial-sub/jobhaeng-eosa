@@ -101,22 +101,26 @@ const joinSlice = createSlice({
 });
 
 export interface userDataTypes {
-    currentUser: {
-        uid: string;
-        nickName?: string;
-        email: string;
-        address?: string;
-        phoneNumber?: string;
-    };
+    uid: string;
+    nickName?: string;
+    email: string;
+    address?: string;
+    phoneNumber?: string;
+    town?: string;
 }
 
-export const currentUserInitialState: userDataTypes = {
+export interface currentUserDataTypes {
+    currentUser: userDataTypes;
+}
+
+export const currentUserInitialState: currentUserDataTypes = {
     currentUser: {
         uid: '',
         nickName: '',
         email: '',
         address: '',
         phoneNumber: '',
+        town: '',
     },
 };
 
