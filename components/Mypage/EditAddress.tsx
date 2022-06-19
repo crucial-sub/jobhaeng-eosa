@@ -15,6 +15,11 @@ const EditAddress = (props: Props) => {
     const { userInfo, setUserInfo, setAddressInfo, addressInfo } = props;
     const [visible, setVisible] = useState(false);
     const handleComplete = (data: any) => {
+        if (data.sido !== '서울') {
+            alert('현재 서울 지역에서만 서비스 중입니다!! 다시 골라주세요!!');
+            setVisible(false);
+            return;
+        }
         setUserInfo({
             ...userInfo,
             town: data.bname,
