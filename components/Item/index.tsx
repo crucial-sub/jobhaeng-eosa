@@ -11,6 +11,7 @@ const Item = (props: Props) => {
     return (
         <ItemWrapper>
             <div>{item.title}</div>
+            <div>{item.nickName}</div>
             <div>{item.location}</div>
             <div>{item.date}</div>
             <div>{item.contents}</div>

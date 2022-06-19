@@ -19,6 +19,7 @@ export interface ItemTypes {
     contents?: string;
     userId?: string;
     id?: string | undefined;
+    nickName?: string;
 }
 interface ItemListTypes {
     itemList: ItemTypes[];
@@ -51,6 +52,7 @@ export const requestInitialState: RequestTypes = {
         ongoing: false,
         contents: '',
         userId: '',
+        nickName: '',
     },
 };
 
