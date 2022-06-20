@@ -20,6 +20,7 @@ export interface ItemTypes {
     userId?: string;
     id?: string | undefined;
 }
+
 interface ItemListTypes {
     itemList: ItemTypes[];
 }

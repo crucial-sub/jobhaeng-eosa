@@ -1,4 +1,4 @@
-import EditUser from 'components/Mypage/EditUser';
+import EditUser from 'components/EditUser';
 import React from 'react';
 
 type Props = {};

@@ -26,7 +26,7 @@ export interface addressTypes {
 
 type Props = {};
 
-const EditUser = (props: Props) => {
+const EditUserForm = (props: Props) => {
     const router = useRouter();
     const { currentUser } = useSelector(
         (state: RootState) => state.currentUser,
@@ -100,4 +100,4 @@ const EditUser = (props: Props) => {
 
 const EditForm = styled.form``;
 
-export default EditUser;
+export default EditUserForm;

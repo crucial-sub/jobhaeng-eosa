@@ -10,6 +10,7 @@ import RequestLocation from './RequestLocation';
 import RequestReward from './RequestReward';
 import RequestTitle from './RequestTitle';
 import { useRouter } from 'next/router';
+import RequestEditDltBtn from './RequestEditDltBtn';
 
 type Props = {};
 
