@@ -15,19 +15,26 @@ declare global {
 
 const Map = (props: Props) => {
     const { lat, lng } = props;
+    const [position, setPosition] = useState({
+        lat: lat,
+        lng: lng,
+    });
 
     useEffect(() => {
         const onLoadKakaoMap = () => {
             window.kakao.maps.load(() => {
                 const container = document.getElementById('map');
-                const centerPosition = new window.kakao.maps.LatLng(lat, lng);
+                const centerPosition = new window.kakao.maps.LatLng(
+                    position.lat,
+                    position.lng,
+                );
                 const options = {
-                    center: new window.kakao.maps.LatLng(lat, lng),
+                    center: centerPosition,
                     level: 3,
                 };
                 const map = new window.kakao.maps.Map(container, options);
                 const marker = new window.kakao.maps.Marker({
-                    position: new window.kakao.maps.LatLng(lat, lng),
+                    position: centerPosition,
                 });
                 marker.setMap(map);
                 window.kakao.maps.event.addListener(
@@ -42,7 +49,7 @@ const Map = (props: Props) => {
             });
         };
         return onLoadKakaoMap();
-    }, [lat, lng]);
+    }, [position]);
 
     return <MapContainer id="map" />;
 };
