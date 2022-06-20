@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
 import styled from '@emotion/styled';
+import Link from 'next/link';
 
 type Props = {};
 
@@ -19,6 +20,9 @@ const MyInfo = (props: Props) => {
                 <div>{currentUser.phoneNumber}</div>
                 <div>{currentUser.address}</div>
             </MyInfoBox>
+            <Link href="/user/edit">
+                <EditBtn>수정하기</EditBtn>
+            </Link>
         </>
     );
 };
@@ -42,4 +46,11 @@ const MyInfoBox = styled.div`
     }
 `;
 
+const EditBtn = styled.button`
+    width: 100%;
+    height: 50px;
+    background-color: blueviolet;
+    color: white;
+    font-weight: bold;
+`;
 export default MyInfo;
