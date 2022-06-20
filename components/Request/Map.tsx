@@ -15,69 +15,40 @@ declare global {
 
 const Map = (props: Props) => {
     const { lat, lng } = props;
-    const [centerPosition, setCenterPosition] = useState({
-        lat: lat,
-        lng: lng,
-    });
-    const [clickPosition, setClickPosition] = useState({
-        lat: lat,
-        lng: lng,
-    });
-    const [mapLevel, setMapLevel] = useState(3);
+
     useEffect(() => {
         const onLoadKakaoMap = () => {
             window.kakao.maps.load(() => {
-                const mapContainer = document.getElementById('map');
-                const mapOption = {
-                    center: new window.kakao.maps.LatLng(
-                        centerPosition.lat,
-                        centerPosition.lng,
-                    ),
-                    level: mapLevel,
+                const container = document.getElementById('map');
+                const centerPosition = new window.kakao.maps.LatLng(lat, lng);
+                const options = {
+                    center: new window.kakao.maps.LatLng(lat, lng),
+                    level: 3,
                 };
-
-                const map = new window.kakao.maps.Map(mapContainer, mapOption);
+                const map = new window.kakao.maps.Map(container, options);
                 const marker = new window.kakao.maps.Marker({
-                    position: new window.kakao.maps.LatLng(
-                        clickPosition.lat,
-                        clickPosition.lng,
-                    ),
+                    position: new window.kakao.maps.LatLng(lat, lng),
                 });
                 marker.setMap(map);
-
                 window.kakao.maps.event.addListener(
                     map,
-                    'click',
-                    (mouseEvent: any) => {
-                        const level = map.getLevel();
-                        setMapLevel(() => level);
-
-                        const mapCenter = map.getCenter();
-                        setCenterPosition({
-                            ...centerPosition,
-                            lat: mapCenter.getLat(),
-                            lng: mapCenter.getLng(),
-                        });
-
-                        const clickLatLng = mouseEvent.latLng;
-                        setClickPosition({
-                            ...clickPosition,
-                            lat: clickLatLng.getLat(),
-                            lng: clickLatLng.getLng(),
-                        });
-                        marker.setPosition(clickLatLng);
+                    'center_changed',
+                    () => {
+                        const latlng = map.getCenter();
+                        map.setCenter(latlng);
+                        marker.setPosition(latlng);
                     },
                 );
             });
         };
         return onLoadKakaoMap();
-    }, [centerPosition, clickPosition]);
+    }, [lat, lng]);
 
     return <MapContainer id="map" />;
 };
 
 const MapContainer = styled.div`
-    width: 390px;
+    max-width: 390px;
     height: 300px;
 `;
 
