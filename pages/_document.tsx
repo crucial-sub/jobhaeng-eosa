@@ -15,7 +15,12 @@ class MyDocument extends Document {
     render() {
         return (
             <Html>
-                <Head />
+                <Head>
+                    <script
+                        type="text/javascript"
+                        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=287ffecf2171baeaf8539863aa7ad6c1&autoload=false&libraries=services,clusterer"
+                    ></script>
+                </Head>
                 <body>
                     <Main />
                     <NextScript />
