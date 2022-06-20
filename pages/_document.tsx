@@ -18,7 +18,7 @@ class MyDocument extends Document {
                 <Head>
                     <script
                         type="text/javascript"
-                        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=287ffecf2171baeaf8539863aa7ad6c1&autoload=false&libraries=services,clusterer"
+                        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=287ffecf2171baeaf8539863aa7ad6c1&autoload=false&libraries=services"
                     ></script>
                 </Head>
                 <body>

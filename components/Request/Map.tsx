@@ -1,10 +1,13 @@
 import styled from '@emotion/styled';
 import React, { useEffect, useState } from 'react';
-// import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import { useDispatch } from 'react-redux';
+import { ItemTypes, requestAction } from 'store';
+import { getAddress } from 'utils/getAddress';
 
 type Props = {
     lat: number;
     lng: number;
+    request: ItemTypes;
 };
 
 declare global {
@@ -14,7 +17,8 @@ declare global {
 }
 
 const Map = (props: Props) => {
-    const { lat, lng } = props;
+    const { lat, lng, request } = props;
+    const dispatch = useDispatch();
     const [position, setPosition] = useState({
         lat: lat,
         lng: lng,
@@ -44,6 +48,26 @@ const Map = (props: Props) => {
                         const latlng = map.getCenter();
                         map.setCenter(latlng);
                         marker.setPosition(latlng);
+                    },
+                );
+                window.kakao.maps.event.addListener(
+                    map,
+                    'dragend',
+                    async () => {
+                        const latlng = map.getCenter();
+                        const { documents } = await getAddress(
+                            latlng.getLat(),
+                            latlng.getLng(),
+                        );
+                        const location = documents[0].road_address
+                            ? documents[0].road_address.address_name
+                            : documents[0].address.address_name;
+                        dispatch(
+                            requestAction.request({
+                                ...request,
+                                location: location,
+                            }),
+                        );
                     },
                 );
             });
