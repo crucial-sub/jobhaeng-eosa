@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import RequestEditDltBtn from 'components/Request/RequestEditDltBtn';
 import React from 'react';
 import { ItemTypes } from 'store';
 
@@ -9,13 +10,17 @@ type Props = {
 const Item = (props: Props) => {
     const { item } = props;
     return (
-        <ItemWrapper>
-            <div>{item.title}</div>
-            <div>{item.location}</div>
-            <div>{item.date}</div>
-            <div>{item.contents}</div>
-            <div>{item.reward}</div>
-        </ItemWrapper>
+        <>
+            <ItemWrapper>
+                <div>{item.title}</div>
+                <div>{item.location}</div>
+                <div>{item.date}</div>
+                <div>{item.contents}</div>
+                <div>{item.reward}</div>
+                <RequestEditDltBtn word={'수정'} />
+                <RequestEditDltBtn word={'삭제'} />
+            </ItemWrapper>
+        </>
     );
 };
 
