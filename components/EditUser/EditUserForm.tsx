@@ -12,11 +12,17 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { currentUserAction, currentUserInitialState, RootState } from 'store';
+import { currentUserAction, RootState, userDataTypes } from 'store';
 import EditAddress from './EditAddress';
 import EditEmail from './EditEmail';
 import EditNickName from './EditNickName';
 import EditPhoneNumber from './EditPhoneNumber';
+
+export interface addressTypes {
+    address: string;
+    detail: string;
+    extra: string;
+}
 
 type Props = {};
 
@@ -25,7 +31,12 @@ const EditUserForm = (props: Props) => {
     const { currentUser } = useSelector(
         (state: RootState) => state.currentUser,
     );
-    const [userInfo, setUserInfo] = useState(currentUser);
+    const [userInfo, setUserInfo] = useState<userDataTypes>(currentUser);
+    const [addressInfo, setAddressInfo] = useState<addressTypes>({
+        address: '',
+        detail: '',
+        extra: '',
+    });
     const dispatch = useDispatch();
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {
@@ -35,8 +46,6 @@ const EditUserForm = (props: Props) => {
             setUserInfo({ ...userInfo, nickName: value });
         } else if (name === 'phoneNumber') {
             setUserInfo({ ...userInfo, phoneNumber: value });
-        } else if (name === 'address') {
-            setUserInfo({ ...userInfo, address: value });
         }
     };
 
@@ -45,6 +54,7 @@ const EditUserForm = (props: Props) => {
         const q = query(collectionRef, where('uid', '==', currentUser.uid));
         e.preventDefault();
         if (confirm('정보를 수정하시겠습니까?')) {
+            const fullAddress = `${addressInfo.address} ${addressInfo.detail} ${addressInfo.extra}`;
             const unsubscribe = onSnapshot(q, (querySnapshot) => {
                 querySnapshot.forEach(async (document) => {
                     if (document.data().uid === currentUser.uid) {
@@ -52,21 +62,24 @@ const EditUserForm = (props: Props) => {
                             doc(dbService, 'users', document.id),
                             {
                                 ...userInfo,
+                                address: fullAddress,
                             },
                         );
                     }
                 });
             });
-            if (userInfo) {
-                dispatch(currentUserAction.user(userInfo));
-            }
-            router.push(`/`);
+            dispatch(
+                currentUserAction.user({
+                    ...userInfo,
+                    address: fullAddress,
+                }),
+            );
         }
         router.push('/user');
     };
 
     useEffect(() => {
-        setUserInfo(() => currentUser);
+        setUserInfo(currentUser);
     }, [currentUser]);
 
     return (
@@ -74,7 +87,12 @@ const EditUserForm = (props: Props) => {
             <EditEmail handleChange={handleChange} userInfo={userInfo} />
             <EditNickName handleChange={handleChange} userInfo={userInfo} />
             <EditPhoneNumber handleChange={handleChange} userInfo={userInfo} />
-            <EditAddress handleChange={handleChange} userInfo={userInfo} />
+            <EditAddress
+                userInfo={userInfo}
+                setUserInfo={setUserInfo}
+                addressInfo={addressInfo}
+                setAddressInfo={setAddressInfo}
+            />
             <input type="submit" value={'update User'} />
         </EditForm>
     );
