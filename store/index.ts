@@ -21,6 +21,7 @@ export interface ItemTypes {
     id?: string | undefined;
     nickName?: string;
 }
+
 interface ItemListTypes {
     itemList: ItemTypes[];
 }

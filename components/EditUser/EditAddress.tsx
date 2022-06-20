@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
 import DaumPostcode from 'react-daum-postcode';
 import { userDataTypes } from 'store';
-import { addressTypes } from './EditUser';
+import { addressTypes } from './EditUserForm';
 
 type Props = {
     userInfo: userDataTypes;
