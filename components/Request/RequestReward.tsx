@@ -20,7 +20,7 @@ const RequestReward = (props: Props) => {
     return (
         <>
             <Label>잡행 보상금</Label>
-            <Input onChange={handleChange}></Input>
+            <Input type="text" required onChange={handleChange}></Input>
         </>
     );
 };

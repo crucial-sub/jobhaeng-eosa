@@ -20,7 +20,7 @@ const RequestDetail = (props: Props) => {
     return (
         <>
             <Label>잡행 내용</Label>
-            <TextArea onChange={handleChange}></TextArea>
+            <TextArea required onChange={handleChange}></TextArea>
         </>
     );
 };
