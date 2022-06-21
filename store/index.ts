@@ -20,6 +20,7 @@ export interface ItemTypes {
     userId?: string;
     id?: string | undefined;
     nickName?: string;
+    extraLocation?: string;
 }
 
 interface ItemListTypes {
@@ -151,7 +152,7 @@ const persistConfig = {
     key: 'root',
     version: 1,
     storage,
-    blacklist: ['join', 'currentUser'],
+    blacklist: ['join', 'currentUser', 'request'],
 };
 
 export const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -21,7 +21,7 @@ const RequestTitle = (props: Props) => {
     return (
         <>
             <Label>제목</Label>
-            <Input onChange={handleChange}></Input>
+            <Input type="text" required onChange={handleChange}></Input>
         </>
     );
 };

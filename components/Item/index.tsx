@@ -14,6 +14,7 @@ const Item = (props: Props) => {
             <ItemWrapper>
                 <div>{item.title}</div>
                 <div>{item.location}</div>
+                <div>{item.extraLocation}</div>
                 <div>{item.date}</div>
                 <div>{item.contents}</div>
                 <div>{item.reward}</div>

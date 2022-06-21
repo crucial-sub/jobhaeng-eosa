@@ -41,7 +41,7 @@ const Request = (props: Props) => {
         <Form onSubmit={handleSubmit}>
             <RequestTitle request={request} />
             <RequestReward request={request} />
-            <RequestLocation request={request} />
+            <RequestLocation request={request} currentUser={currentUser} />
             <RequestDetail request={request} />
             <RequestSubmit type="submit" value="잡행 요청하기" />
         </Form>
