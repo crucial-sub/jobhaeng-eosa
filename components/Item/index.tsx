@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import RequestDltBtn from 'components/Request/RequestDltBtn';
-import RequestUpdateBtn from 'components/Request/RequestUpdateBtn';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { ItemTypes, RootState } from 'store';
@@ -13,11 +14,13 @@ const Item = (props: Props) => {
     const { item } = props;
     const userId = item.userId;
     const userTitle = item.title;
+    const router = useRouter();
+    const { id } = router.query;
     const { currentUser } = useSelector(
         (state: RootState) => state.currentUser,
     );
+
     const currentUserUid = currentUser.uid;
-    // console.log(currentUser.uid);
     return (
         <>
             <ItemWrapper>
@@ -29,7 +32,14 @@ const Item = (props: Props) => {
                 <div>{item.reward}</div>
                 {currentUser.uid === userId ? (
                     <>
-                        <RequestUpdateBtn />
+                        <Link
+                            href={{
+                                pathname: `/edititem/${id}`,
+                            }}
+                            as={`/edititem/${id}`}
+                        >
+                            <UpdateBtn>수정</UpdateBtn>
+                        </Link>
                         <RequestDltBtn
                             userId={userId ? userId : ''}
                             userTitle={userTitle ? userTitle : ''}
@@ -51,6 +61,11 @@ const ItemWrapper = styled.div`
     margin: 7.5% auto;
     overflow: auto;
     background-color: aliceblue;
+`;
+
+const UpdateBtn = styled.button`
+    width: 50px;
+    height: 30px;
 `;
 
 export default Item;
