@@ -3,20 +3,16 @@ import styled from '@emotion/styled';
 import { useSelector } from 'react-redux';
 import { itemListAction, RootState } from 'store';
 import { useDispatch } from 'react-redux';
-import { Router, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import {
     collection,
     deleteDoc,
     doc,
-    DocumentData,
-    getDocs,
     onSnapshot,
     query,
-    QueryDocumentSnapshot,
     where,
 } from 'firebase/firestore';
 import { dbService } from 'fbase';
-import { remove } from 'firebase/database';
 
 type Props = {
     userId: string;
@@ -26,7 +22,6 @@ type Props = {
 
 const RequestDltBtn = (props: Props) => {
     const dispatch = useDispatch();
-    const { itemList } = useSelector((state: RootState) => state.itemList);
     const { userId, userTitle } = props;
     const router = useRouter();
     const idTitle = { userId: userId, userTitle: userTitle };

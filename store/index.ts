@@ -38,6 +38,7 @@ const itemListSlice = createSlice({
         load(state, action) {
             state.itemList = action.payload;
         },
+
         removeList(state, action) {
             const req = action.payload;
             state.itemList = state.itemList.filter(
@@ -45,6 +46,12 @@ const itemListSlice = createSlice({
                     item.id !== req.userId && item.title !== req.userTitle,
             );
         },
+        // update(state, action) {
+        //     const req = action.payload;
+        //     state.itemList = state.itemList.map((item, i) => {
+        //         if (i === req.targetIndex) return (item = req.items);
+        //     });
+        // },
     },
 });
 
@@ -187,6 +194,7 @@ export const requestAction = requestSlice.actions;
 export const loginAction = loginSlice.actions;
 export const joinAction = joinSlice.actions;
 export const currentUserAction = currentUserSlice.actions;
+// export const itemEditCheckAction = itemEditCheckSlice.actions;
 // export const removeItemAction = removeItemSlice.actions;
 
 export const wrapper = createWrapper(makeStore, {
