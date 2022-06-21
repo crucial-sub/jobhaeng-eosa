@@ -21,12 +21,12 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-// const app = initializeApp(firebaseConfig);
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+// initializeApp(firebaseConfig);
 export const authService = getAuth();
 export const firebaseInstance = firebase;
 // export const analytics = getAnalytics(app);
 // export const authService = getAuth(app);
-export const dbService = getFirestore();
+export const dbService = getFirestore(app);
 
 // connectAuthEmulator(authService, 'http://localhost:3000');

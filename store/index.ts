@@ -38,6 +38,13 @@ const itemListSlice = createSlice({
         load(state, action) {
             state.itemList = action.payload;
         },
+        removeList(state, action) {
+            const req = action.payload;
+            state.itemList = state.itemList.filter(
+                (item) =>
+                    item.id !== req.userId && item.title !== req.userTitle,
+            );
+        },
     },
 });
 
@@ -144,6 +151,7 @@ const rootReducer = combineReducers({
     login: loginSlice.reducer,
     join: joinSlice.reducer,
     currentUser: currentUserSlice.reducer,
+    removeList: requestSlice.reducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -179,6 +187,7 @@ export const requestAction = requestSlice.actions;
 export const loginAction = loginSlice.actions;
 export const joinAction = joinSlice.actions;
 export const currentUserAction = currentUserSlice.actions;
+// export const removeItemAction = removeItemSlice.actions;
 
 export const wrapper = createWrapper(makeStore, {
     debug: process.env.NODE_ENV !== 'production',

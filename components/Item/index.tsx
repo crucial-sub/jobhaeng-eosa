@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
-import RequestEditDltBtn from 'components/Request/RequestEditDltBtn';
+import RequestDltBtn from 'components/Request/RequestDltBtn';
+import RequestUpdateBtn from 'components/Request/RequestUpdateBtn';
 import React from 'react';
-import { ItemTypes } from 'store';
+import { useSelector } from 'react-redux';
+import { ItemTypes, RootState } from 'store';
 
 type Props = {
     item: ItemTypes;
@@ -9,6 +11,13 @@ type Props = {
 
 const Item = (props: Props) => {
     const { item } = props;
+    const userId = item.userId;
+    const userTitle = item.title;
+    const { currentUser } = useSelector(
+        (state: RootState) => state.currentUser,
+    );
+    const currentUserUid = currentUser.uid;
+    // console.log(currentUser.uid);
     return (
         <>
             <ItemWrapper>
@@ -18,8 +27,18 @@ const Item = (props: Props) => {
                 <div>{item.date}</div>
                 <div>{item.contents}</div>
                 <div>{item.reward}</div>
-                <RequestEditDltBtn word={'수정'} />
-                <RequestEditDltBtn word={'삭제'} />
+                {currentUser.uid === userId ? (
+                    <>
+                        <RequestUpdateBtn />
+                        <RequestDltBtn
+                            userId={userId ? userId : ''}
+                            userTitle={userTitle ? userTitle : ''}
+                            currentUserUid={
+                                currentUserUid ? currentUserUid : ''
+                            }
+                        />
+                    </>
+                ) : null}
             </ItemWrapper>
         </>
     );
