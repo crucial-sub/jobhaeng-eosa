@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ItemTypes, requestAction } from 'store';
-import { getAddress } from 'utils/getAddress';
+import { coordToAddress } from 'utils/fetcher';
 
 type Props = {
     lat: number;
@@ -55,7 +55,7 @@ const Map = (props: Props) => {
                     'dragend',
                     async () => {
                         const latlng = map.getCenter();
-                        const { documents } = await getAddress(
+                        const { documents } = await coordToAddress(
                             latlng.getLat(),
                             latlng.getLng(),
                         );

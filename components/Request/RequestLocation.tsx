@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { ItemTypes, requestAction, RootState, userDataTypes } from 'store';
-import { getAddress } from 'utils/getAddress';
+import { coordToAddress } from 'utils/fetcher';
 import Map from './Map';
 import Location from './Map';
 
@@ -67,7 +67,7 @@ const RequestLocation = (props: Props) => {
                         lng: lng, // 경도
                         isLoading: false,
                     }));
-                    const { documents } = await getAddress(lat, lng);
+                    const { documents } = await coordToAddress(lat, lng);
                     const location = documents[0].road_address
                         ? documents[0].road_address.address_name
                         : documents[0].address.address_name;
