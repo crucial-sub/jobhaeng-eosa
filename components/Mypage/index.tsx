@@ -1,7 +1,9 @@
 import React from 'react';
 import MyInfo from './MyInfo';
 import MyRequest from './MyRequest';
-import styled from '@emotion/styled';
+import Link from 'next/link';
+
+import Logout from './Logout';
 
 type Props = {};
 
@@ -10,6 +12,9 @@ const MyPage = (props: Props) => {
         <div>
             <MyInfo />
             <MyRequest />
+            <Link href="/">
+                <Logout />
+            </Link>
         </div>
     );
 };

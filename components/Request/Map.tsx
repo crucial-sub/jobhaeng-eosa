@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ItemTypes, requestAction } from 'store';
-import { getAddress } from 'utils/getAddress';
+import { coordToAddress } from 'utils/fetcher';
 
 type Props = {
     lat: number;
@@ -10,7 +10,7 @@ type Props = {
     request?: ItemTypes;
     items?: ItemTypes;
     mapUseFor: string;
-    setItems?: Dispatch<SetStateAction<any>>;
+    setItems?: Dispatch<SetStateAction<ItemTypes | undefined>>;
 };
 
 declare global {
@@ -58,7 +58,7 @@ const Map = (props: Props) => {
                     'dragend',
                     async () => {
                         const latlng = map.getCenter();
-                        const { documents } = await getAddress(
+                        const { documents } = await coordToAddress(
                             latlng.getLat(),
                             latlng.getLng(),
                         );
@@ -72,7 +72,7 @@ const Map = (props: Props) => {
                                     location: location,
                                 }),
                             );
-                        } else if (mapUseFor === 'edit') {
+                        } else if (mapUseFor === 'edit' && setItems) {
                             setItems({
                                 ...items,
                                 location: location,

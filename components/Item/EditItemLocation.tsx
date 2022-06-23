@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { ItemTypes, requestAction, RootState, userDataTypes } from 'store';
-import { getAddress } from 'utils/getAddress';
+import { coordToAddress } from 'utils/fetcher';
 import Map from '../Request/Map';
 
 type Props = {
     items: ItemTypes;
     currentUser: userDataTypes;
-    setItems: Dispatch<SetStateAction<any>>;
+    setItems: Dispatch<SetStateAction<ItemTypes | undefined>>;
 };
 
 const EditItemLocation = (props: Props) => {
@@ -53,7 +53,7 @@ const EditItemLocation = (props: Props) => {
                         lng: lng, // 경도
                         isLoading: false,
                     }));
-                    const { documents } = await getAddress(lat, lng);
+                    const { documents } = await coordToAddress(lat, lng);
                     const location = documents[0].road_address
                         ? documents[0].road_address.address_name
                         : documents[0].address.address_name;
