@@ -112,6 +112,7 @@ const RequestLocation = (props: Props) => {
                     lat={geoLocation.lat}
                     lng={geoLocation.lng}
                     request={request}
+                    mapUseFor="request"
                 />
             )}
             <label>출두 위치 부가 설명 (선택)</label>

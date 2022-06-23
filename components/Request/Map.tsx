@@ -10,7 +10,7 @@ type Props = {
     request?: ItemTypes;
     items?: ItemTypes;
     mapUseFor: string;
-    setItems?: Dispatch<SetStateAction<any>>;
+    setItems?: Dispatch<SetStateAction<ItemTypes | undefined>>;
 };
 
 declare global {
@@ -72,7 +72,7 @@ const Map = (props: Props) => {
                                     location: location,
                                 }),
                             );
-                        } else if (mapUseFor === 'edit') {
+                        } else if (mapUseFor === 'edit' && setItems) {
                             setItems({
                                 ...items,
                                 location: location,

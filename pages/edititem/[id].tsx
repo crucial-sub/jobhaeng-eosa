@@ -83,15 +83,6 @@ const ItemEdit = (props: Props) => {
                             onChange={handleChange}
                         />
                     </div>
-
-                    <div>
-                        <label htmlFor="location">위치</label>
-                        <input
-                            id="location"
-                            value={items.location}
-                            onChange={handleChange}
-                        />
-                    </div>
                     <EditItemLocation
                         items={items}
                         currentUser={currentUser}
