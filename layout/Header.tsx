@@ -3,42 +3,18 @@ import styled from '@emotion/styled';
 import FilterBtn from 'components/Filter/FilterBtn';
 import SearchBox from 'components/Search';
 import Link from 'next/link';
-import { useSelector } from 'react-redux';
-import { currentUserAction, joinAction, loginAction, RootState } from 'store';
-import { authService } from 'fbase';
-import { useDispatch } from 'react-redux';
-import { persistor } from 'store';
 
 type Props = {};
 
 const Header = (props: Props) => {
-    const { checkLogin } = useSelector((state: RootState) => state.login);
-    const dispatch = useDispatch();
-    const onClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
-        authService.signOut();
-        dispatch(loginAction.login(false));
-        dispatch(currentUserAction.user(null));
-        dispatch(joinAction.join(false));
-        await persistor.purge();
-    };
     return (
         <HeaderContainer>
             <Link href={'/'}>
                 <Title>잡행어사</Title>
             </Link>
-
             <HeaderBox>
                 <FilterBtn />
                 <SearchBox />
-                {checkLogin ? (
-                    <Link href="/">
-                        <Logout onClick={onClick}>Logout</Logout>
-                    </Link>
-                ) : (
-                    <Link href="/login">
-                        <Login>Login</Login>
-                    </Link>
-                )}
             </HeaderBox>
         </HeaderContainer>
     );
@@ -66,23 +42,6 @@ const HeaderBox = styled.div`
     height: 100%;
     display: flex;
     width: 100%;
-`;
-
-const Login = styled.button`
-    position: relative;
-    width: 20%;
-    height: 100%;
-    text-align: center;
-    border: none;
-`;
-
-const Logout = styled.button`
-    position: relative;
-    width: 20%;
-    height: 100%;
-    text-align: center;
-    border: none;
-    cursor: pointer;
 `;
 
 export default Header;
