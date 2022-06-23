@@ -7,6 +7,8 @@ import { itemListAction, ItemTypes, RootState } from 'store';
 import { dbService } from 'fbase';
 import { json } from 'stream/consumers';
 import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
+import RequestLocation from 'components/Request/RequestLocation';
+import EditItemLocation from 'components/Item/EditItemLocation';
 
 type Props = {
     item: ItemTypes;
@@ -24,9 +26,8 @@ const ItemEdit = (props: Props) => {
         (state: RootState) => state.currentUser,
     );
     const [items, setItems] = useState<ItemTypes>();
-    const [targetIndex, setTargetIndex] = useState<IndexNumber>();
     const dispatch = useDispatch();
-    let targetItemList = itemList;
+
     useEffect(() => {
         setItems(itemList.find((item) => item.id === id));
     }, [itemList]);
@@ -82,6 +83,7 @@ const ItemEdit = (props: Props) => {
                             onChange={handleChange}
                         />
                     </div>
+
                     <div>
                         <label htmlFor="location">위치</label>
                         <input
@@ -90,6 +92,11 @@ const ItemEdit = (props: Props) => {
                             onChange={handleChange}
                         />
                     </div>
+                    <EditItemLocation
+                        items={items}
+                        currentUser={currentUser}
+                        setItems={setItems}
+                    />
                     <div>
                         <label htmlFor="reward">보상</label>
                         <input
