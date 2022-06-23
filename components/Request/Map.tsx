@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ItemTypes, requestAction } from 'store';
 import { coordToAddress } from 'utils/fetcher';
@@ -7,7 +7,10 @@ import { coordToAddress } from 'utils/fetcher';
 type Props = {
     lat: number;
     lng: number;
-    request: ItemTypes;
+    request?: ItemTypes;
+    items?: ItemTypes;
+    mapUseFor: string;
+    setItems?: Dispatch<SetStateAction<any>>;
 };
 
 declare global {
@@ -17,7 +20,7 @@ declare global {
 }
 
 const Map = (props: Props) => {
-    const { lat, lng, request } = props;
+    const { lat, lng, request, mapUseFor, setItems, items } = props;
     const dispatch = useDispatch();
     const [position, setPosition] = useState({
         lat: lat,
@@ -62,12 +65,19 @@ const Map = (props: Props) => {
                         const location = documents[0].road_address
                             ? documents[0].road_address.address_name
                             : documents[0].address.address_name;
-                        dispatch(
-                            requestAction.request({
-                                ...request,
+                        if (mapUseFor === 'request') {
+                            dispatch(
+                                requestAction.request({
+                                    ...request,
+                                    location: location,
+                                }),
+                            );
+                        } else if (mapUseFor === 'edit') {
+                            setItems({
+                                ...items,
                                 location: location,
-                            }),
-                        );
+                            });
+                        }
                     },
                 );
             });
