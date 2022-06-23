@@ -46,12 +46,15 @@ const itemListSlice = createSlice({
                     item.id !== req.userId && item.title !== req.userTitle,
             );
         },
-        // update(state, action) {
-        //     const req = action.payload;
-        //     state.itemList = state.itemList.map((item, i) => {
-        //         if (i === req.targetIndex) return (item = req.items);
-        //     });
-        // },
+
+        update(state, action) {
+            const req = action.payload;
+            for (let i = 0; i < state.itemList.length; i++) {
+                if (state.itemList[i].id === req.id) {
+                    state.itemList.splice(i, 1, req.items);
+                }
+            }
+        },
     },
 });
 
