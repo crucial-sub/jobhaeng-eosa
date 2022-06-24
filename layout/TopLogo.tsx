@@ -15,9 +15,7 @@ const TopLogo = (props: Props) => {
 const Title = styled.h1`
     flex: 0.5 1 0;
     width: 100%;
-    height: 6vh;
-    padding: 1vh 0;
-    line-height: 6vh;
+    padding: 1.25vh 0;
     text-align: center;
     font-size: 35px;
     background-color: skyblue;

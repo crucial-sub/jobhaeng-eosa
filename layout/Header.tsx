@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import FilterBtn from 'components/Filter/FilterBtn';
+import Filter from 'components/Filter';
 import SearchBox from 'components/Search';
-import { MdOutlineArrowBackIos } from 'react-icons/md';
 import GoBack from './GoBack';
 
 type Props = {
@@ -16,7 +15,7 @@ const Header = (props: Props) => {
             <HeaderBox>
                 {pathname === '/' && (
                     <>
-                        <FilterBtn />
+                        <Filter />
                         <SearchBox />
                     </>
                 )}
@@ -46,6 +45,7 @@ const HeaderContainer = styled.header`
 `;
 
 const HeaderBox = styled.div`
+    position: relative;
     height: 100%;
     display: flex;
     width: 100%;

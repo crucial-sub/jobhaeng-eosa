@@ -34,7 +34,6 @@ import { useRouter } from 'next/router';
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     const router = useRouter();
     const { pathname } = router;
-    console.log(pathname.split('/'));
     const store = createStore(persistedReducer);
     const persistor = persistStore(store);
     const [userUid, setUserUid] = useState('');

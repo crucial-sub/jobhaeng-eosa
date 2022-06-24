@@ -13,7 +13,7 @@ const GoBack = (props: Props) => {
 };
 
 const BackBtn = styled.div`
-    flex: 2 0 0;
+    flex: 2 1 0;
     align-self: center;
     max-width: 20%;
 
