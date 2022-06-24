@@ -28,8 +28,13 @@ import {
     QueryDocumentSnapshot,
     where,
 } from 'firebase/firestore';
+import TopLogo from 'layout/TopLogo';
+import { useRouter } from 'next/router';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
+    const router = useRouter();
+    const { pathname } = router;
+    console.log(pathname.split('/'));
     const store = createStore(persistedReducer);
     const persistor = persistStore(store);
     const [userUid, setUserUid] = useState('');
@@ -60,11 +65,14 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         }
     }, [authService.currentUser, userUid]);
 
+    useEffect(() => {}, []);
+
     return (
         <PersistGate persistor={persistor} loading={<div>loading...</div>}>
             <Container>
                 {checkLogin ? (
                     <>
+                        <TopLogo />
                         <Header />
                         <ContentsBox>
                             <Component {...pageProps} />
