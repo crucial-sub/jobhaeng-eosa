@@ -13,7 +13,6 @@ const Home: NextPage = () => {
 };
 
 const ItemWrapper = styled.div`
-    position: relative;
     max-width: 90%;
     height: 90%;
     margin: 7.5% auto;

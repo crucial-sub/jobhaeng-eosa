@@ -17,8 +17,8 @@ const RequestBtn = (props: Props) => {
 
 const Button = styled.div`
     position: absolute;
-    bottom: 5%;
-    right: 5%;
+    bottom: 7%;
+    right: 10%;
 
     & svg {
         color: green;
