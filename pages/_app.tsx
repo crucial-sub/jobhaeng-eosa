@@ -65,15 +65,13 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         }
     }, [authService.currentUser, userUid]);
 
-    useEffect(() => {}, []);
-
     return (
         <PersistGate persistor={persistor} loading={<div>loading...</div>}>
             <Container>
                 {checkLogin ? (
                     <>
                         <TopLogo />
-                        <Header />
+                        <Header pathname={pathname} />
                         <ContentsBox>
                             <Component {...pageProps} />
                         </ContentsBox>
