@@ -65,17 +65,20 @@ const Map = (props: Props) => {
                         const location = documents[0].road_address
                             ? documents[0].road_address.address_name
                             : documents[0].address.address_name;
+                        const town = documents[0].address.region_3depth_name;
                         if (mapUseFor === 'request') {
                             dispatch(
                                 requestAction.request({
                                     ...request,
                                     location: location,
+                                    town: town,
                                 }),
                             );
                         } else if (mapUseFor === 'edit' && setItems) {
                             setItems({
                                 ...items,
                                 location: location,
+                                town: town,
                             });
                         }
                     },

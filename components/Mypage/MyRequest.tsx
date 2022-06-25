@@ -29,9 +29,7 @@ const MyRequest = (props: Props) => {
     const dataArr = wholeItems.filter(
         (data) => data.userId === currentUser.uid,
     );
-    console.log(dataArr);
     const count = dataArr.length;
-    console.log(count);
 
     return (
         <>

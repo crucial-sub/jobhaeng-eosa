@@ -30,6 +30,7 @@ const RequestLocation = (props: Props) => {
                 requestAction.request({
                     ...request,
                     location: currentUser.address,
+                    town: currentUser.town,
                 }),
             );
             setVisible(false);
@@ -39,6 +40,7 @@ const RequestLocation = (props: Props) => {
                 requestAction.request({
                     ...request,
                     location: '',
+                    town: '',
                 }),
             );
         }
@@ -71,10 +73,12 @@ const RequestLocation = (props: Props) => {
                     const location = documents[0].road_address
                         ? documents[0].road_address.address_name
                         : documents[0].address.address_name;
+                    const town = documents[0].address.region_3depth_name;
                     dispatch(
                         requestAction.request({
                             ...request,
                             location: location,
+                            town: town,
                         }),
                     );
                 },

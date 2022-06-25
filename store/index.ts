@@ -14,6 +14,7 @@ export interface ItemTypes {
     title?: string;
     date?: string;
     location?: string;
+    town?: string;
     reward?: number | string;
     ongoing?: boolean;
     contents?: string;
@@ -67,11 +68,13 @@ export const requestInitialState: RequestTypes = {
         title: '',
         date: '',
         location: '',
+        town: '',
         reward: '',
         ongoing: false,
         contents: '',
         userId: '',
         nickName: '',
+        extraLocation: '',
     },
 };
 

@@ -51,7 +51,6 @@ const FilterContainer = (props: Props) => {
         };
         getData();
     }, [districtCode]);
-    console.log(townArray);
     return (
         <FilterWrapper>
             <District districtArray={districtArray} handleClick={handleClick} />

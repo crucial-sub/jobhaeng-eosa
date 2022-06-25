@@ -31,7 +31,6 @@ const ItemEdit = (props: Props) => {
     useEffect(() => {
         setItems(itemList.find((item) => item.id === id));
     }, [itemList]);
-    console.log(items);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const name = e.target.id;
