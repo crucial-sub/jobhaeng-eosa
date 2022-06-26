@@ -14,7 +14,7 @@ export interface PlaceCodeTypes {
 const FilterContainer = (props: Props) => {
     const [districtArray, setDistrictArray] = useState([]);
     const [districtCode, setDistrictCode] = useState<string>();
-    const [townArray, setTownArray] = useState([]);
+    const [townArray, setTownArray] = useState<PlaceCodeTypes[]>([]);
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         const targetCode = e.currentTarget.id;
         setDistrictCode(targetCode);
@@ -40,6 +40,10 @@ const FilterContainer = (props: Props) => {
         if (!districtCode) return;
         const getData = async () => {
             const { regcodes } = await getTown(districtCode);
+            const district = {
+                ...regcodes[0],
+                name: `${regcodes[0].name.split(' ')[1]} 전체`,
+            };
             const towns = await regcodes
                 .map((town: PlaceCodeTypes) => {
                     return { ...town, name: town.name.split(' ')[2] };
@@ -47,7 +51,8 @@ const FilterContainer = (props: Props) => {
                 .sort((a: PlaceCodeTypes, b: PlaceCodeTypes) =>
                     a.name > b.name ? 1 : -1,
                 );
-            setTownArray(towns);
+
+            setTownArray([district, ...towns]);
         };
         getData();
     }, [districtCode]);
