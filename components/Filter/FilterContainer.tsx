@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { getDistrict, getTown } from 'utils/fetcher';
 import District from './District';
 import Town from './Town';
@@ -12,12 +12,16 @@ export interface PlaceCodeTypes {
 }
 
 const FilterContainer = (props: Props) => {
+    const distRef = useRef<HTMLDivElement>(null);
     const [districtArray, setDistrictArray] = useState([]);
     const [districtCode, setDistrictCode] = useState<string>();
     const [townArray, setTownArray] = useState<PlaceCodeTypes[]>([]);
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         const targetCode = e.currentTarget.id;
         setDistrictCode(targetCode);
+        if (distRef.current) {
+            distRef.current.classList.add('clicked');
+        }
     };
     useEffect(() => {
         const getData = async () => {
@@ -40,10 +44,12 @@ const FilterContainer = (props: Props) => {
         if (!districtCode) return;
         const getData = async () => {
             const { regcodes } = await getTown(districtCode);
-            const district = {
-                ...regcodes[0],
-                name: `${regcodes[0].name.split(' ')[1]} 전체`,
-            };
+            let district = [
+                {
+                    ...regcodes[0],
+                    name: `${regcodes[0].name.split(' ')[1]} 전체`,
+                },
+            ];
             const towns = await regcodes
                 .map((town: PlaceCodeTypes) => {
                     return { ...town, name: town.name.split(' ')[2] };
@@ -51,14 +57,18 @@ const FilterContainer = (props: Props) => {
                 .sort((a: PlaceCodeTypes, b: PlaceCodeTypes) =>
                     a.name > b.name ? 1 : -1,
                 );
-
             setTownArray([district, ...towns]);
+            district = [];
         };
         getData();
     }, [districtCode]);
     return (
         <FilterWrapper>
-            <District districtArray={districtArray} handleClick={handleClick} />
+            <District
+                districtArray={districtArray}
+                handleClick={handleClick}
+                distRef={distRef}
+            />
             <Town townArray={townArray} />
         </FilterWrapper>
     );

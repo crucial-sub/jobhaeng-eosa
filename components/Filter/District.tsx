@@ -1,14 +1,15 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { RefObject } from 'react';
 import { PlaceCodeTypes } from './FilterContainer';
 
 type Props = {
     districtArray: PlaceCodeTypes[];
     handleClick: (e: React.MouseEvent<HTMLDivElement>) => void;
+    distRef: RefObject<HTMLDivElement>;
 };
 
 const District = (props: Props) => {
-    const { districtArray, handleClick } = props;
+    const { districtArray, handleClick, distRef } = props;
     return (
         <DistrictWrapper>
             {districtArray &&
@@ -17,6 +18,7 @@ const District = (props: Props) => {
                         key={dist.code}
                         id={dist.code}
                         onClick={handleClick}
+                        ref={distRef}
                     >
                         {dist.name}
                     </DistrictItem>
@@ -34,6 +36,9 @@ const DistrictWrapper = styled.div`
 `;
 const DistrictItem = styled.div`
     margin: 10px;
+    &.clicked {
+        background-color: red;
+    }
 `;
 
 export default District;
