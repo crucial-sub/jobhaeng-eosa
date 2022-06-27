@@ -14,14 +14,26 @@ export interface PlaceCodeTypes {
 const FilterContainer = (props: Props) => {
     const distRef = useRef<HTMLDivElement>(null);
     const [districtArray, setDistrictArray] = useState([]);
-    const [districtCode, setDistrictCode] = useState<string>();
     const [townArray, setTownArray] = useState<PlaceCodeTypes[]>([]);
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         const targetCode = e.currentTarget.id;
-        setDistrictCode(targetCode);
-        if (distRef.current) {
-            distRef.current.classList.add('clicked');
-        }
+        const getData = async () => {
+            const { regcodes } = await getTown(targetCode);
+            const district = {
+                ...regcodes[0],
+                name: `${regcodes[0].name.split(' ')[1]} 전체`,
+            };
+            const towns = regcodes
+                .slice(1)
+                .map((town: PlaceCodeTypes) => {
+                    return { ...town, name: town.name.split(' ')[2] };
+                })
+                .sort((a: PlaceCodeTypes, b: PlaceCodeTypes) =>
+                    a.name > b.name ? 1 : -1,
+                );
+            setTownArray([district, ...towns]);
+        };
+        getData();
     };
     useEffect(() => {
         const getData = async () => {
@@ -40,28 +52,6 @@ const FilterContainer = (props: Props) => {
         };
         getData();
     }, []);
-    useEffect(() => {
-        if (!districtCode) return;
-        const getData = async () => {
-            const { regcodes } = await getTown(districtCode);
-            let district = [
-                {
-                    ...regcodes[0],
-                    name: `${regcodes[0].name.split(' ')[1]} 전체`,
-                },
-            ];
-            const towns = await regcodes
-                .map((town: PlaceCodeTypes) => {
-                    return { ...town, name: town.name.split(' ')[2] };
-                })
-                .sort((a: PlaceCodeTypes, b: PlaceCodeTypes) =>
-                    a.name > b.name ? 1 : -1,
-                );
-            setTownArray([district, ...towns]);
-            district = [];
-        };
-        getData();
-    }, [districtCode]);
     return (
         <FilterWrapper>
             <District
