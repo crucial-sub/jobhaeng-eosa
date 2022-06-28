@@ -42,21 +42,24 @@ const ItemList = (props: Props) => {
         const newList = itemList.filter((item) => item.town === town);
         setShowList(newList);
     }, [town]);
-    console.log('d', showList);
 
     return (
         <>
-            {showList.map((item) => (
-                <Link key={item.id} href={`/items/${item.id}`}>
-                    <PostBox>
-                        <div>{item.ongoing ? '진행 중' : null}</div>
-                        <div>{item.title}</div>
-                        <div>{item.location}</div>
-                        <div>{item.date}</div>
-                        <div>{item.reward}</div>
-                    </PostBox>
-                </Link>
-            ))}
+            {showList.length === 0 ? (
+                <div>{town}에 요청글이 없습니다 !</div>
+            ) : (
+                showList.map((item) => (
+                    <Link key={item.id} href={`/items/${item.id}`}>
+                        <PostBox>
+                            <div>{item.ongoing ? '진행 중' : null}</div>
+                            <div>{item.title}</div>
+                            <div>{item.location}</div>
+                            <div>{item.date}</div>
+                            <div>{item.reward}</div>
+                        </PostBox>
+                    </Link>
+                ))
+            )}
         </>
     );
 };
