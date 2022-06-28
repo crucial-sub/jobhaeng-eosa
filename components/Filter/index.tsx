@@ -10,6 +10,7 @@ const Filter = (props: Props) => {
     const { currentUser } = useSelector(
         (state: RootState) => state.currentUser,
     );
+    const { town } = useSelector((state: RootState) => state.filter);
     const [isOpen, setIsOpen] = useState(false);
     const handleClick = () => {
         setIsOpen((prev) => !prev);
@@ -21,7 +22,9 @@ const Filter = (props: Props) => {
 
     return (
         <>
-            <FilterButton onClick={handleClick}>{currentTown}</FilterButton>
+            <FilterButton onClick={handleClick}>
+                {town ? town : currentTown}
+            </FilterButton>
             {isOpen && <FilterContainer setIsOpen={setIsOpen} />}
         </>
     );
