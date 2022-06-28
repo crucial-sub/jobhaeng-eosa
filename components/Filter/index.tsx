@@ -35,6 +35,7 @@ const FilterButton = styled.button`
     height: 100%;
     text-align: center;
     border: none;
+    cursor: pointer;
 `;
 
 export default Filter;

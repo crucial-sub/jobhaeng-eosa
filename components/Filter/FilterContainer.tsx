@@ -1,11 +1,5 @@
 import styled from '@emotion/styled';
-import React, {
-    Dispatch,
-    SetStateAction,
-    useEffect,
-    useRef,
-    useState,
-} from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { filterAction } from 'store';
 import { getDistrict, getTown } from 'utils/fetcher';
@@ -23,13 +17,14 @@ export interface PlaceCodeTypes {
 
 const FilterContainer = (props: Props) => {
     const { setIsOpen } = props;
-    const distRef = useRef<HTMLDivElement>(null);
     const [districtArray, setDistrictArray] = useState([]);
     const [townArray, setTownArray] = useState<PlaceCodeTypes[]>([]);
     const [clickedTown, setClickedTown] = useState<string | undefined>();
+    const [clickedDist, setClickedDist] = useState('');
     const dispatch = useDispatch();
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         const targetCode = e.currentTarget.dataset.code;
+        const targetName = e.currentTarget.dataset.name;
         if (targetCode) {
             const getData = async () => {
                 const { regcodes } = await getTown(targetCode);
@@ -48,6 +43,9 @@ const FilterContainer = (props: Props) => {
                 setTownArray([district, ...towns]);
             };
             getData();
+        }
+        if (targetName) {
+            setClickedDist(targetName);
         }
     };
     useEffect(() => {
@@ -81,9 +79,13 @@ const FilterContainer = (props: Props) => {
                 <District
                     districtArray={districtArray}
                     handleClick={handleClick}
-                    distRef={distRef}
+                    clickedDist={clickedDist}
                 />
-                <Town townArray={townArray} setClickedTown={setClickedTown} />
+                <Town
+                    townArray={townArray}
+                    setClickedTown={setClickedTown}
+                    clickedTown={clickedTown}
+                />
             </FilterList>
             <ApplyBtn onClick={selectTown}>적용하기</ApplyBtn>
         </FilterWrapper>
@@ -115,6 +117,7 @@ const ApplyBtn = styled.div`
     justify-content: center;
     font-size: 1.5rem;
     background-color: bisque;
+    cursor: pointer;
 `;
 
 export default FilterContainer;

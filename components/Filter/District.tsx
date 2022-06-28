@@ -5,11 +5,11 @@ import { PlaceCodeTypes } from './FilterContainer';
 type Props = {
     districtArray: PlaceCodeTypes[];
     handleClick: (e: React.MouseEvent<HTMLDivElement>) => void;
-    distRef: RefObject<HTMLDivElement>;
+    clickedDist: string;
 };
 
 const District = (props: Props) => {
-    const { districtArray, handleClick, distRef } = props;
+    const { districtArray, handleClick, clickedDist } = props;
     return (
         <DistrictWrapper>
             {districtArray &&
@@ -17,8 +17,9 @@ const District = (props: Props) => {
                     <DistrictItem
                         key={dist.code}
                         data-code={dist.code}
+                        data-name={dist.name}
                         onClick={handleClick}
-                        ref={distRef}
+                        className={dist.name === clickedDist ? 'clicked' : ''}
                     >
                         {dist.name}
                     </DistrictItem>
@@ -35,9 +36,13 @@ const DistrictWrapper = styled.div`
     overflow: auto;
 `;
 const DistrictItem = styled.div`
-    margin: 10px;
+    width: 90%;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
     &.clicked {
-        background-color: red;
+        background-color: burlywood;
     }
 `;
 

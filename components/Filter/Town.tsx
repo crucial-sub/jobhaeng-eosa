@@ -7,10 +7,11 @@ import { PlaceCodeTypes } from './FilterContainer';
 type Props = {
     townArray: PlaceCodeTypes[];
     setClickedTown: Dispatch<SetStateAction<string | undefined>>;
+    clickedTown: string | undefined;
 };
 
 const Town = (props: Props) => {
-    const { townArray, setClickedTown } = props;
+    const { townArray, setClickedTown, clickedTown } = props;
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         const town = e.currentTarget.dataset.town;
         setClickedTown(town);
@@ -23,6 +24,7 @@ const Town = (props: Props) => {
                         key={town.code}
                         data-town={town.name}
                         onClick={handleClick}
+                        className={town.name === clickedTown ? 'clicked' : ''}
                     >
                         {town.name}
                     </TownItem>
@@ -39,8 +41,14 @@ const TownWrapper = styled.div`
     overflow: auto;
 `;
 const TownItem = styled.div`
-    margin: 6px;
-    justify-content: center;
+    width: 90%;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    &.clicked {
+        background-color: burlywood;
+    }
 `;
 
 export default Town;
