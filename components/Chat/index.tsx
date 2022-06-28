@@ -4,34 +4,23 @@ import { useRouter } from 'next/router';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { dbService } from 'fbase';
 import ChattingInput from './ChattingInput';
-import { ItemTypes } from 'store';
-import Conversations from './Conversations';
 
 type Props = {
     chatId: string | string[] | undefined;
-    items: ItemTypes | undefined;
+    nickName: string | undefined;
 };
 
 const ChattingRoom = (props: Props) => {
-    const { chatId, items } = props;
-    const [newMessage, setNewMessage] = useState('');
-    // console.log(newMessage);
+    const { chatId, nickName } = props;
+
     return (
         <>
             <ChattingContainer>
                 <div>
-                    <ChatOpponent>
-                        {items?.nickName} 님의 {items?.title} 요청 채팅
-                    </ChatOpponent>
+                    <ChatOpponent>{nickName}님과의 채팅</ChatOpponent>
                 </div>
-                <Conversations />
             </ChattingContainer>
-            <ChattingInput
-                setNewMessage={setNewMessage}
-                newMessage={newMessage}
-                chatId={chatId}
-                items={items}
-            />
+            <ChattingInput />
         </>
     );
 };
@@ -44,7 +33,7 @@ const ChattingContainer = styled.div`
 `;
 
 const ChatOpponent = styled.h1`
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: bold;
     width: 385px;
 `;
