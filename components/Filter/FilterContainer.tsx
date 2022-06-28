@@ -1,11 +1,20 @@
 import styled from '@emotion/styled';
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+    Dispatch,
+    SetStateAction,
+    useEffect,
+    useRef,
+    useState,
+} from 'react';
+import { useDispatch } from 'react-redux';
 import { filterAction } from 'store';
 import { getDistrict, getTown } from 'utils/fetcher';
 import District from './District';
 import Town from './Town';
 
-type Props = {};
+type Props = {
+    setIsOpen: Dispatch<SetStateAction<boolean>>;
+};
 
 export interface PlaceCodeTypes {
     code: string;
@@ -13,10 +22,12 @@ export interface PlaceCodeTypes {
 }
 
 const FilterContainer = (props: Props) => {
+    const { setIsOpen } = props;
     const distRef = useRef<HTMLDivElement>(null);
     const [districtArray, setDistrictArray] = useState([]);
     const [townArray, setTownArray] = useState<PlaceCodeTypes[]>([]);
     const [clickedTown, setClickedTown] = useState<string | undefined>();
+    const dispatch = useDispatch();
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         const targetCode = e.currentTarget.id;
         const getData = async () => {
@@ -54,6 +65,14 @@ const FilterContainer = (props: Props) => {
         };
         getData();
     }, []);
+    const selectTown = () => {
+        if (!clickedTown) {
+            alert('동을 선택해 주세요!');
+            return;
+        }
+        dispatch(filterAction.filter(clickedTown));
+        setIsOpen(false);
+    };
     return (
         <FilterWrapper>
             <FilterList>
@@ -64,7 +83,7 @@ const FilterContainer = (props: Props) => {
                 />
                 <Town townArray={townArray} setClickedTown={setClickedTown} />
             </FilterList>
-            <ApplyBtn>적용하기</ApplyBtn>
+            <ApplyBtn onClick={selectTown}>적용하기</ApplyBtn>
         </FilterWrapper>
     );
 };

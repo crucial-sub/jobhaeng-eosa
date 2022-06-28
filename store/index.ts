@@ -158,6 +158,19 @@ const currentUserSlice = createSlice({
     },
 });
 
+const filterInitialState = {
+    town: '',
+};
+const filterSlice = createSlice({
+    name: 'filter',
+    initialState: filterInitialState,
+    reducers: {
+        filter(state, action) {
+            state.town = action.payload;
+        },
+    },
+});
+
 const rootReducer = combineReducers({
     itemList: itemListSlice.reducer,
     request: requestSlice.reducer,
@@ -165,6 +178,7 @@ const rootReducer = combineReducers({
     join: joinSlice.reducer,
     currentUser: currentUserSlice.reducer,
     removeList: requestSlice.reducer,
+    filter: filterSlice.reducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -173,7 +187,7 @@ const persistConfig = {
     key: 'root',
     version: 1,
     storage,
-    blacklist: ['join', 'currentUser', 'request'],
+    blacklist: ['join', 'currentUser', 'request', 'filter'],
 };
 
 export const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -200,6 +214,7 @@ export const requestAction = requestSlice.actions;
 export const loginAction = loginSlice.actions;
 export const joinAction = joinSlice.actions;
 export const currentUserAction = currentUserSlice.actions;
+export const filterAction = filterSlice.actions;
 // export const itemEditCheckAction = itemEditCheckSlice.actions;
 // export const removeItemAction = removeItemSlice.actions;
 

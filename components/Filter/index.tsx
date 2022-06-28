@@ -22,7 +22,7 @@ const Filter = (props: Props) => {
     return (
         <>
             <FilterButton onClick={handleClick}>{currentTown}</FilterButton>
-            {isOpen && <FilterContainer />}
+            {isOpen && <FilterContainer setIsOpen={setIsOpen} />}
         </>
     );
 };
