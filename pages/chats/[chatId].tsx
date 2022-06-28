@@ -1,29 +1,50 @@
 import styled from '@emotion/styled';
 import ChattingRoom from 'components/Chat';
 import { dbService } from 'fbase';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import {
+    addDoc,
+    getDocs,
+    collection,
+    onSnapshot,
+    query,
+    where,
+} from 'firebase/firestore';
+import { authService } from 'fbase';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { ItemTypes, RootState } from 'store';
 
 type Props = {};
 
 const ChatPage = (props: Props) => {
     const router = useRouter();
+    const [items, setItems] = useState<ItemTypes>();
     const { chatId } = router.query;
-    const [nickName, setNickName] = useState();
 
-    useState(() => {
-        const userCollectionRef = collection(dbService, 'users');
-        const q = query(userCollectionRef, where('uid', '==', chatId));
-        const unsubscribe = onSnapshot(q, (querySnapshot) => {
-            querySnapshot.forEach(async (document) => {
-                if (document.data().nickName) {
-                    setNickName(document.data().nickName);
-                }
-            });
-        });
-    });
-    return <ChattingRoom chatId={chatId} nickName={nickName} />;
+    const { itemList } = useSelector((state: RootState) => state.itemList);
+
+    useEffect(() => {
+        if (chatId) {
+            setItems(itemList.find((a) => a.id === chatId));
+        }
+    }, [chatId, itemList]);
+    console.log(items);
+
+    // if (chatId) {
+    //     const userCollectionRef = collection(dbService, 'users');
+    //     const q = query(userCollectionRef, where('uid', '==', chatId));
+    //     const unsubscribe = onSnapshot(q, (querySnapshot) => {
+    //         querySnapshot.forEach(async (document) => {
+    //             if (document.data().nickName) {
+    //                 setNickName(document.data().nickName);
+    //             }
+    //             return;
+    //         });
+    //     });
+    // }
+
+    return <ChattingRoom chatId={chatId} items={items} />;
 };
 
 export default ChatPage;

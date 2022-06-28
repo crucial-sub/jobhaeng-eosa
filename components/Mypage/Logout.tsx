@@ -3,10 +3,12 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { currentUserAction, joinAction, loginAction, persistor } from 'store';
 import { authService } from 'fbase';
+import { useRouter } from 'next/router';
 
 type Props = {};
 
 const Logout = (props: Props) => {
+    const router = useRouter();
     const dispatch = useDispatch();
     const handleClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
         authService.signOut();
@@ -14,6 +16,7 @@ const Logout = (props: Props) => {
         dispatch(currentUserAction.user(null));
         dispatch(joinAction.join(false));
         await persistor.purge();
+        router.push('/');
     };
     return <LogoutBtn onClick={handleClick}>Logout</LogoutBtn>;
 };
