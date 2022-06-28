@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React, { useEffect, useRef, useState } from 'react';
+import { filterAction } from 'store';
 import { getDistrict, getTown } from 'utils/fetcher';
 import District from './District';
 import Town from './Town';
@@ -15,6 +16,7 @@ const FilterContainer = (props: Props) => {
     const distRef = useRef<HTMLDivElement>(null);
     const [districtArray, setDistrictArray] = useState([]);
     const [townArray, setTownArray] = useState<PlaceCodeTypes[]>([]);
+    const [clickedTown, setClickedTown] = useState<string | undefined>();
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         const targetCode = e.currentTarget.id;
         const getData = async () => {
@@ -54,12 +56,15 @@ const FilterContainer = (props: Props) => {
     }, []);
     return (
         <FilterWrapper>
-            <District
-                districtArray={districtArray}
-                handleClick={handleClick}
-                distRef={distRef}
-            />
-            <Town townArray={townArray} />
+            <FilterList>
+                <District
+                    districtArray={districtArray}
+                    handleClick={handleClick}
+                    distRef={distRef}
+                />
+                <Town townArray={townArray} setClickedTown={setClickedTown} />
+            </FilterList>
+            <ApplyBtn>적용하기</ApplyBtn>
         </FilterWrapper>
     );
 };
@@ -73,6 +78,22 @@ const FilterWrapper = styled.div`
     height: 85vh;
     background-color: azure;
     z-index: 1;
+    flex-direction: column;
+`;
+
+const FilterList = styled.div`
+    flex: 9 0 0;
+    display: flex;
+    overflow: auto;
+`;
+const ApplyBtn = styled.div`
+    flex: 1 0 0;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    background-color: bisque;
 `;
 
 export default FilterContainer;
