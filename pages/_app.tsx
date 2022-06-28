@@ -28,8 +28,12 @@ import {
     QueryDocumentSnapshot,
     where,
 } from 'firebase/firestore';
+import TopLogo from 'layout/TopLogo';
+import { useRouter } from 'next/router';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
+    const router = useRouter();
+    const { pathname } = router;
     const store = createStore(persistedReducer);
     const persistor = persistStore(store);
     const [userUid, setUserUid] = useState('');
@@ -65,7 +69,8 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
             <Container>
                 {checkLogin ? (
                     <>
-                        <Header />
+                        <TopLogo />
+                        <Header pathname={pathname} />
                         <ContentsBox>
                             <Component {...pageProps} />
                         </ContentsBox>

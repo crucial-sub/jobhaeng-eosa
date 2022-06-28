@@ -10,10 +10,10 @@ import {
     QueryDocumentSnapshot,
 } from 'firebase/firestore';
 import Link from 'next/link';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { itemListAction, RootState } from 'store';
+import { itemListAction, ItemTypes, RootState } from 'store';
 
 type Props = {};
 
@@ -21,6 +21,8 @@ const ItemList = (props: Props) => {
     const dispatch = useDispatch();
 
     const { itemList } = useSelector((state: RootState) => state.itemList);
+    const { town } = useSelector((state: RootState) => state.filter);
+    const [showList, setShowList] = useState<ItemTypes[]>([...itemList]);
     useEffect(() => {
         const collectionRef = collection(dbService, 'items');
         const q = query(collectionRef, orderBy('date', 'desc'));
@@ -36,20 +38,28 @@ const ItemList = (props: Props) => {
         });
         return unsubscribe;
     }, []);
+    useEffect(() => {
+        const newList = itemList.filter((item) => item.town === town);
+        setShowList(newList);
+    }, [town]);
 
     return (
         <>
-            {itemList.map((item) => (
-                <Link key={item.id} href={`/items/${item.id}`}>
-                    <PostBox>
-                        <div>{item.ongoing ? '진행 중' : null}</div>
-                        <div>{item.title}</div>
-                        <div>{item.location}</div>
-                        <div>{item.date}</div>
-                        <div>{item.reward}</div>
-                    </PostBox>
-                </Link>
-            ))}
+            {showList.length === 0 ? (
+                <div>{town}에 요청글이 없습니다 !</div>
+            ) : (
+                showList.map((item) => (
+                    <Link key={item.id} href={`/items/${item.id}`}>
+                        <PostBox>
+                            <div>{item.ongoing ? '진행 중' : null}</div>
+                            <div>{item.title}</div>
+                            <div>{item.location}</div>
+                            <div>{item.date}</div>
+                            <div>{item.reward}</div>
+                        </PostBox>
+                    </Link>
+                ))
+            )}
         </>
     );
 };

@@ -26,10 +26,10 @@ export const getDistrict = async () => {
         console.log(err);
     }
 };
-export const getTown = async (code: number) => {
+export const getTown = async (code: string) => {
     try {
         const { data } = await axios.get(
-            `https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern=11${code}*&is_ignore_zero=true`,
+            `https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern=11${code}*`,
         );
         return data;
     } catch (err) {

@@ -24,21 +24,23 @@ const RequestLocation = (props: Props) => {
     const [visible, setVisible] = useState(false);
 
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        const id = e.currentTarget.id;
-        if (id === 'address') {
+        const method = e.currentTarget.dataset.method;
+        if (method === 'address') {
             dispatch(
                 requestAction.request({
                     ...request,
                     location: currentUser.address,
+                    town: currentUser.town,
                 }),
             );
             setVisible(false);
-        } else if (id === 'location') {
+        } else if (method === 'location') {
             setVisible(true);
             dispatch(
                 requestAction.request({
                     ...request,
                     location: '',
+                    town: '',
                 }),
             );
         }
@@ -71,10 +73,12 @@ const RequestLocation = (props: Props) => {
                     const location = documents[0].road_address
                         ? documents[0].road_address.address_name
                         : documents[0].address.address_name;
+                    const town = documents[0].address.region_3depth_name;
                     dispatch(
                         requestAction.request({
                             ...request,
                             location: location,
+                            town: town,
                         }),
                     );
                 },
@@ -99,10 +103,10 @@ const RequestLocation = (props: Props) => {
         <>
             <Label>잡행어사 출두 위치</Label>
             <div>
-                <div onClick={handleClick} id="address">
+                <div onClick={handleClick} data-method="address">
                     내 주소
                 </div>
-                <div onClick={handleClick} id="location">
+                <div onClick={handleClick} data-method="location">
                     현재 위치
                 </div>
             </div>

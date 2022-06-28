@@ -35,7 +35,6 @@ const RequestDltBtn = (props: Props) => {
         if (confirm('삭제하시겠습니까?')) {
             const unsubscribes = onSnapshot(q, (querySnapshot) => {
                 querySnapshot.forEach(async (document) => {
-                    console.log(document.id);
                     if (
                         document.data().userId === currentUser.uid &&
                         document.data().title === userTitle

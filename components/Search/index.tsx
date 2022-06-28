@@ -31,7 +31,7 @@ const Search = (props: Props) => {
 
 const SearchBox = styled.form`
     position: relative;
-    width: 60%;
+    flex: 8 1 0;
     height: 100%;
     & svg {
         position: absolute;
