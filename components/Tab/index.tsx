@@ -14,7 +14,8 @@ const Tab = (props: Props) => {
     const [clicked, setClicked] = useState('');
 
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        setClicked(e.currentTarget.id);
+        const path = e.currentTarget.dataset.path;
+        if (path) setClicked(path);
     };
 
     return (
@@ -22,7 +23,7 @@ const Tab = (props: Props) => {
             {tabArr.map((tab, i) => (
                 <Link key={i} href={`/${tab[1]}`}>
                     <TabBox
-                        id={tab[1]}
+                        data-path={tab[1]}
                         className={tab[1] === clicked ? 'clicked' : ''}
                         onClick={handleClick}
                     >

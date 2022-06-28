@@ -29,24 +29,26 @@ const FilterContainer = (props: Props) => {
     const [clickedTown, setClickedTown] = useState<string | undefined>();
     const dispatch = useDispatch();
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        const targetCode = e.currentTarget.id;
-        const getData = async () => {
-            const { regcodes } = await getTown(targetCode);
-            const district = {
-                ...regcodes[0],
-                name: `${regcodes[0].name.split(' ')[1]} 전체`,
+        const targetCode = e.currentTarget.dataset.code;
+        if (targetCode) {
+            const getData = async () => {
+                const { regcodes } = await getTown(targetCode);
+                const district = {
+                    ...regcodes[0],
+                    name: `${regcodes[0].name.split(' ')[1]} 전체`,
+                };
+                const towns = regcodes
+                    .slice(1)
+                    .map((town: PlaceCodeTypes) => {
+                        return { ...town, name: town.name.split(' ')[2] };
+                    })
+                    .sort((a: PlaceCodeTypes, b: PlaceCodeTypes) =>
+                        a.name > b.name ? 1 : -1,
+                    );
+                setTownArray([district, ...towns]);
             };
-            const towns = regcodes
-                .slice(1)
-                .map((town: PlaceCodeTypes) => {
-                    return { ...town, name: town.name.split(' ')[2] };
-                })
-                .sort((a: PlaceCodeTypes, b: PlaceCodeTypes) =>
-                    a.name > b.name ? 1 : -1,
-                );
-            setTownArray([district, ...towns]);
-        };
-        getData();
+            getData();
+        }
     };
     useEffect(() => {
         const getData = async () => {

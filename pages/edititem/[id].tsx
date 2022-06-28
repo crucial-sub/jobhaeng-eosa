@@ -33,14 +33,12 @@ const ItemEdit = (props: Props) => {
     }, [itemList]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const name = e.target.id;
-        if (name === 'title') {
+        const info = e.currentTarget.dataset.info;
+        if (info === 'title') {
             setItems({ ...items, title: e.target.value });
-        } else if (name === 'location') {
-            setItems({ ...items, location: e.target.value });
-        } else if (name === 'reward') {
+        } else if (info === 'reward') {
             setItems({ ...items, reward: e.target.value });
-        } else if (name === 'contents') {
+        } else if (info === 'contents') {
             setItems({ ...items, contents: e.target.value });
         }
     };
@@ -77,7 +75,7 @@ const ItemEdit = (props: Props) => {
                     <div>
                         <label htmlFor="title">제목</label>
                         <input
-                            id="title"
+                            data-info="title"
                             value={items.title}
                             onChange={handleChange}
                         />
@@ -90,7 +88,7 @@ const ItemEdit = (props: Props) => {
                     <div>
                         <label htmlFor="reward">보상</label>
                         <input
-                            id="reward"
+                            data-info="reward"
                             value={items.reward}
                             onChange={handleChange}
                         />
@@ -98,7 +96,7 @@ const ItemEdit = (props: Props) => {
                     <div>
                         <label htmlFor="contents">내용</label>
                         <input
-                            id="contents"
+                            data-info="contents"
                             value={items.contents}
                             onChange={handleChange}
                         />

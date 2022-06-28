@@ -16,7 +16,7 @@ const District = (props: Props) => {
                 districtArray.map((dist) => (
                     <DistrictItem
                         key={dist.code}
-                        id={dist.code}
+                        data-code={dist.code}
                         onClick={handleClick}
                         ref={distRef}
                     >
