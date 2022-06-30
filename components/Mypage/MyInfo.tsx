@@ -15,10 +15,10 @@ const MyInfo = (props: Props) => {
         <>
             <Information>나의 정보</Information>
             <MyInfoBox>
-                <div>{currentUser.email}</div>
-                <div>{currentUser.nickName}</div>
-                <div>{currentUser.phoneNumber}</div>
-                <div>{currentUser.address}</div>
+                <div>{currentUser?.email}</div>
+                <div>{currentUser?.nickName}</div>
+                <div>{currentUser?.phoneNumber}</div>
+                <div>{currentUser?.address}</div>
             </MyInfoBox>
             <Link href="/user/edit">
                 <EditBtn>수정하기</EditBtn>

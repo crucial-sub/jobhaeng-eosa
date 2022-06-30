@@ -27,7 +27,7 @@ const MyRequest = (props: Props) => {
     const wholeItems = [...itemList];
     // const myRequests: ItemTypes[] = [{}];
     const dataArr = wholeItems.filter(
-        (data) => data.userId === currentUser.uid,
+        (data) => data.userId === currentUser?.uid,
     );
     const count = dataArr.length;
 
