@@ -30,6 +30,7 @@ import {
 } from 'firebase/firestore';
 import TopLogo from 'layout/TopLogo';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     const router = useRouter();
@@ -66,6 +67,10 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
 
     return (
         <PersistGate persistor={persistor} loading={<div>loading...</div>}>
+            <Head>
+                {' '}
+                <title>잡행어사</title>
+            </Head>
             <Container>
                 {checkLogin ? (
                     <>
