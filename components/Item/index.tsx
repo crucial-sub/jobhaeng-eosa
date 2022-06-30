@@ -48,7 +48,11 @@ const Item = (props: Props) => {
                             }
                         />
                     </>
-                ) : null}
+                ) : (
+                    <Link href={`/chats/${id}`}>
+                        <button>채팅하기</button>
+                    </Link>
+                )}
             </ItemWrapper>
         </>
     );
