@@ -171,6 +171,16 @@ const filterSlice = createSlice({
     },
 });
 
+const tabSlice = createSlice({
+    name: 'tab',
+    initialState: { currentTab: '' },
+    reducers: {
+        tab(state, action) {
+            state.currentTab = action.payload;
+        },
+    },
+});
+
 export interface ChatTypes {
     requestId?: string | undefined;
     title?: string | undefined;
@@ -205,6 +215,7 @@ const rootReducer = combineReducers({
     currentUser: currentUserSlice.reducer,
     removeList: requestSlice.reducer,
     filter: filterSlice.reducer,
+    tab: tabSlice.reducer,
     chatList: chatListsSlice.reducer,
 });
 
@@ -245,6 +256,7 @@ export const filterAction = filterSlice.actions;
 export const chatListsAction = chatListsSlice.actions;
 // export const itemEditCheckAction = itemEditCheckSlice.actions;
 // export const removeItemAction = removeItemSlice.actions;
+export const tabAction = tabSlice.actions;
 
 export const wrapper = createWrapper(makeStore, {
     debug: process.env.NODE_ENV !== 'production',
