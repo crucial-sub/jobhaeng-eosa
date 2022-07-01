@@ -26,48 +26,42 @@ const ChatButton = (props: Props) => {
     );
 
     const handleOnClick = async () => {
-        const chatsRef = collection(dbService, 'chats');
-
-        const q = query(
-            chatsRef,
-            where('users', 'array-contains', currentUser.uid),
-        );
-
-        const querySnapShot = await getDocs(q);
-
-        const userAlreadyExist = (userid: string | string[] | undefined) =>
-            !!querySnapShot?.docs.find(
-                (chat) =>
-                    chat
-                        .data()
-                        .users.find(
-                            (user: string | string[] | undefined) =>
-                                user === userid,
-                        )?.length > 0,
-            );
-
-        const idAlreadyExist = (id: string | string[] | undefined) =>
-            !!querySnapShot?.docs.find((chat) => chat.data().requestId === id);
-
-        if (!userAlreadyExist(item?.userId) && !idAlreadyExist(id)) {
-            const docRef = await addDoc(chatsRef, {
-                title: item?.title,
-                requestId: id,
-                nickName: [currentUser.nickName, item?.nickName],
-                users: [currentUser.uid, id],
-            });
-            const chatRef = doc(dbService, 'chats', docRef.id);
-            if (chatRef) {
-                await updateDoc(doc(dbService, 'chats', docRef.id), {
-                    id: docRef.id,
-                });
-            }
-
-            return;
-        } else {
-            console.log('이미존재');
-            return;
-        }
+        // const chatsRef = collection(dbService, 'chats');
+        // const q = query(
+        //     chatsRef,
+        //     where('users', 'array-contains', currentUser.uid),
+        // );
+        // const querySnapShot = await getDocs(q);
+        // const userAlreadyExist = (userid: string | string[] | undefined) =>
+        //     !!querySnapShot?.docs.find(
+        //         (chat) =>
+        //             chat
+        //                 .data()
+        //                 .users.find(
+        //                     (user: string | string[] | undefined) =>
+        //                         user === userid,
+        //                 )?.length > 0,
+        //     );
+        // const idAlreadyExist = (id: string | string[] | undefined) =>
+        //     !!querySnapShot?.docs.find((chat) => chat.data().requestId === id);
+        // if (!userAlreadyExist(item?.userId) && !idAlreadyExist(id)) {
+        //     const docRef = await addDoc(chatsRef, {
+        //         title: item?.title,
+        //         requestId: id,
+        //         nickName: [currentUser.nickName, item?.nickName],
+        //         users: [currentUser.uid, id],
+        //     });
+        //     const chatRef = doc(dbService, 'chats', docRef.id);
+        //     if (chatRef) {
+        //         await updateDoc(doc(dbService, 'chats', docRef.id), {
+        //             id: docRef.id,
+        //         });
+        //     }
+        //     return;
+        // } else {
+        //     console.log('이미존재');
+        //     return;
+        // }
     };
     return (
         <Link href={`/chats/${id}`}>
