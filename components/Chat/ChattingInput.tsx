@@ -20,8 +20,6 @@ import { useSelector } from 'react-redux';
 import { ItemTypes, RootState } from 'store';
 
 type Props = {
-    setNewMessage: Dispatch<SetStateAction<string>>;
-    newMessage: string;
     chatId: string | string[] | undefined;
     items: ItemTypes | undefined;
     docId: string;
@@ -29,7 +27,9 @@ type Props = {
 };
 
 const ChattingInput = (props: Props) => {
-    const { setNewMessage, newMessage, chatId, items, docId, setDocId } = props;
+    const { chatId, items, docId, setDocId } = props;
+    const [newMessage, setNewMessage] = useState('');
+    const [helpSubmit, setHelpSubmit] = useState(false);
 
     const { currentUser } = useSelector(
         (state: RootState) => state.currentUser,
@@ -43,6 +43,10 @@ const ChattingInput = (props: Props) => {
 
     const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setNewMessage(e.target.value);
+    };
+
+    const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        setHelpSubmit(!helpSubmit);
     };
 
     const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -77,8 +81,8 @@ const ChattingInput = (props: Props) => {
                     id: docRef.id,
                 });
             }
-            const unsubscribe = onSnapshot(q, (querySnapshot) => {
-                querySnapshot.forEach((document) => {
+            const unsubscribe = onSnapshot(q, async (querySnapshot) => {
+                await querySnapshot.forEach((document) => {
                     if (document.data().requestId === chatId) {
                         setDocId(document.data().id);
                     }
@@ -86,27 +90,12 @@ const ChattingInput = (props: Props) => {
             });
         } else {
         }
-
-        // if (docId.length) {
-        //     // const addChatRef = await collection(
-        //     //     dbService,
-        //     //     'chats',
-        //     //     docId,
-        //     //     'messages',
-        //     // );
-        //     // await addDoc(addChatRef, {
-        //     //     timestamp: serverTimestamp(),
-        //     //     message: newMessage,
-        //     //     user: currentUser.email,
-        //     //     nickName: currentUser.nickName,
-        //     // });
-        //     addChating();
-        // }
+        setHelpSubmit(!helpSubmit);
     };
 
     useEffect(() => {
         const addChating = async () => {
-            if (docId.length) {
+            if (newMessage.length > 0 && docId && helpSubmit) {
                 const addChatRef = await collection(
                     dbService,
                     'chats',
@@ -119,11 +108,11 @@ const ChattingInput = (props: Props) => {
                     user: currentUser.email,
                     nickName: currentUser.nickName,
                 });
+                await setNewMessage('');
             }
-            // setNewMessage('');
         };
         addChating();
-    }, [handleOnSubmit]);
+    }, [helpSubmit === true]);
     return (
         <Container onSubmit={handleOnSubmit}>
             <TextArea
@@ -132,20 +121,23 @@ const ChattingInput = (props: Props) => {
                 onChange={handleOnChange}
                 value={newMessage}
             />
-            <Send type="submit" value="전송" />
+            <Send type="submit" onClick={handleOnClick} value="전송">
+                전송
+            </Send>
         </Container>
     );
 };
 
 const Container = styled.form`
     width: 100%;
+    display: flex;
 `;
 const TextArea = styled.textarea`
     width: 80%;
     height: 100%;
 `;
 
-const Send = styled.input`
+const Send = styled.button`
     height: 100%;
     width: 15%;
 `;
