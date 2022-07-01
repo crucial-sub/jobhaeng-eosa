@@ -41,36 +41,89 @@ const ChattingInput = (props: Props) => {
         where('users', 'array-contains', currentUser.uid),
     );
 
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        querySnapshot.forEach((document) => {
-            if (document.data().requestId === chatId) {
-                setDocId(document.data().id);
-            }
-        });
-    });
-
     const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setNewMessage(e.target.value);
     };
 
     const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (docId) {
-            const addChatRef = collection(
-                dbService,
-                'chats',
-                docId,
-                'messages',
+
+        const querySnapShot = await getDocs(q);
+
+        const userAlreadyExist = (userid: string | string[] | undefined) =>
+            !!querySnapShot?.docs.find(
+                (chat) =>
+                    chat
+                        .data()
+                        .users.find(
+                            (user: string | string[] | undefined) =>
+                                user === userid,
+                        )?.length > 0,
             );
-            await addDoc(addChatRef, {
-                timestamp: serverTimestamp(),
-                message: newMessage,
-                user: currentUser.email,
-                nickName: currentUser.nickName,
+
+        const idAlreadyExist = (id: string | string[] | undefined) =>
+            !!querySnapShot?.docs.find((chat) => chat.data().requestId === id);
+
+        if (!userAlreadyExist(items?.userId) && !idAlreadyExist(items?.id)) {
+            const docRef = await addDoc(chatsRef, {
+                title: items?.title,
+                requestId: items?.id,
+                nickName: [currentUser.nickName, items?.nickName],
+                users: [currentUser.uid, items?.userId],
             });
+            const chatRef = doc(dbService, 'chats', docRef.id);
+            if (chatRef) {
+                await updateDoc(doc(dbService, 'chats', docRef.id), {
+                    id: docRef.id,
+                });
+            }
+            const unsubscribe = onSnapshot(q, (querySnapshot) => {
+                querySnapshot.forEach((document) => {
+                    if (document.data().requestId === chatId) {
+                        setDocId(document.data().id);
+                    }
+                });
+            });
+        } else {
         }
-        setNewMessage('');
+
+        // if (docId.length) {
+        //     // const addChatRef = await collection(
+        //     //     dbService,
+        //     //     'chats',
+        //     //     docId,
+        //     //     'messages',
+        //     // );
+        //     // await addDoc(addChatRef, {
+        //     //     timestamp: serverTimestamp(),
+        //     //     message: newMessage,
+        //     //     user: currentUser.email,
+        //     //     nickName: currentUser.nickName,
+        //     // });
+        //     addChating();
+        // }
     };
+
+    useEffect(() => {
+        const addChating = async () => {
+            if (docId.length) {
+                const addChatRef = await collection(
+                    dbService,
+                    'chats',
+                    docId,
+                    'messages',
+                );
+                await addDoc(addChatRef, {
+                    timestamp: serverTimestamp(),
+                    message: newMessage,
+                    user: currentUser.email,
+                    nickName: currentUser.nickName,
+                });
+            }
+            // setNewMessage('');
+        };
+        addChating();
+    }, [handleOnSubmit]);
     return (
         <Container onSubmit={handleOnSubmit}>
             <TextArea

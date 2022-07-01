@@ -16,7 +16,7 @@ const ChattingRoom = (props: Props) => {
     const { chatId, items } = props;
     const [newMessage, setNewMessage] = useState('');
     const [docId, setDocId] = useState('');
-    const chatsRef = collection(dbService, 'chats');
+    // const chatsRef = collection(dbService, 'chats');
     return (
         <>
             <ChattingContainer>
