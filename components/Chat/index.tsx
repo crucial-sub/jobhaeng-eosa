@@ -8,15 +8,12 @@ import { ItemTypes } from 'store';
 import Conversations from './Conversations';
 
 type Props = {
-    chatId: string | string[] | undefined;
     items: ItemTypes | undefined;
 };
 
 const ChattingRoom = (props: Props) => {
-    const { chatId, items } = props;
-
+    const { items } = props;
     const [docId, setDocId] = useState('');
-    // const chatsRef = collection(dbService, 'chats');
     return (
         <>
             <ChattingContainer>
@@ -25,14 +22,9 @@ const ChattingRoom = (props: Props) => {
                         {items?.nickName} 님의 {items?.title} 요청 채팅
                     </ChatOpponent>
                 </div>
-                <Conversations chatId={chatId} docId={docId} />
+                <Conversations items={items} docId={docId} />
             </ChattingContainer>
-            <ChattingInput
-                chatId={chatId}
-                items={items}
-                docId={docId}
-                setDocId={setDocId}
-            />
+            <ChattingInput items={items} docId={docId} setDocId={setDocId} />
         </>
     );
 };
@@ -49,7 +41,5 @@ const ChatOpponent = styled.h1`
     font-weight: bold;
     width: 385px;
 `;
-
-// const ChattingInput = styled.textarea``;
 
 export default ChattingRoom;

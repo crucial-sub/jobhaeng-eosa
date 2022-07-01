@@ -1,16 +1,8 @@
-import { dbService } from 'fbase';
-import {
-    collection,
-    doc,
-    getDoc,
-    onSnapshot,
-    orderBy,
-    query,
-} from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { ItemTypes } from 'store';
 
 type Props = {
-    chatId: string | string[] | undefined;
+    items: ItemTypes | undefined;
     docId: string;
 };
 
@@ -23,7 +15,7 @@ export interface ChatContentType {
 }
 
 const Conversations = (props: Props) => {
-    const { chatId, docId } = props;
+    const { items, docId } = props;
     const [messages, setMessages] = useState<ChatContentType[]>([]);
     // useEffect(() => {
     //     const chatRef = collection(dbService, 'chats', docId, 'messages');
