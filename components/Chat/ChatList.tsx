@@ -11,7 +11,8 @@ import {
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from 'store';
+import { ChatListInitialTypes, chatListsAction, RootState } from 'store';
+import { useDispatch } from 'react-redux';
 
 type Props = {};
 
@@ -24,7 +25,9 @@ export interface ChatTypes {
 }
 
 const ChatLists = (props: Props) => {
-    const [chatsList, setChatsList] = useState<ChatTypes[]>([]);
+    // const [chatsList, setChatsList] = useState<ChatTypes[]>([]);
+    const dispatch = useDispatch();
+    const { chatsList } = useSelector((state: RootState) => state.chatList);
     const { currentUser } = useSelector(
         (state: RootState) => state.currentUser,
     );
@@ -36,14 +39,13 @@ const ChatLists = (props: Props) => {
         );
 
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
-            setChatsList(
-                querySnapshot.docs.map(
-                    (doc: QueryDocumentSnapshot<DocumentData>) => ({
-                        ...doc.data(),
-                        id: doc.id,
-                    }),
-                ),
+            const chatArray = querySnapshot.docs.map(
+                (doc: QueryDocumentSnapshot<DocumentData>) => ({
+                    ...doc.data(),
+                    id: doc.id,
+                }),
             );
+            dispatch(chatListsAction.chatList(chatArray));
         });
         return unsubscribe;
     }, [currentUser]);
