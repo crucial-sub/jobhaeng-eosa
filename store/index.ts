@@ -181,6 +181,32 @@ const tabSlice = createSlice({
     },
 });
 
+export interface ChatTypes {
+    requestId?: string | undefined;
+    title?: string | undefined;
+    users?: [] | undefined;
+    id: string | undefined;
+    nickName?: [] | undefined;
+}
+
+interface ChatListsTypes {
+    chatsList: ChatTypes[];
+}
+
+export const ChatListInitialTypes: ChatListsTypes = {
+    chatsList: [],
+};
+
+const chatListsSlice = createSlice({
+    name: 'chatList',
+    initialState: ChatListInitialTypes,
+    reducers: {
+        chatList(state, action) {
+            state.chatsList = action.payload;
+        },
+    },
+});
+
 const rootReducer = combineReducers({
     itemList: itemListSlice.reducer,
     request: requestSlice.reducer,
@@ -190,6 +216,7 @@ const rootReducer = combineReducers({
     removeList: requestSlice.reducer,
     filter: filterSlice.reducer,
     tab: tabSlice.reducer,
+    chatList: chatListsSlice.reducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -198,7 +225,7 @@ const persistConfig = {
     key: 'root',
     version: 1,
     storage,
-    blacklist: ['join', 'currentUser', 'request'],
+    blacklist: ['join', 'currentUser', 'request', 'chatList'],
 };
 
 export const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -226,6 +253,7 @@ export const loginAction = loginSlice.actions;
 export const joinAction = joinSlice.actions;
 export const currentUserAction = currentUserSlice.actions;
 export const filterAction = filterSlice.actions;
+export const chatListsAction = chatListsSlice.actions;
 // export const itemEditCheckAction = itemEditCheckSlice.actions;
 // export const removeItemAction = removeItemSlice.actions;
 export const tabAction = tabSlice.actions;

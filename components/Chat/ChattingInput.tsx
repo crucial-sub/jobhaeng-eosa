@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import {
@@ -10,6 +10,7 @@ import {
     onSnapshot,
     query,
     QueryDocumentSnapshot,
+    QuerySnapshot,
     serverTimestamp,
     updateDoc,
     where,
@@ -23,16 +24,30 @@ type Props = {
     newMessage: string;
     chatId: string | string[] | undefined;
     items: ItemTypes | undefined;
+    docId: string;
+    setDocId: Dispatch<SetStateAction<string>>;
 };
 
 const ChattingInput = (props: Props) => {
-    const { setNewMessage, newMessage, chatId, items } = props;
-    // const messagesRef = collection(dbService, 'messages');
+    const { setNewMessage, newMessage, chatId, items, docId, setDocId } = props;
+
     const { currentUser } = useSelector(
         (state: RootState) => state.currentUser,
     );
-    const [chatNum, setchatNum] = useState('');
-    const [roomNum, setRoomNum] = useState('');
+
+    const chatsRef = collection(dbService, 'chats');
+    const q = query(
+        chatsRef,
+        where('users', 'array-contains', currentUser.uid),
+    );
+
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        querySnapshot.forEach((document) => {
+            if (document.data().requestId === chatId) {
+                setDocId(document.data().id);
+            }
+        });
+    });
 
     const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setNewMessage(e.target.value);
@@ -40,70 +55,21 @@ const ChattingInput = (props: Props) => {
 
     const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        const chatsRef = collection(dbService, 'chats');
-
-        const q = query(
-            chatsRef,
-            where('users', 'array-contains', currentUser.uid),
-        );
-        const querySnapShot = await getDocs(q);
-        const userAlreadyExist = (userid: string | string[] | undefined) =>
-            !!querySnapShot?.docs.find(
-                (chat) =>
-                    chat
-                        .data()
-                        .users.find(
-                            (user: string | string[] | undefined) =>
-                                user === userid,
-                        )?.length > 0,
+        if (docId) {
+            const addChatRef = collection(
+                dbService,
+                'chats',
+                docId,
+                'messages',
             );
-
-        const idAlreadyExist = (id: string | string[] | undefined) =>
-            !!querySnapShot?.docs.find((chat) => chat.data().requestId === id);
-
-        // 메세지 보내기
-        if (!userAlreadyExist(items?.userId) && !idAlreadyExist(chatId)) {
-            const docRef = await addDoc(chatsRef, {
-                title: items?.title,
-                requestId: chatId,
-                nickName: [currentUser.nickName, items?.nickName],
-                users: [currentUser.uid, chatId],
+            await addDoc(addChatRef, {
+                timestamp: serverTimestamp(),
+                message: newMessage,
+                user: currentUser.email,
+                nickName: currentUser.nickName,
             });
-            const q =
-                // const c = query(
-                //     chatsRef,
-                //     where('users', 'array-contains', currentUser.uid),
-                // );
-                // const unsubscribe = onSnapshot(q, (querySnapshot) => {
-                //     const messageArray = querySnapshot.docs.forEach(
-                //         (doc: QueryDocumentSnapshot<DocumentData>) => ({
-                //             ...doc.data(),
-                //             id: doc.id,
-                //         }),
-                //     );
-                // });
-
-                // await addDoc(messagesRef, {
-                //     timestamp: serverTimestamp(),
-                //     message: newMessage,
-                // });
-                setNewMessage('');
-            console.log('채팅방 생성!');
-            return;
-        } else {
-            console.log('이미존재');
-            return;
         }
-        // setNewMessage('');
-
-        // if (!chatAlreadyExist(items?.userId, items?.id)) {
-
-        // } else {
-        //     console.log('이미 존재합니다');
-        //     setNewMessage('');
-        //     return;
-        // }
+        setNewMessage('');
     };
     return (
         <Container onSubmit={handleOnSubmit}>
@@ -165,3 +131,67 @@ export default ChattingInput;
 //         }
 //     });
 // });
+
+// const chatsRef = collection(dbService, 'chats');
+
+// const q = query(
+//     chatsRef,
+//     where('users', 'array-contains', currentUser.uid),
+// );
+// const querySnapShot = await getDocs(q);
+// const userAlreadyExist = (userid: string | string[] | undefined) =>
+//     !!querySnapShot?.docs.find(
+//         (chat) =>
+//             chat
+//                 .data()
+//                 .users.find(
+//                     (user: string | string[] | undefined) =>
+//                         user === userid,
+//                 )?.length > 0,
+//     );
+
+// const idAlreadyExist = (id: string | string[] | undefined) =>
+//     !!querySnapShot?.docs.find((chat) => chat.data().requestId === id);
+
+// 메세지 보내기
+// if (!userAlreadyExist(items?.userId) && !idAlreadyExist(chatId)) {
+//     const docRef = await addDoc(chatsRef, {
+//         title: items?.title,
+//         requestId: chatId,
+//         nickName: [currentUser.nickName, items?.nickName],
+//         users: [currentUser.uid, chatId],
+//     });
+//     const q =
+//         // const c = query(
+//         //     chatsRef,
+//         //     where('users', 'array-contains', currentUser.uid),
+//         // );
+// const unsubscribe = onSnapshot(q, (querySnapshot) => {
+//     const messageArray = querySnapshot.docs.forEach(
+//         (doc: QueryDocumentSnapshot<DocumentData>) => ({
+//             ...doc.data(),
+//             id: doc.id,
+//         }),
+//     );
+// });
+
+//         // await addDoc(messagesRef, {
+//         //     timestamp: serverTimestamp(),
+//         //     message: newMessage,
+//         // });
+//         setNewMessage('');
+//     console.log('채팅방 생성!');
+//     return;
+// } else {
+//     console.log('이미존재');
+//     return;
+// }
+// setNewMessage('');
+
+// if (!chatAlreadyExist(items?.userId, items?.id)) {
+
+// } else {
+//     console.log('이미 존재합니다');
+//     setNewMessage('');
+//     return;
+// }

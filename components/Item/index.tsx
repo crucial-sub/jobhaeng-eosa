@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { ItemTypes, RootState } from 'store';
+import ChatButton from './ChatButton';
 
 type Props = {
     item: ItemTypes;
@@ -49,9 +50,7 @@ const Item = (props: Props) => {
                         />
                     </>
                 ) : (
-                    <Link href={`/chats/${id}`}>
-                        <button>채팅하기</button>
-                    </Link>
+                    <ChatButton id={id} item={item} />
                 )}
             </ItemWrapper>
         </>

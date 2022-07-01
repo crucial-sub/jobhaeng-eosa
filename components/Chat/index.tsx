@@ -15,6 +15,8 @@ type Props = {
 const ChattingRoom = (props: Props) => {
     const { chatId, items } = props;
     const [newMessage, setNewMessage] = useState('');
+    const [docId, setDocId] = useState('');
+    const chatsRef = collection(dbService, 'chats');
     return (
         <>
             <ChattingContainer>
@@ -23,13 +25,15 @@ const ChattingRoom = (props: Props) => {
                         {items?.nickName} 님의 {items?.title} 요청 채팅
                     </ChatOpponent>
                 </div>
-                <Conversations chatId={chatId} />
+                <Conversations chatId={chatId} docId={docId} />
             </ChattingContainer>
             <ChattingInput
                 setNewMessage={setNewMessage}
                 newMessage={newMessage}
                 chatId={chatId}
                 items={items}
+                docId={docId}
+                setDocId={setDocId}
             />
         </>
     );
