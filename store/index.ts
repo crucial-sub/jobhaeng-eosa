@@ -171,6 +171,16 @@ const filterSlice = createSlice({
     },
 });
 
+const tabSlice = createSlice({
+    name: 'tab',
+    initialState: { currentTab: '' },
+    reducers: {
+        tab(state, action) {
+            state.currentTab = action.payload;
+        },
+    },
+});
+
 const rootReducer = combineReducers({
     itemList: itemListSlice.reducer,
     request: requestSlice.reducer,
@@ -179,6 +189,7 @@ const rootReducer = combineReducers({
     currentUser: currentUserSlice.reducer,
     removeList: requestSlice.reducer,
     filter: filterSlice.reducer,
+    tab: tabSlice.reducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -217,6 +228,7 @@ export const currentUserAction = currentUserSlice.actions;
 export const filterAction = filterSlice.actions;
 // export const itemEditCheckAction = itemEditCheckSlice.actions;
 // export const removeItemAction = removeItemSlice.actions;
+export const tabAction = tabSlice.actions;
 
 export const wrapper = createWrapper(makeStore, {
     debug: process.env.NODE_ENV !== 'production',
