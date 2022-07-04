@@ -6,6 +6,7 @@ import { dbService } from 'fbase';
 import ChattingInput from './ChattingInput';
 import { ItemTypes } from 'store';
 import Conversations from './Conversations';
+import ChatOut from './ChatOut';
 
 type Props = {
     items: ItemTypes | undefined;
@@ -18,6 +19,7 @@ const ChattingRoom = (props: Props) => {
         <>
             <ChattingContainer>
                 <div>
+                    <ChatOut items={items} docId={docId} />
                     <ChatOpponent>
                         {items?.nickName} 님의 {items?.title} 요청 채팅
                     </ChatOpponent>
