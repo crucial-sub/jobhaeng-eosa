@@ -11,7 +11,7 @@ import {
 } from 'firebase/firestore';
 import { dbService } from 'fbase';
 import ChattingInput from './ChattingInput';
-import { itemNdocAction, ItemTypes, RootState } from 'store';
+import { docIdAction, itemNdocAction, ItemTypes, RootState } from 'store';
 import Conversations from './Conversations';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -27,13 +27,13 @@ type docIdType = {
 
 const ChattingRoom = (props: Props) => {
     const { items } = props;
-    const [docId, setDocId] = useState('');
     const [docc, setDocc] = useState<string | undefined>();
     const dispatch = useDispatch();
     const { currentUser } = useSelector(
         (state: RootState) => state.currentUser,
     );
     const { itemDocId } = useSelector((state: RootState) => state.itemDoc);
+    const { docId } = useSelector((state: RootState) => state.docId);
     useEffect(() => {
         const chatsRef = collection(dbService, 'chats');
         const q = query(
@@ -45,7 +45,7 @@ const ChattingRoom = (props: Props) => {
             const unsubscribe = onSnapshot(q, (querySnapshot) => {
                 const chatArray = querySnapshot.docs.map(
                     (doc: QueryDocumentSnapshot<DocumentData>) => ({
-                        // ...doc.data(),
+                        ...doc.data(),
                         itemsId: doc.data().requestId,
                         docNumber: doc.id,
                     }),
@@ -54,12 +54,13 @@ const ChattingRoom = (props: Props) => {
             });
         }
         itemDocId.map((a) => {
+            console.log(a.itemsId + '     ' + items?.id);
             if (a.itemsId === items?.id) {
-                return setDocc(a.docNumber);
+                return dispatch(docIdAction.docId(a.docNumber));
             }
         });
     }, [items]);
-    console.log(docc);
+
     return (
         <>
             <ChattingContainer>
@@ -69,9 +70,9 @@ const ChattingRoom = (props: Props) => {
                         {items?.nickName} 님의 {items?.title} 요청 채팅
                     </ChatOpponent>
                 </div>
-                <Conversations items={items} docc={docc} />
+                <Conversations items={items} />
             </ChattingContainer>
-            <ChattingInput items={items} docc={docc} setDocId={setDocId} />
+            <ChattingInput items={items} />
         </>
     );
 };
