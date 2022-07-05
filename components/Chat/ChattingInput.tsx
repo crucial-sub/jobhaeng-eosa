@@ -13,43 +13,42 @@ import {
 } from 'firebase/firestore';
 import { dbService } from 'fbase';
 import { useSelector } from 'react-redux';
-import { itemNdocAction, ItemTypes, RootState } from 'store';
+import { docIdAction, itemNdocAction, ItemTypes, RootState } from 'store';
 import { useDispatch } from 'react-redux';
 
 type Props = {
     items: ItemTypes | undefined;
-    docc: string | undefined;
-    setDocId: Dispatch<SetStateAction<string>>;
 };
 
 const ChattingInput = (props: Props) => {
     const dispatch = useDispatch();
-    const { items, docc, setDocId } = props;
+    const { items } = props;
     const [newMessage, setNewMessage] = useState('');
 
     const { currentUser } = useSelector(
         (state: RootState) => state.currentUser,
     );
 
+    const { docId } = useSelector((state: RootState) => state.docId);
+
     const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setNewMessage(e.target.value);
     };
-
-    const addChating = async (id: string | undefined) => {
-        if (id) {
-            const addChatRef = collection(dbService, 'chats', id, 'messages');
-            await addDoc(addChatRef, {
-                timestamp: serverTimestamp(),
-                message: newMessage,
-                user: currentUser.email,
-                nickName: currentUser.nickName,
-            });
-        }
+    console.log(newMessage);
+    const addChating = async (docId: string) => {
+        const addChatRef = collection(dbService, 'chats', docId, 'messages');
+        await addDoc(addChatRef, {
+            timestamp: serverTimestamp(),
+            message: newMessage,
+            user: currentUser.email,
+            nickName: currentUser.nickName,
+        });
         setNewMessage('');
     };
 
     const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        console.log('작동');
         const chatsRef = collection(dbService, 'chats');
         const q = query(
             chatsRef,
@@ -88,11 +87,11 @@ const ChattingInput = (props: Props) => {
             await updateDoc(doc(dbService, 'chats', docRef.id), {
                 id: docRef.id,
             });
-            // setDocId(docRef.id);
+            dispatch(docIdAction.docId(docRef.id));
 
             return addChating(docRef.id);
         } else {
-            return addChating(docc);
+            return addChating(docId);
         }
     };
 

@@ -228,6 +228,24 @@ const itemDocIdSlice = createSlice({
     },
 });
 
+interface docIdTypes {
+    docId: string;
+}
+
+const docIdInitialState: docIdTypes = {
+    docId: '',
+};
+
+const docIdSlice = createSlice({
+    name: 'docId',
+    initialState: docIdInitialState,
+    reducers: {
+        docId(state, action) {
+            state.docId = action.payload;
+        },
+    },
+});
+
 const rootReducer = combineReducers({
     itemList: itemListSlice.reducer,
     request: requestSlice.reducer,
@@ -239,6 +257,7 @@ const rootReducer = combineReducers({
     tab: tabSlice.reducer,
     chatList: chatListsSlice.reducer,
     itemDoc: itemDocIdSlice.reducer,
+    docId: docIdSlice.reducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -280,6 +299,7 @@ export const chatListsAction = chatListsSlice.actions;
 // export const removeItemAction = removeItemSlice.actions;
 export const tabAction = tabSlice.actions;
 export const itemNdocAction = itemDocIdSlice.actions;
+export const docIdAction = docIdSlice.actions;
 
 export const wrapper = createWrapper(makeStore, {
     debug: process.env.NODE_ENV !== 'production',
