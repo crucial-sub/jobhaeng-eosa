@@ -3,6 +3,7 @@ import {
     collection,
     deleteDoc,
     doc,
+    getDocs,
     onSnapshot,
     query,
     updateDoc,
@@ -25,31 +26,40 @@ const ChatOut = (props: Props) => {
     );
     const { docId } = useSelector((state: RootState) => state.docId);
 
-    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const handleClick = async (e: React.MouseEvent<HTMLDivElement>) => {
         const collectionRef = collection(dbService, 'chats');
-        const q = query(collectionRef, where('id', '==', docId));
-        if (confirm('채팅방을 나가시겠습니까?') && q) {
+
+        if (confirm('채팅방을 나가시겠습니까?')) {
+            const docsRef = await getDocs(collectionRef);
+            const chatRoom = docsRef.docs
+                .find((doc) => doc.id === docId)
+                ?.data();
+            if (currentUser.uid === items?.userId) {
+                const newState = [chatRoom?.onOff[0], 'off'];
+                await updateDoc(doc(dbService, 'chats', docId), {
+                    onOff: [...newState],
+                });
+            } else {
+                const newState = ['off', chatRoom?.onOff[1]];
+                await updateDoc(doc(dbService, 'chats', docId), {
+                    onOff: [...newState],
+                });
+            }
+
+            const q = query(collectionRef, where('id', '==', docId));
             const unsubscribes = onSnapshot(q, async (querySnapshot) => {
                 if (querySnapshot.docs[0]) {
                     const chatRoom = querySnapshot.docs[0].data();
-                    if (currentUser.uid === items?.userId) {
-                        const newState = [chatRoom.onOff[0], 'off'];
-                        await updateDoc(doc(dbService, 'chats', docId), {
-                            onOff: [...newState],
-                        });
-                    } else {
-                        const newState = ['off', chatRoom.onOff[1]];
-                        await updateDoc(doc(dbService, 'chats', docId), {
-                            onOff: [...newState],
-                        });
-                    }
                     if (
-                        chatRoom.onOff.every((check: string) => check === 'off')
+                        chatRoom?.onOff.every(
+                            (check: string) => check === 'off',
+                        )
                     ) {
                         await deleteDoc(doc(dbService, 'chats', docId));
                     }
                 }
             });
+
             router.push('/');
         } else return;
     };
