@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
-import { useRouter } from 'next/router';
 import {
     collection,
     DocumentData,
@@ -15,24 +14,19 @@ import { docIdAction, itemNdocAction, ItemTypes, RootState } from 'store';
 import Conversations from './Conversations';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import ChatOut from './ChatOut';
 
 type Props = {
     items: ItemTypes | undefined;
 };
 
-type docIdType = {
-    docc: string | undefined;
-};
-
 const ChattingRoom = (props: Props) => {
     const { items } = props;
-    const [docc, setDocc] = useState<string | undefined>();
     const dispatch = useDispatch();
     const { currentUser } = useSelector(
         (state: RootState) => state.currentUser,
     );
     const { itemDocId } = useSelector((state: RootState) => state.itemDoc);
-    const { docId } = useSelector((state: RootState) => state.docId);
     useEffect(() => {
         const chatsRef = collection(dbService, 'chats');
         const q = query(
@@ -64,6 +58,7 @@ const ChattingRoom = (props: Props) => {
         <>
             <ChattingContainer>
                 <div>
+                    <ChatOut items={items} />
                     <ChatOpponent>
                         {items?.nickName} 님의 {items?.title} 요청 채팅
                     </ChatOpponent>

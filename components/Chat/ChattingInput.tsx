@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import {
@@ -13,7 +13,7 @@ import {
 } from 'firebase/firestore';
 import { dbService } from 'fbase';
 import { useSelector } from 'react-redux';
-import { docIdAction, itemNdocAction, ItemTypes, RootState } from 'store';
+import { docIdAction, ItemTypes, RootState } from 'store';
 import { useDispatch } from 'react-redux';
 
 type Props = {
@@ -34,7 +34,6 @@ const ChattingInput = (props: Props) => {
     const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setNewMessage(e.target.value);
     };
-    console.log(newMessage);
     const addChating = async (docId: string) => {
         const addChatRef = collection(dbService, 'chats', docId, 'messages');
         await addDoc(addChatRef, {
@@ -48,7 +47,6 @@ const ChattingInput = (props: Props) => {
 
     const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('작동');
         const chatsRef = collection(dbService, 'chats');
         const q = query(
             chatsRef,
@@ -81,6 +79,7 @@ const ChattingInput = (props: Props) => {
                 title: items?.title,
                 requestId: items?.id,
                 nickName: [currentUser.nickName, items?.nickName],
+                onOff: ['on', 'on'],
                 users: [currentUser.uid, items?.userId],
             });
 
@@ -91,6 +90,23 @@ const ChattingInput = (props: Props) => {
 
             return addChating(docRef.id);
         } else {
+            const collectionRef = collection(dbService, 'chats');
+            const docsRef = await getDocs(collectionRef);
+            const chatRoom = docsRef.docs
+                .find((doc) => doc.id === docId)
+                ?.data();
+            if (currentUser.uid === items?.userId) {
+                const newState = [chatRoom?.onOff[0], 'on'];
+                await updateDoc(doc(dbService, 'chats', docId), {
+                    onOff: [...newState],
+                });
+            } else {
+                const newState = ['on', chatRoom?.onOff[1]];
+                await updateDoc(doc(dbService, 'chats', docId), {
+                    onOff: [...newState],
+                });
+            }
+
             return addChating(docId);
         }
     };
