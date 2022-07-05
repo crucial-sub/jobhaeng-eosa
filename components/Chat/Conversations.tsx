@@ -7,7 +7,6 @@ import styled from '@emotion/styled';
 
 type Props = {
     items: ItemTypes | undefined;
-    docc: string | undefined;
 };
 
 export interface ChatContentType {
@@ -19,17 +18,17 @@ export interface ChatContentType {
 }
 
 const Conversations = (props: Props) => {
-    const { items, docc } = props;
+    const { items } = props;
     const [messages, setMessages] = useState<ChatContentType[]>([]);
     const { itemDocId } = useSelector((state: RootState) => state.itemDoc);
     const { currentUser } = useSelector(
         (state: RootState) => state.currentUser,
     );
-    // console.log(docId);
+    const { docId } = useSelector((state: RootState) => state.docId);
+
     useEffect(() => {
-        // const messageList = (id: string) => {
-        if (docc) {
-            const chatRef = collection(dbService, 'chats', docc, 'messages');
+        if (docId) {
+            const chatRef = collection(dbService, 'chats', docId, 'messages');
             const g = query(chatRef, orderBy('timestamp', 'asc'));
             const unsubscribe = onSnapshot(g, (querySnapshot) => {
                 const mes = querySnapshot.docs.map((doc) => ({
@@ -39,23 +38,15 @@ const Conversations = (props: Props) => {
                 setMessages(mes);
             });
         }
-        // };
-    }, [docc]);
-    console.log(messages);
-    // useEffect(() => {}, []);
+    }, [docId]);
     // console.log(messages);
-
-    // if (docId) {
-    //     setDoc(docId);
-    // }
-    // messageList(doc);
     return (
-        <div>
+        <ContentBox>
             {messages &&
-                messages.map((a) => {
+                messages.map((a, i) => {
                     if (a.user === currentUser.email) {
                         return (
-                            <MyMessage key={a.id}>
+                            <MyMessage key={i}>
                                 <div>{a.message}</div>
                                 <div>{a.nickName}</div>
                                 <div>{a.timeStamp}</div>
@@ -63,7 +54,7 @@ const Conversations = (props: Props) => {
                         );
                     } else {
                         return (
-                            <OpponentMessage key={a.id}>
+                            <OpponentMessage key={i}>
                                 <div>{a.message}</div>
                                 <div>{a.nickName}</div>
                                 <div>{a.timeStamp}</div>
@@ -71,13 +62,13 @@ const Conversations = (props: Props) => {
                         );
                     }
                 })}
-        </div>
+        </ContentBox>
     );
 };
 
 const ContentBox = styled.div`
     width: 100%;
-    height: 100%;
+
     position: relative;
 `;
 
