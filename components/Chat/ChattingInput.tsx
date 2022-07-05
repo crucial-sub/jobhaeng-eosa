@@ -13,16 +13,18 @@ import {
 } from 'firebase/firestore';
 import { dbService } from 'fbase';
 import { useSelector } from 'react-redux';
-import { ItemTypes, RootState } from 'store';
+import { itemNdocAction, ItemTypes, RootState } from 'store';
+import { useDispatch } from 'react-redux';
 
 type Props = {
     items: ItemTypes | undefined;
-    docId: string;
+    docc: string | undefined;
     setDocId: Dispatch<SetStateAction<string>>;
 };
 
 const ChattingInput = (props: Props) => {
-    const { items, docId, setDocId } = props;
+    const dispatch = useDispatch();
+    const { items, docc, setDocId } = props;
     const [newMessage, setNewMessage] = useState('');
 
     const { currentUser } = useSelector(
@@ -33,14 +35,16 @@ const ChattingInput = (props: Props) => {
         setNewMessage(e.target.value);
     };
 
-    const addChating = async (id: string) => {
-        const addChatRef = collection(dbService, 'chats', id, 'messages');
-        await addDoc(addChatRef, {
-            timestamp: serverTimestamp(),
-            message: newMessage,
-            user: currentUser.email,
-            nickName: currentUser.nickName,
-        });
+    const addChating = async (id: string | undefined) => {
+        if (id) {
+            const addChatRef = collection(dbService, 'chats', id, 'messages');
+            await addDoc(addChatRef, {
+                timestamp: serverTimestamp(),
+                message: newMessage,
+                user: currentUser.email,
+                nickName: currentUser.nickName,
+            });
+        }
         setNewMessage('');
     };
 
@@ -53,38 +57,42 @@ const ChattingInput = (props: Props) => {
         );
 
         const querySnapShot = await getDocs(q);
-        const userAlreadyExist = (userid: string | string[] | undefined) =>
+        const userAlreadyExist = (
+            userid: string | string[] | undefined,
+            id: string,
+        ) =>
             !!querySnapShot?.docs.find(
                 (chat) =>
                     chat
                         .data()
                         .users.find(
                             (user: string | string[] | undefined) =>
-                                user === userid,
+                                user === userid && user === id,
                         )?.length > 0,
             );
 
         const idAlreadyExist = (id: string | string[] | undefined) =>
             !!querySnapShot?.docs.find((chat) => chat.data().requestId === id);
 
-        if (!userAlreadyExist(items?.userId) && !idAlreadyExist(items?.id)) {
+        if (
+            !userAlreadyExist(items?.userId, currentUser.uid) &&
+            !idAlreadyExist(items?.id)
+        ) {
             const docRef = await addDoc(chatsRef, {
                 title: items?.title,
                 requestId: items?.id,
                 nickName: [currentUser.nickName, items?.nickName],
                 users: [currentUser.uid, items?.userId],
             });
-            const chatRef = doc(dbService, 'chats', docRef.id);
-            if (chatRef) {
-                await updateDoc(doc(dbService, 'chats', docRef.id), {
-                    id: docRef.id,
-                });
-                setDocId(docRef.id);
-            }
+
+            await updateDoc(doc(dbService, 'chats', docRef.id), {
+                id: docRef.id,
+            });
+            // setDocId(docRef.id);
 
             return addChating(docRef.id);
         } else {
-            return addChating(docId);
+            return addChating(docc);
         }
     };
 
