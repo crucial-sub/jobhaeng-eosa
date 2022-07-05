@@ -25,7 +25,6 @@ export interface ChatTypes {
 }
 
 const ChatLists = (props: Props) => {
-    // const [chatsList, setChatsList] = useState<ChatTypes[]>([]);
     const dispatch = useDispatch();
     const { chatsList } = useSelector((state: RootState) => state.chatList);
     const { currentUser } = useSelector(
