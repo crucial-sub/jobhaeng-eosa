@@ -55,7 +55,7 @@ const Conversations = (props: Props) => {
                 messages.map((a) => {
                     if (a.user === currentUser.email) {
                         return (
-                            <MyMessage key={a.id}>
+                            <MyMessage key={a.timeStamp}>
                                 <div>{a.message}</div>
                                 <div>{a.nickName}</div>
                                 <div>{a.timeStamp}</div>
@@ -63,7 +63,7 @@ const Conversations = (props: Props) => {
                         );
                     } else {
                         return (
-                            <OpponentMessage key={a.id}>
+                            <OpponentMessage key={a.timeStamp}>
                                 <div>{a.message}</div>
                                 <div>{a.nickName}</div>
                                 <div>{a.timeStamp}</div>

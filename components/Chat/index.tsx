@@ -13,12 +13,9 @@ import { dbService } from 'fbase';
 import ChattingInput from './ChattingInput';
 import { itemNdocAction, ItemTypes, RootState } from 'store';
 import Conversations from './Conversations';
-<<<<<<< HEAD
-import ChatOut from './ChatOut';
-=======
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
->>>>>>> 0eb76461f83ba8c52fd8f576382318d9da1253fe
+import ChatOut from './ChatOut';
 
 type Props = {
     items: ItemTypes | undefined;
@@ -67,7 +64,7 @@ const ChattingRoom = (props: Props) => {
         <>
             <ChattingContainer>
                 <div>
-                    <ChatOut items={items} docId={docId} />
+                    <ChatOut items={items} docc={docc} />
                     <ChatOpponent>
                         {items?.nickName} 님의 {items?.title} 요청 채팅
                     </ChatOpponent>

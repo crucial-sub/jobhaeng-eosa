@@ -82,6 +82,7 @@ const ChattingInput = (props: Props) => {
                 title: items?.title,
                 requestId: items?.id,
                 nickName: [currentUser.nickName, items?.nickName],
+                onOff: ['on', 'on'],
                 users: [currentUser.uid, items?.userId],
             });
 
