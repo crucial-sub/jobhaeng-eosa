@@ -192,17 +192,38 @@ export interface ChatTypes {
 interface ChatListsTypes {
     chatsList: ChatTypes[];
 }
-
 export const ChatListInitialTypes: ChatListsTypes = {
     chatsList: [],
 };
-
 const chatListsSlice = createSlice({
     name: 'chatList',
     initialState: ChatListInitialTypes,
     reducers: {
         chatList(state, action) {
             state.chatsList = action.payload;
+        },
+    },
+});
+
+export interface ItemNdocIdTypes {
+    itemsId?: string;
+    docNumber?: string;
+}
+
+interface ItemNDocTypes {
+    itemDocId: ItemNdocIdTypes[];
+}
+
+export const ItemDocIdInitial: ItemNDocTypes = {
+    itemDocId: [],
+};
+
+const itemDocIdSlice = createSlice({
+    name: 'itemDoc',
+    initialState: ItemDocIdInitial,
+    reducers: {
+        itemDocId(state, action) {
+            state.itemDocId = action.payload;
         },
     },
 });
@@ -217,6 +238,7 @@ const rootReducer = combineReducers({
     filter: filterSlice.reducer,
     tab: tabSlice.reducer,
     chatList: chatListsSlice.reducer,
+    itemDoc: itemDocIdSlice.reducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -225,7 +247,7 @@ const persistConfig = {
     key: 'root',
     version: 1,
     storage,
-    blacklist: ['join', 'currentUser', 'request', 'chatList'],
+    blacklist: ['join', 'currentUser', 'request', 'chatList', 'itemDocId'],
 };
 
 export const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -257,6 +279,7 @@ export const chatListsAction = chatListsSlice.actions;
 // export const itemEditCheckAction = itemEditCheckSlice.actions;
 // export const removeItemAction = removeItemSlice.actions;
 export const tabAction = tabSlice.actions;
+export const itemNdocAction = itemDocIdSlice.actions;
 
 export const wrapper = createWrapper(makeStore, {
     debug: process.env.NODE_ENV !== 'production',
