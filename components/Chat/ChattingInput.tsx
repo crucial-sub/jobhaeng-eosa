@@ -95,6 +95,7 @@ const ChattingInput = (props: Props) => {
             const chatRoom = docsRef.docs
                 .find((doc) => doc.id === docId)
                 ?.data();
+
             if (currentUser.uid === items?.userId) {
                 const newState = [chatRoom?.onOff[0], 'on'];
                 await updateDoc(doc(dbService, 'chats', docId), {

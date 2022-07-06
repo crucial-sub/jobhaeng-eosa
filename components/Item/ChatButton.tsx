@@ -23,10 +23,10 @@ const ChatButton = (props: Props) => {
     const { currentUser } = useSelector(
         (state: RootState) => state.currentUser,
     );
-    const { itemDocId } = useSelector((state: RootState) => state.itemDoc);
     const dispatch = useDispatch();
+    const { itemDocId } = useSelector((state: RootState) => state.itemDoc);
 
-    const handleClick = () => {
+    useEffect(() => {
         const chatsRef = collection(dbService, 'chats');
         const q = query(
             chatsRef,
@@ -43,18 +43,21 @@ const ChatButton = (props: Props) => {
             );
             dispatch(itemNdocAction.itemDocId(chatArray));
         });
-
-        itemDocId.map((a) => {
+        console.log(itemDocId);
+        const bbb = itemDocId.some((a) => {
             if (a.itemsId === item?.id) {
-                return dispatch(docIdAction.docId(a.docNumber));
+                dispatch(docIdAction.docId(a.docNumber));
             }
         });
-    };
-    useEffect(() => {});
+        if (bbb) {
+            dispatch(docIdAction.docId(''));
+        }
+    }, [item]);
+    // console.log(docId);
 
     return (
         <Link href={`/chats/${id}`}>
-            <button onClick={handleClick}>채팅하기</button>
+            <button>채팅하기</button>
         </Link>
     );
 };

@@ -33,35 +33,42 @@ const Conversations = (props: Props) => {
     const [isOn, setIsOn] = useState<boolean>();
 
     useEffect(() => {
-        const chatRef = collection(dbService, 'chats', docId, 'messages');
-        const g = query(chatRef, orderBy('timestamp', 'asc'));
-        const unsubscribe = onSnapshot(g, (querySnapshot) => {
-            const mes = querySnapshot.docs.map((doc) => ({
-                ...doc.data(),
-                timeStamp: doc.data().timestamp?.toDate().getTime(),
-            }));
-            setMessages(mes);
-        });
-    }, [docId]);
+        if (docId !== '') {
+            const chatRef = collection(dbService, 'chats', docId, 'messages');
+            const g = query(chatRef, orderBy('timestamp', 'asc'));
+
+            const unsubscribe = onSnapshot(g, async (querySnapshot) => {
+                const mes = await querySnapshot.docs.map((doc) => ({
+                    ...doc.data(),
+                    timeStamp: doc.data().timestamp?.toDate().getTime(),
+                }));
+                setMessages(mes);
+            });
+        }
+    }, [messages, docId]);
+
     useEffect(() => {
-        const collectionRef = collection(dbService, 'chats');
-        const q = query(collectionRef, where('id', '==', docId));
-        const onOffCheck = onSnapshot(q, (querySnapshot) => {
-            if (querySnapshot.docs[0]) {
-                let chatOnOff;
-                if (currentUser.uid === items?.userId) {
-                    chatOnOff = querySnapshot.docs[0].data().onOff[1];
-                } else {
-                    chatOnOff = querySnapshot.docs[0].data().onOff[0];
+        if (docId !== '') {
+            const collectionRef = collection(dbService, 'chats');
+            const q = query(collectionRef, where('id', '==', docId));
+            const onOffCheck = onSnapshot(q, (querySnapshot) => {
+                if (querySnapshot.docs[0]) {
+                    let chatOnOff;
+                    if (currentUser.uid === items?.userId) {
+                        chatOnOff = querySnapshot.docs[0].data().onOff[1];
+                    } else {
+                        chatOnOff = querySnapshot.docs[0].data().onOff[0];
+                    }
+                    if (chatOnOff === 'on') {
+                        setIsOn(true);
+                    } else if (chatOnOff === 'off') {
+                        setIsOn(false);
+                    }
                 }
-                if (chatOnOff === 'on') {
-                    setIsOn(true);
-                } else if (chatOnOff === 'off') {
-                    setIsOn(false);
-                }
-            }
-        });
-    }, [currentUser, messages]);
+            });
+        }
+    }, [messages, docId]);
+
     return (
         <ContentBox>
             {messages &&
