@@ -189,6 +189,7 @@ export interface ChatTypes {
     title?: string | undefined;
     id: string | undefined;
     nickName?: [] | undefined;
+    lastChat?: string | undefined;
 }
 
 interface ChatListsTypes {

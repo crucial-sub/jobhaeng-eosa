@@ -4,6 +4,7 @@ import {
     collection,
     DocumentData,
     onSnapshot,
+    orderBy,
     query,
     QueryDocumentSnapshot,
     where,
@@ -24,7 +25,6 @@ const ChatOfRequest = (props: Props) => {
         (state: RootState) => state.currentUser,
     );
     const [chatArr, setChatArr] = useState<DocumentData[]>([]);
-    console.log(chatArr);
     useEffect(() => {
         const collectionRef = collection(dbService, 'chats');
         const q = query(collectionRef, where('requestId', '==', id));
@@ -40,10 +40,10 @@ const ChatOfRequest = (props: Props) => {
             {chatArr.length > 0 &&
                 chatArr.map((chat) => (
                     <Link key={chat.id} href={`/chats/${chat.id}`}>
-                        <div>
-                            <div>{chat.nickName[0]}</div>
-                            <div>{chat.da}</div>
-                        </div>
+                        <Chat>
+                            <NickName>{chat.nickName[0]}</NickName>
+                            <LastChatText>{chat.lastChat}</LastChatText>
+                        </Chat>
                     </Link>
                 ))}
         </ChatList>
@@ -53,9 +53,24 @@ const ChatOfRequest = (props: Props) => {
 const ChatList = styled.div`
     position: absolute;
     width: 100%;
-    min-height: 20%;
+    min-height: 10%;
     bottom: 0;
     background-color: beige;
+    display: flex;
+    flex-direction: column;
 `;
+
+const Chat = styled.div`
+    width: 100%;
+    display: flex;
+    margin: 10px 0 10px 10px;
+    cursor: pointer;
+`;
+
+const NickName = styled.div`
+    margin-right: 10px;
+`;
+
+const LastChatText = styled.div``;
 
 export default ChatOfRequest;

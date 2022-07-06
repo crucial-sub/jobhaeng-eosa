@@ -42,6 +42,9 @@ const ChattingInput = (props: Props) => {
             user: currentUser.email,
             nickName: currentUser.nickName,
         });
+        await updateDoc(doc(dbService, 'chats', docId), {
+            lastChat: newMessage,
+        });
         setNewMessage('');
     };
 
@@ -81,6 +84,7 @@ const ChattingInput = (props: Props) => {
                 nickName: [currentUser.nickName, items?.nickName],
                 onOff: ['on', 'on'],
                 users: [currentUser.uid, items?.userId],
+                lastChat: '',
             });
 
             await updateDoc(doc(dbService, 'chats', docRef.id), {
