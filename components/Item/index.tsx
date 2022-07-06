@@ -6,6 +6,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { ItemTypes, RootState } from 'store';
 import ChatButton from './ChatButton';
+import ChatOfRequest from './ChatOfRequest';
 
 type Props = {
     item: ItemTypes;
@@ -48,6 +49,7 @@ const Item = (props: Props) => {
                                 currentUserUid ? currentUserUid : ''
                             }
                         />
+                        <ChatOfRequest id={id} item={item} />
                     </>
                 ) : (
                     <ChatButton id={id} item={item} />
