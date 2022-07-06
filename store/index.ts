@@ -183,12 +183,12 @@ const tabSlice = createSlice({
 
 export interface ChatTypes {
     user?: string[] | undefined;
+    onOff?: string[] | undefined;
+    users?: [] | undefined;
     requestId?: string | undefined;
     title?: string | undefined;
-    users?: [] | undefined;
     id: string | undefined;
     nickName?: [] | undefined;
-    onOff?: string[] | undefined;
 }
 
 interface ChatListsTypes {
@@ -268,7 +268,14 @@ const persistConfig = {
     key: 'root',
     version: 1,
     storage,
-    blacklist: ['join', 'currentUser', 'request', 'chatList', 'itemDocId'],
+    blacklist: [
+        'join',
+        'currentUser',
+        'request',
+        'chatList',
+        'itemDocId',
+        'docId',
+    ],
 };
 
 export const persistedReducer = persistReducer(persistConfig, rootReducer);
