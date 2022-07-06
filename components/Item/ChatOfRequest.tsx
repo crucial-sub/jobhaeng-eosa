@@ -8,6 +8,7 @@ import {
     QueryDocumentSnapshot,
     where,
 } from 'firebase/firestore';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ItemTypes, RootState } from 'store';
@@ -38,10 +39,12 @@ const ChatOfRequest = (props: Props) => {
         <ChatList>
             {chatArr.length > 0 &&
                 chatArr.map((chat) => (
-                    <div key={chat.id}>
-                        <div>{chat.nickName[0]}</div>
-                        <div>{chat.da}</div>
-                    </div>
+                    <Link key={chat.id} href={`/chats/${chat.id}`}>
+                        <div>
+                            <div>{chat.nickName[0]}</div>
+                            <div>{chat.da}</div>
+                        </div>
+                    </Link>
                 ))}
         </ChatList>
     );
