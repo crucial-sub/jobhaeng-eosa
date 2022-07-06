@@ -16,14 +16,11 @@ import { ItemTypes, RootState } from 'store';
 
 type Props = {
     id: string | string[] | undefined;
-    item: ItemTypes;
+    isOpen: boolean;
 };
 
 const ChatOfRequest = (props: Props) => {
-    const { id, item } = props;
-    const { currentUser } = useSelector(
-        (state: RootState) => state.currentUser,
-    );
+    const { id, isOpen } = props;
     const [chatArr, setChatArr] = useState<DocumentData[]>([]);
     useEffect(() => {
         const collectionRef = collection(dbService, 'chats');
