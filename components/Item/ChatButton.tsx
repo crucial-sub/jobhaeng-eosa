@@ -53,7 +53,6 @@ const ChatButton = (props: Props) => {
             dispatch(docIdAction.docId(''));
         }
     }, [item]);
-    // console.log(docId);
 
     return (
         <Link href={`/chats/${id}`}>

@@ -2,10 +2,11 @@ import styled from '@emotion/styled';
 import RequestDltBtn from 'components/Request/RequestDltBtn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ItemTypes, RootState } from 'store';
 import ChatButton from './ChatButton';
+import ChatOfRequest from './ChatOfRequest';
 
 type Props = {
     item: ItemTypes;
@@ -20,8 +21,13 @@ const Item = (props: Props) => {
     const { currentUser } = useSelector(
         (state: RootState) => state.currentUser,
     );
-
     const currentUserUid = currentUser.uid;
+    const [isOpen, SetIsOpen] = useState(false);
+
+    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        SetIsOpen((prev) => !prev);
+    };
+
     return (
         <>
             <ItemWrapper>
@@ -48,6 +54,10 @@ const Item = (props: Props) => {
                                 currentUserUid ? currentUserUid : ''
                             }
                         />
+                        <ChatListOpenBtn onClick={handleClick}>
+                            채팅 목록 열기
+                        </ChatListOpenBtn>
+                        {isOpen && <ChatOfRequest isOpen={isOpen} id={id} />}
                     </>
                 ) : (
                     <ChatButton id={id} item={item} />
@@ -70,5 +80,7 @@ const UpdateBtn = styled.button`
     width: 50px;
     height: 30px;
 `;
+
+const ChatListOpenBtn = styled.div``;
 
 export default Item;
