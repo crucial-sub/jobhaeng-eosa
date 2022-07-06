@@ -1,16 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
-import {
-    collection,
-    DocumentData,
-    onSnapshot,
-    query,
-    QueryDocumentSnapshot,
-    where,
-} from 'firebase/firestore';
-import { dbService } from 'fbase';
 import ChattingInput from './ChattingInput';
-import { docIdAction, itemNdocAction, ItemTypes, RootState } from 'store';
+import { ItemTypes, RootState } from 'store';
 import Conversations from './Conversations';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -23,36 +14,6 @@ type Props = {
 const ChattingRoom = (props: Props) => {
     const { items } = props;
     const dispatch = useDispatch();
-    const { currentUser } = useSelector(
-        (state: RootState) => state.currentUser,
-    );
-    const { itemDocId } = useSelector((state: RootState) => state.itemDoc);
-    useEffect(() => {
-        const chatsRef = collection(dbService, 'chats');
-        const q = query(
-            chatsRef,
-            where('users', 'array-contains', currentUser.uid),
-        );
-
-        if (items) {
-            const unsubscribe = onSnapshot(q, (querySnapshot) => {
-                const chatArray = querySnapshot.docs.map(
-                    (doc: QueryDocumentSnapshot<DocumentData>) => ({
-                        ...doc.data(),
-                        itemsId: doc.data().requestId,
-                        docNumber: doc.id,
-                    }),
-                );
-                dispatch(itemNdocAction.itemDocId(chatArray));
-            });
-        }
-        itemDocId.map((a) => {
-            console.log(a.itemsId + '     ' + items?.id);
-            if (a.itemsId === items?.id) {
-                return dispatch(docIdAction.docId(a.docNumber));
-            }
-        });
-    }, [items]);
 
     return (
         <>
