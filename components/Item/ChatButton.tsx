@@ -44,14 +44,16 @@ const ChatButton = (props: Props) => {
             dispatch(itemNdocAction.itemDocId(chatArray));
         });
         console.log(itemDocId);
-        itemDocId.map((a) => {
+        const bbb = itemDocId.some((a) => {
             if (a.itemsId === item?.id) {
-                return dispatch(docIdAction.docId(a.docNumber));
-            } else {
-                return dispatch(docIdAction.docId(''));
+                dispatch(docIdAction.docId(a.docNumber));
             }
         });
-    }, []);
+        if (bbb) {
+            dispatch(docIdAction.docId(''));
+        }
+    }, [item]);
+    // console.log(docId);
 
     return (
         <Link href={`/chats/${id}`}>
