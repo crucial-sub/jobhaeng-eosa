@@ -11,8 +11,9 @@ import {
 } from 'firebase/firestore';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { ItemTypes, RootState } from 'store';
+import { docIdAction, ItemTypes, RootState } from 'store';
 
 type Props = {
     id: string | string[] | undefined;
@@ -21,7 +22,12 @@ type Props = {
 
 const ChatOfRequest = (props: Props) => {
     const { id, isOpen } = props;
+    const dispatch = useDispatch();
     const [chatArr, setChatArr] = useState<DocumentData[]>([]);
+    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        const { id } = e.currentTarget.dataset;
+        dispatch(docIdAction.docId(id));
+    };
     useEffect(() => {
         const collectionRef = collection(dbService, 'chats');
         const q = query(collectionRef, where('requestId', '==', id));
@@ -36,8 +42,8 @@ const ChatOfRequest = (props: Props) => {
         <ChatList>
             {chatArr.length > 0 &&
                 chatArr.map((chat) => (
-                    <Link key={chat.id} href={`/chats/${chat.id}`}>
-                        <Chat>
+                    <Link key={chat.id} href={`/chats/${id}`}>
+                        <Chat data-id={chat.id} onClick={handleClick}>
                             <NickName>{chat.nickName[0]}</NickName>
                             <LastChatText>{chat.lastChat}</LastChatText>
                         </Chat>
