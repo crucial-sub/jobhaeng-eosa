@@ -3,6 +3,9 @@ import styled from '@emotion/styled';
 import Filter from 'components/Filter';
 import SearchBox from 'components/Search';
 import GoBack from './GoBack';
+import ChatOut from 'components/Chat/ChatOut';
+import { useSelector } from 'react-redux';
+import { RootState } from 'store';
 
 type Props = {
     pathname: string;
@@ -10,6 +13,8 @@ type Props = {
 
 const Header = (props: Props) => {
     const { pathname } = props;
+    const { itemList } = useSelector((state: RootState) => state.itemList);
+
     return (
         <HeaderContainer>
             <HeaderBox>
@@ -26,6 +31,12 @@ const Header = (props: Props) => {
                     </>
                 )}
                 {pathname === '/chats' && <div>채팅</div>}
+                {pathname === '/chats/[chatId]' && (
+                    <>
+                        <GoBack />
+                        <ChatOut />
+                    </>
+                )}
                 {pathname === '/user' && <div>마이 페이지</div>}
                 {pathname === '/request' && <GoBack />}
                 {pathname === '/user/edit' && <GoBack />}
@@ -50,6 +61,10 @@ const HeaderBox = styled.div`
     display: flex;
     width: 100%;
     align-items: center;
+
+    & svg {
+        cursor: pointer;
+    }
 `;
 
 export default Header;

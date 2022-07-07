@@ -19,7 +19,6 @@ const ChattingRoom = (props: Props) => {
         <>
             <ChattingContainer>
                 <div>
-                    <ChatOut items={items} />
                     <ChatOpponent>
                         {items?.nickName} 님의 {items?.title} 요청 채팅
                     </ChatOpponent>

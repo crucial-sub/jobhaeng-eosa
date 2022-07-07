@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import { dbService } from 'fbase';
 import {
     collection,
@@ -14,13 +15,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { ItemTypes, RootState } from 'store';
 
-type Props = {
-    items: ItemTypes | undefined;
-};
+type Props = {};
 
 const ChatOut = (props: Props) => {
     const router = useRouter();
-    const { items } = props;
     const { currentUser } = useSelector(
         (state: RootState) => state.currentUser,
     );
@@ -34,7 +32,7 @@ const ChatOut = (props: Props) => {
             const chatRoom = docsRef.docs
                 .find((doc) => doc.id === docId)
                 ?.data();
-            if (currentUser.uid === items?.userId) {
+            if (currentUser.uid === chatRoom?.users[1]) {
                 const newState = [chatRoom?.onOff[0], 'off'];
                 await updateDoc(doc(dbService, 'chats', docId), {
                     onOff: [...newState],
@@ -63,7 +61,11 @@ const ChatOut = (props: Props) => {
             router.push('/');
         } else return;
     };
-    return <div onClick={handleClick}>채팅방 나가기</div>;
+    return <ChatOutBtn onClick={handleClick}>채팅방 나가기</ChatOutBtn>;
 };
+
+const ChatOutBtn = styled.div`
+    cursor: pointer;
+`;
 
 export default ChatOut;
