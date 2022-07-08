@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ItemTypes, RootState } from 'store';
+import { numberCommas } from 'utils/dateFormat';
 import ChatButton from './ChatButton';
 import ChatOfRequest from './ChatOfRequest';
 
@@ -29,6 +30,8 @@ const Item = (props: Props) => {
         SetIsOpen((prev) => !prev);
     };
 
+    const changeDate = numberCommas(item.reward?.toString());
+
     return (
         <>
             <ItemWrapper>
@@ -38,7 +41,7 @@ const Item = (props: Props) => {
                 <div>{item.extraLocation}</div>
                 <div>{item.date}</div>
                 <div>{item.contents}</div>
-                <div>{item.reward}</div>
+                <div>{changeDate}</div>
                 {currentUser.uid === userId ? (
                     <>
                         <Link

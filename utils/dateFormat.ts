@@ -25,3 +25,17 @@ export const getMonthDay = (time: Date) => {
         return date;
     } else return;
 };
+
+var myObj = {
+    style: 'currency',
+    currency: 'KR',
+};
+
+export function numberCommas(reward: string | undefined) {
+    if (reward) {
+        const money = Number(reward)
+            .toLocaleString('ko-KR', { style: 'currency', currency: 'KRW' })
+            .toString();
+        return money;
+    }
+}
