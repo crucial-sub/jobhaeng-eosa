@@ -37,8 +37,7 @@ const ItemPage = ({}: Props) => {
             return;
         }
     }, [id]);
-
-    return item && <Item item={item} />;
+    return item && <Item item={item} setItem={setItem} />;
 };
 
 export default ItemPage;
