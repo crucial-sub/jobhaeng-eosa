@@ -163,15 +163,27 @@ const currentUserSlice = createSlice({
     },
 });
 
-const filterInitialState = {
-    town: '',
+export interface FilterTypes {
+    filterInfo: {
+        name: string;
+        code: string;
+        filteredItem: ItemTypes[];
+    };
+}
+
+const filterInitialState: FilterTypes = {
+    filterInfo: {
+        name: '',
+        code: '',
+        filteredItem: [],
+    },
 };
 const filterSlice = createSlice({
     name: 'filter',
     initialState: filterInitialState,
     reducers: {
         filter(state, action) {
-            state.town = action.payload;
+            state.filterInfo = action.payload;
         },
     },
 });
