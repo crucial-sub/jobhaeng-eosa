@@ -14,3 +14,8 @@ export const getMonthDayTime = (time: Date) => {
     });
     return `${date} ${hourMin}`;
 };
+
+export const getMonthDay = (time: Date) => {
+    const date = time.toLocaleDateString();
+    return date;
+};

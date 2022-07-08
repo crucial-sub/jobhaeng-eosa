@@ -9,6 +9,7 @@ import {
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { ItemTypes } from 'store';
+import { getMonthDayTime } from 'utils/dateFormat';
 
 type Props = {};
 
@@ -28,7 +29,7 @@ const ItemPage = ({}: Props) => {
                 const docItem = {
                     ...findDoc?.data(),
                     id: findDoc?.id,
-                    date: findDoc?.data().date?.toDate().getTime(),
+                    date: getMonthDayTime(findDoc?.data().date?.toDate()),
                 };
                 setItem(docItem);
             };
