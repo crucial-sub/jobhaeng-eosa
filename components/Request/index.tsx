@@ -4,13 +4,19 @@ import {
     addDoc,
     collection,
     doc,
+    getDoc,
     serverTimestamp,
     updateDoc,
 } from 'firebase/firestore';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { requestAction, requestInitialState, RootState } from 'store';
+import {
+    itemListAction,
+    requestAction,
+    requestInitialState,
+    RootState,
+} from 'store';
 import RequestDetail from './RequestDetail';
 import RequestLocation from './RequestLocation';
 import RequestReward from './RequestReward';
@@ -40,6 +46,12 @@ const Request = (props: Props) => {
             await updateDoc(doc(dbService, 'items', docRef.id), {
                 id: docRef.id,
             });
+            const newDoc = (await getDoc(docRef)).data();
+            const newDocData = {
+                ...newDoc,
+                date: newDoc?.date.toDate().getTime(),
+            };
+            dispatch(itemListAction.add(newDocData));
             dispatch(requestAction.request(requestInitialState.request));
             router.push(`/items/${docRef.id}`);
         } else return;

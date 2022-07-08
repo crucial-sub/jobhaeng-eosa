@@ -22,7 +22,7 @@ const ItemList = (props: Props) => {
 
     const { itemList } = useSelector((state: RootState) => state.itemList);
     const { town } = useSelector((state: RootState) => state.filter);
-    const [showList, setShowList] = useState<ItemTypes[]>([...itemList]);
+    const [showList, setShowList] = useState<ItemTypes[]>([]);
     const { currentUser } = useSelector(
         (state: RootState) => state.currentUser,
     );
@@ -33,7 +33,6 @@ const ItemList = (props: Props) => {
             const itemsArray = querySnapshot.docs.map(
                 (doc: QueryDocumentSnapshot<DocumentData>) => ({
                     ...doc.data(),
-                    id: doc.id,
                     date: doc.data().date?.toDate().getTime(),
                 }),
             );
@@ -47,7 +46,7 @@ const ItemList = (props: Props) => {
         else if (!town && currentUser.town)
             newList = itemList.filter((item) => item.town === currentUser.town);
         setShowList(newList);
-    }, [town, currentUser]);
+    }, [town, currentUser, itemList]);
 
     return (
         <>

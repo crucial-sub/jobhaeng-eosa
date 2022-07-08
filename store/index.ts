@@ -56,6 +56,11 @@ const itemListSlice = createSlice({
                 }
             }
         },
+
+        add(state, action) {
+            const req = action.payload;
+            state.itemList = [...state.itemList, req];
+        },
     },
 });
 
