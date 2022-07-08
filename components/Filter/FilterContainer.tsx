@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { filterAction } from 'store';
+import { filterAction, RootState } from 'store';
 import { getDistrict, getTown } from 'utils/fetcher';
 import District from './District';
 import Town from './Town';
@@ -19,8 +20,12 @@ const FilterContainer = (props: Props) => {
     const { setIsOpen } = props;
     const [districtArray, setDistrictArray] = useState([]);
     const [townArray, setTownArray] = useState<PlaceCodeTypes[]>([]);
-    const [clickedTown, setClickedTown] = useState<string | undefined>();
+    const [clickedTown, setClickedTown] = useState<PlaceCodeTypes>({
+        name: '',
+        code: '',
+    });
     const [clickedDist, setClickedDist] = useState('');
+    const { itemList } = useSelector((state: RootState) => state.itemList);
     const dispatch = useDispatch();
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         const targetCode = e.currentTarget.dataset.code;
@@ -70,7 +75,20 @@ const FilterContainer = (props: Props) => {
             alert('동을 선택해 주세요!');
             return;
         }
-        dispatch(filterAction.filter(clickedTown));
+        let newList = [...itemList];
+        if (clickedTown.name.match('전체')) {
+            newList = itemList.filter((item) =>
+                townArray.some((town) => town.name === item.town),
+            );
+        } else {
+            newList = itemList.filter((item) => item.town === clickedTown.name);
+        }
+        const newFilter = {
+            ...clickedTown,
+            filteredItem: newList,
+        };
+
+        dispatch(filterAction.filter(newFilter));
         setIsOpen(false);
     };
     return (

@@ -6,15 +6,16 @@ import { PlaceCodeTypes } from './FilterContainer';
 
 type Props = {
     townArray: PlaceCodeTypes[];
-    setClickedTown: Dispatch<SetStateAction<string | undefined>>;
-    clickedTown: string | undefined;
+    setClickedTown: Dispatch<SetStateAction<PlaceCodeTypes>>;
+    clickedTown: PlaceCodeTypes;
 };
 
 const Town = (props: Props) => {
     const { townArray, setClickedTown, clickedTown } = props;
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         const town = e.currentTarget.dataset.town;
-        setClickedTown(town);
+        const code = e.currentTarget.dataset.code;
+        setClickedTown({ name: town!, code: code! });
     };
     return (
         <TownWrapper>
@@ -23,8 +24,11 @@ const Town = (props: Props) => {
                     <TownItem
                         key={town.code}
                         data-town={town.name}
+                        data-code={town.code}
                         onClick={handleClick}
-                        className={town.name === clickedTown ? 'clicked' : ''}
+                        className={
+                            town.name === clickedTown.name ? 'clicked' : ''
+                        }
                     >
                         {town.name}
                     </TownItem>
