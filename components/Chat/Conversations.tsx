@@ -10,6 +10,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ItemTypes, RootState } from 'store';
 import styled from '@emotion/styled';
+import { getMonthDayTime, getTimeDate } from 'utils/dateFormat';
 
 type Props = {
     items: ItemTypes | undefined;
@@ -24,6 +25,7 @@ export interface ChatContentType {
 }
 
 const Conversations = (props: Props) => {
+    const date = new Date();
     const { items } = props;
     const [messages, setMessages] = useState<ChatContentType[]>([]);
     const { currentUser } = useSelector(
@@ -40,7 +42,7 @@ const Conversations = (props: Props) => {
             const unsubscribe = onSnapshot(g, async (querySnapshot) => {
                 const mes = await querySnapshot.docs.map((doc) => ({
                     ...doc.data(),
-                    timeStamp: doc.data().timestamp?.toDate().getTime(),
+                    timeStamp: getMonthDayTime(doc.data().timestamp?.toDate()),
                 }));
                 setMessages(mes);
             });
