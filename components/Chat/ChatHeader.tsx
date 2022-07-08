@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { dbService } from 'fbase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { useRouter } from 'next/router';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ChatTypes, ItemTypes, RootState } from 'store';
 import ChatOut from './ChatOut';
@@ -28,29 +28,28 @@ const ChatHeader = (props: Props) => {
         }
     }, [itemId, itemList]);
 
-    const getChat = async () => {
+    const getChat = async () => {};
+    useEffect(() => {
         const collectionRef = collection(dbService, 'chats');
-        const docRef = await getDocs(collectionRef);
-        docRef.docs.forEach((doc) => {
-            doc.id === docId && setChat(doc.data());
+        const q = query(collectionRef, where('id', '==', docId));
+        const getChat = onSnapshot(q, async (querySnapshot) => {
+            querySnapshot.docs.forEach((doc) => {
+                doc.id === docId && setChat(doc.data());
+            });
         });
-    };
-
-    useEffect((): VoidFunction => {
-        return getChat;
-    }, [docId]);
+    }, [docId, chat]);
 
     return (
         <HeaderBox>
             <ChatOut />
-            {currentUser.uid === item?.userId && itemId && !chat?.ongoing && (
+            {currentUser.uid === item?.userId && !chat?.ongoing && (
                 <>
-                    <RequestAccept item={item} itemId={itemId} />
+                    <RequestAccept item={item} itemId={itemId!} />
                 </>
             )}
             {chat?.ongoing && (
                 <>
-                    <RequestCancel />
+                    <RequestCancel item={item!} itemId={itemId!} />
                 </>
             )}
         </HeaderBox>
