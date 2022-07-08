@@ -15,7 +15,6 @@ type Props = {
 
 const Header = (props: Props) => {
     const { pathname } = props;
-    const { itemList } = useSelector((state: RootState) => state.itemList);
 
     return (
         <HeaderContainer>

@@ -16,23 +16,14 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { itemListAction, ItemTypes, RootState } from 'store';
 
-type Props = {};
+type Props = {
+    item: ItemTypes;
+    itemId: string;
+};
 
 const RequestAccept = (props: Props) => {
-    const [item, setItem] = useState<ItemTypes>();
+    const { item, itemId } = props;
     const { docId } = useSelector((state: RootState) => state.docId);
-    const { currentUser } = useSelector(
-        (state: RootState) => state.currentUser,
-    );
-    const router = useRouter();
-    const itemId = router.query.chatId?.toString();
-    const { itemList } = useSelector((state: RootState) => state.itemList);
-    useEffect(() => {
-        if (itemId) {
-            const newItem = itemList.find((el) => el.id === itemId);
-            setItem({ ...newItem, ongoing: true });
-        }
-    }, [itemId, itemList]);
 
     const dispatch = useDispatch();
 
@@ -45,7 +36,9 @@ const RequestAccept = (props: Props) => {
         } else return;
     };
 
-    return <RequestAcceptBtn onClick={handleClick}>수락하기</RequestAcceptBtn>;
+    return (
+        <RequestAcceptBtn onClick={handleClick}>잡행어사 임명</RequestAcceptBtn>
+    );
 };
 
 const RequestAcceptBtn = styled.div`

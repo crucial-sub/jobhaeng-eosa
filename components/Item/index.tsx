@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import RequestDltBtn from 'components/Request/RequestDltBtn';
+import RequestEnd from 'components/Request/RequestEnd';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
@@ -54,6 +55,7 @@ const Item = (props: Props) => {
                                 currentUserUid ? currentUserUid : ''
                             }
                         />
+                        <RequestEnd />
                         <ChatListOpenBtn onClick={handleClick}>
                             채팅 목록 열기
                         </ChatListOpenBtn>
