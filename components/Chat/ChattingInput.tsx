@@ -85,6 +85,7 @@ const ChattingInput = (props: Props) => {
                 onOff: ['on', 'on'],
                 users: [currentUser.uid, items?.userId],
                 lastChat: '',
+                ongoing: false,
             });
 
             await updateDoc(doc(dbService, 'chats', docRef.id), {

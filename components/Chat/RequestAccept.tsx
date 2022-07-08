@@ -32,7 +32,11 @@ const RequestAccept = (props: Props) => {
             await updateDoc(doc(dbService, 'items', itemId), {
                 ongoing: true,
             });
-            dispatch(itemListAction.update({ item, itemId }));
+            const newItem = { ...item, ongoing: true };
+            dispatch(itemListAction.update({ newItem, itemId }));
+            await updateDoc(doc(dbService, 'chats', docId), {
+                ongoing: true,
+            });
         } else return;
     };
 

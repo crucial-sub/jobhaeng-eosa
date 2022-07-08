@@ -195,6 +195,7 @@ export interface ChatTypes {
     id: string | undefined;
     nickName?: [] | undefined;
     lastChat?: string | undefined;
+    ongoing?: boolean | undefined;
 }
 
 interface ChatListsTypes {

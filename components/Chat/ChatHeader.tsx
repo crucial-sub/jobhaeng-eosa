@@ -18,8 +18,7 @@ const ChatHeader = (props: Props) => {
     const itemId = router.query.chatId?.toString();
     useEffect(() => {
         if (itemId) {
-            const newItem = itemList.find((el) => el.id === itemId);
-            setItem({ ...newItem, ongoing: true });
+            setItem(itemList.find((el) => el.id === itemId));
         }
     }, [itemId, itemList]);
 
