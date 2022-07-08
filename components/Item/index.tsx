@@ -33,6 +33,7 @@ const Item = (props: Props) => {
         <>
             <ItemWrapper>
                 <div>{item.title}</div>
+                <div>{item.ongoing ? '진행중' : null}</div>
                 <div>{item.location}</div>
                 <div>{item.extraLocation}</div>
                 <div>{item.date}</div>

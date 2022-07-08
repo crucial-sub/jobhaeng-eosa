@@ -1,17 +1,7 @@
 import styled from '@emotion/styled';
 import { dbService } from 'fbase';
-import {
-    collection,
-    deleteDoc,
-    doc,
-    getDocs,
-    onSnapshot,
-    query,
-    updateDoc,
-    where,
-} from 'firebase/firestore';
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import { doc, updateDoc } from 'firebase/firestore';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { itemListAction, ItemTypes, RootState } from 'store';

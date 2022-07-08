@@ -54,7 +54,7 @@ const ChatLists = (props: Props) => {
     }, [currentUser.uid, currentUseruid, dispatch]);
 
     const handleOnClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        dispatch(docIdAction.docId(e.currentTarget.id));
+        dispatch(docIdAction.docId(e.currentTarget.dataset.id));
     };
 
     return (
@@ -66,7 +66,7 @@ const ChatLists = (props: Props) => {
                 ) {
                     return (
                         <Link key={a.id} href={`chats/${a.requestId}`}>
-                            <div id={a.id} onClick={handleOnClick}>
+                            <div data-id={a.id} onClick={handleOnClick}>
                                 <div>제목은 {a.title}입니다</div>
                                 <div>
                                     닉네임은{' '}
@@ -87,7 +87,7 @@ const ChatLists = (props: Props) => {
                 ) {
                     return (
                         <Link key={a.id} href={`chats/${a.requestId}`}>
-                            <div id={a.id} onClick={handleOnClick}>
+                            <div data-id={a.id} onClick={handleOnClick}>
                                 <div>제목은 {a.title}입니다</div>
                                 <div>
                                     닉네임은{' '}
