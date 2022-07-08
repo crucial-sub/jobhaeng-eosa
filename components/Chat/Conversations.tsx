@@ -42,7 +42,7 @@ const Conversations = (props: Props) => {
             const unsubscribe = onSnapshot(g, async (querySnapshot) => {
                 const mes = await querySnapshot.docs.map((doc) => ({
                     ...doc.data(),
-                    timeStamp: getMonthDayTime(doc.data().timestamp?.toDate()),
+                    timeStamp: getTimeDate(doc.data().timestamp?.toDate()),
                 }));
                 setMessages(mes);
             });

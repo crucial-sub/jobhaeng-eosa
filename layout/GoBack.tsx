@@ -1,12 +1,18 @@
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { MdOutlineArrowBackIos } from 'react-icons/md';
 
 type Props = {};
 
 const GoBack = (props: Props) => {
+    const router = useRouter();
+
+    const handleOnClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        router.back();
+    };
     return (
-        <BackBtn>
+        <BackBtn onClick={handleOnClick}>
             <MdOutlineArrowBackIos />
         </BackBtn>
     );
