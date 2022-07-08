@@ -14,6 +14,7 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { ItemTypes, RootState } from 'store';
 import styled from '@emotion/styled';
+import { numberCommas } from 'utils/dateFormat';
 
 type Props = {};
 
@@ -40,7 +41,7 @@ const MyRequest = (props: Props) => {
                         <div>{data.title}</div>
                         <div>{data.contents}</div>
                         <div>{data.location}</div>
-                        <div>{data.reward}</div>
+                        <div>{numberCommas(data.reward?.toString())}</div>
                         <div>{data.date}</div>
                     </MydataList>
                 );

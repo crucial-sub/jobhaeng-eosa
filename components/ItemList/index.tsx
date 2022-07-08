@@ -14,7 +14,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { itemListAction, ItemTypes, RootState } from 'store';
-import { getMonthDay, getMonthDayTime } from 'utils/dateFormat';
+import { getMonthDay, getMonthDayTime, numberCommas } from 'utils/dateFormat';
 
 type Props = {};
 
@@ -61,7 +61,7 @@ const ItemList = (props: Props) => {
                             <div>{item.title}</div>
                             <div>{item.location}</div>
                             <div>{item.date}</div>
-                            <div>{item.reward}</div>
+                            <div>{numberCommas(item.reward?.toString())}</div>
                         </PostBox>
                     </Link>
                 ))
