@@ -14,6 +14,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { itemListAction, ItemTypes, RootState } from 'store';
+import { getMonthDay, getMonthDayTime } from 'utils/dateFormat';
 
 type Props = {};
 
@@ -33,7 +34,7 @@ const ItemList = (props: Props) => {
             const itemsArray = querySnapshot.docs.map(
                 (doc: QueryDocumentSnapshot<DocumentData>) => ({
                     ...doc.data(),
-                    date: doc.data().date?.toDate().getTime(),
+                    date: getMonthDayTime(doc.data().date?.toDate()),
                 }),
             );
             dispatch(itemListAction.load(itemsArray));
