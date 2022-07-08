@@ -1,11 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import ChattingInput from './ChattingInput';
-import { ItemTypes, RootState } from 'store';
+import { ItemTypes } from 'store';
 import Conversations from './Conversations';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import ChatOut from './ChatOut';
 
 type Props = {
     items: ItemTypes | undefined;
@@ -13,13 +10,11 @@ type Props = {
 
 const ChattingRoom = (props: Props) => {
     const { items } = props;
-    const dispatch = useDispatch();
 
     return (
         <>
             <ChattingContainer>
                 <div>
-                    <ChatOut items={items} />
                     <ChatOpponent>
                         {items?.nickName} 님의 {items?.title} 요청 채팅
                     </ChatOpponent>

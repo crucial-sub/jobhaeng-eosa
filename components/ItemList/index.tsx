@@ -23,7 +23,10 @@ const ItemList = (props: Props) => {
 
     const { itemList } = useSelector((state: RootState) => state.itemList);
     const { town } = useSelector((state: RootState) => state.filter);
-    const [showList, setShowList] = useState<ItemTypes[]>([...itemList]);
+    const [showList, setShowList] = useState<ItemTypes[]>([]);
+    const { currentUser } = useSelector(
+        (state: RootState) => state.currentUser,
+    );
     useEffect(() => {
         const collectionRef = collection(dbService, 'items');
         const q = query(collectionRef, orderBy('date', 'desc'));
@@ -31,7 +34,6 @@ const ItemList = (props: Props) => {
             const itemsArray = querySnapshot.docs.map(
                 (doc: QueryDocumentSnapshot<DocumentData>) => ({
                     ...doc.data(),
-                    id: doc.id,
                     date: getMonthDayTime(doc.data().date?.toDate()),
                 }),
             );
@@ -40,9 +42,12 @@ const ItemList = (props: Props) => {
         return unsubscribe;
     }, []);
     useEffect(() => {
-        const newList = itemList.filter((item) => item.town === town);
+        let newList = [...itemList];
+        if (town) newList = itemList.filter((item) => item.town === town);
+        else if (!town && currentUser.town)
+            newList = itemList.filter((item) => item.town === currentUser.town);
         setShowList(newList);
-    }, [town]);
+    }, [town, currentUser, itemList]);
 
     return (
         <>

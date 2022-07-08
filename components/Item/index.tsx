@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import RequestDltBtn from 'components/Request/RequestDltBtn';
+import RequestEnd from 'components/Request/RequestEnd';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
@@ -32,6 +33,7 @@ const Item = (props: Props) => {
         <>
             <ItemWrapper>
                 <div>{item.title}</div>
+                <div>{item.ongoing ? '진행중' : null}</div>
                 <div>{item.location}</div>
                 <div>{item.extraLocation}</div>
                 <div>{item.date}</div>
@@ -54,6 +56,7 @@ const Item = (props: Props) => {
                                 currentUserUid ? currentUserUid : ''
                             }
                         />
+                        <RequestEnd />
                         <ChatListOpenBtn onClick={handleClick}>
                             채팅 목록 열기
                         </ChatListOpenBtn>

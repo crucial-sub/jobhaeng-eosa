@@ -56,6 +56,11 @@ const itemListSlice = createSlice({
                 }
             }
         },
+
+        add(state, action) {
+            const req = action.payload;
+            state.itemList = [...state.itemList, req];
+        },
     },
 });
 
@@ -187,9 +192,10 @@ export interface ChatTypes {
     users?: [] | undefined;
     requestId?: string | undefined;
     title?: string | undefined;
-    id: string | undefined;
+    id?: string | undefined;
     nickName?: [] | undefined;
     lastChat?: string | undefined;
+    ongoing?: boolean | undefined;
 }
 
 interface ChatListsTypes {
@@ -269,14 +275,7 @@ const persistConfig = {
     key: 'root',
     version: 1,
     storage,
-    blacklist: [
-        'join',
-        'currentUser',
-        'request',
-        'chatList',
-        'itemDocId',
-        'docId',
-    ],
+    blacklist: ['join', 'currentUser', 'request', 'chatList', 'itemDocId'],
 };
 
 export const persistedReducer = persistReducer(persistConfig, rootReducer);
