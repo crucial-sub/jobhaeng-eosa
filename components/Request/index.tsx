@@ -1,6 +1,12 @@
 import styled from '@emotion/styled';
 import { dbService } from 'fbase';
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import {
+    addDoc,
+    collection,
+    doc,
+    serverTimestamp,
+    updateDoc,
+} from 'firebase/firestore';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -30,6 +36,9 @@ const Request = (props: Props) => {
                 date: serverTimestamp(),
                 nickName: currentUser.nickName,
                 userId: currentUser.uid,
+            });
+            await updateDoc(doc(dbService, 'items', docRef.id), {
+                id: docRef.id,
             });
             dispatch(requestAction.request(requestInitialState.request));
             router.push(`/items/${docRef.id}`);
