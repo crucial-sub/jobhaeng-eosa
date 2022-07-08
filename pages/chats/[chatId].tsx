@@ -19,7 +19,6 @@ const ChatPage = (props: Props) => {
             setItems(itemList.find((a) => a.id === chatId));
         }
     }, [chatId, itemList]);
-    console.log(items);
     return <ChattingRoom items={items} />;
 };
 

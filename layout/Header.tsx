@@ -6,6 +6,8 @@ import GoBack from './GoBack';
 import ChatOut from 'components/Chat/ChatOut';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
+import RequestAccept from 'components/Chat/RequestAccept';
+import ChatHeader from 'components/Chat/ChatHeader';
 
 type Props = {
     pathname: string;
@@ -34,7 +36,7 @@ const Header = (props: Props) => {
                 {pathname === '/chats/[chatId]' && (
                     <>
                         <GoBack />
-                        <ChatOut />
+                        <ChatHeader />
                     </>
                 )}
                 {pathname === '/user' && <div>마이 페이지</div>}
