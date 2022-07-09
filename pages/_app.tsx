@@ -12,7 +12,7 @@ import {
     wrapper,
 } from 'store';
 import { useEffect, useState } from 'react';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import LoginJoin from 'components/LoginJoin';
@@ -40,13 +40,23 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     const [userUid, setUserUid] = useState('');
     const dispatch = useDispatch();
     const { checkLogin } = useSelector((state: RootState) => state.login);
+
     useEffect(() => {
         const auth = getAuth();
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 setUserUid(user.uid);
                 dispatch(loginAction.login(true));
+                const a = [user.email, user.uid, user.emailVerified];
+                dispatch(
+                    currentUserAction.user({
+                        email: user.email,
+                        uid: user.uid,
+                        emailVerified: user.emailVerified,
+                    }),
+                );
             }
+            console.log(user);
         });
     }, []);
     useEffect(() => {
