@@ -100,7 +100,7 @@ const Conversations = (props: Props) => {
 
 const ContentBox = styled.div`
     width: 100%;
-
+    flex: 8.5 1 0;
     position: relative;
 `;
 
