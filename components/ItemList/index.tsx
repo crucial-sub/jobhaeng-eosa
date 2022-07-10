@@ -13,7 +13,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { itemListAction, ItemTypes, RootState } from 'store';
+import { filterAction, itemListAction, ItemTypes, RootState } from 'store';
 import { getMonthDay, getMonthDayTime, numberCommas } from 'utils/dateFormat';
 
 type Props = {};
@@ -41,12 +41,29 @@ const ItemList = (props: Props) => {
         return unsubscribe;
     }, []);
 
+    useEffect(() => {
+        if (!filterInfo.name) {
+            const myTownItem = itemList.filter(
+                (item) => item.town === currentUser.town,
+            );
+            console.log('mytownnnnn', myTownItem);
+
+            dispatch(
+                filterAction.filter({
+                    name: currentUser.town,
+                    code: '',
+                    filteredItem: myTownItem,
+                }),
+            );
+        }
+    }, []);
+
     return (
         <>
-            {filterInfo.filteredItem.length === 0 ? (
+            {filterInfo.filteredItem?.length === 0 ? (
                 <div>{filterInfo.name}에 요청글이 없습니다 !</div>
             ) : (
-                filterInfo.filteredItem.map((item) => (
+                filterInfo.filteredItem?.map((item) => (
                     <Link key={item.id} href={`/items/${item.id}`}>
                         <PostBox>
                             <div>{item.ongoing ? '진행 중' : null}</div>
