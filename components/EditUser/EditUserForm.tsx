@@ -95,7 +95,6 @@ const EditUserForm = (props: Props) => {
                 setAddressInfo={setAddressInfo}
             />
             <EmailVerify />
-            <input type="submit" value={'update User'} />
         </EditForm>
     );
 };
