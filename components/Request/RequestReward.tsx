@@ -19,13 +19,18 @@ const RequestReward = (props: Props) => {
         const final = Number(first).toLocaleString('ko-KR').toString();
         return final;
     };
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setMoney(numberWithCommas(e.target.value));
-        let a = money.replace(/,/g, '');
+    const handleChange = (
+        e:
+            | React.ChangeEvent<HTMLInputElement>
+            | React.KeyboardEvent<HTMLInputElement>,
+    ) => {
+        const value = numberWithCommas(e.currentTarget.value);
+        setMoney(value);
+        const num = value.replace(/,/g, '');
         dispatch(
             requestAction.request({
                 ...props.request,
-                reward: a,
+                reward: num,
             }),
         );
     };
@@ -37,6 +42,7 @@ const RequestReward = (props: Props) => {
                 placeholder="숫자만 입력해주세요"
                 required
                 onChange={handleChange}
+                onKeyDown={handleChange}
                 value={money}
                 pattern="^[0-9,]*$"
             ></Input>
