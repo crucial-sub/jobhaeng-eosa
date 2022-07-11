@@ -54,6 +54,16 @@ const ItemList = (props: Props) => {
                     filteredItem: myTownItem,
                 }),
             );
+        } else {
+            const updateItem = itemList.filter(
+                (item) => item.town === filterInfo.name,
+            );
+            dispatch(
+                filterAction.filter({
+                    ...filterInfo,
+                    filteredItem: updateItem,
+                }),
+            );
         }
     }, [currentUser, itemList]);
 
