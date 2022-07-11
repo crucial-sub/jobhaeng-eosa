@@ -36,3 +36,13 @@ export const getTown = async (code: string) => {
         console.log(err);
     }
 };
+export const getTownWithOutDist = async (code: string) => {
+    try {
+        const { data } = await axios.get(
+            `https://grpc-proxy-server-mkvo6j4wsq-du.a.run.app/v1/regcodes?regcode_pattern=11${code}*&is_ignore_zero=true`,
+        );
+        return data;
+    } catch (err) {
+        console.log(err);
+    }
+};

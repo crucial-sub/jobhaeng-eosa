@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { filterAction, itemListAction, ItemTypes, RootState } from 'store';
 import { getMonthDay, getMonthDayTime, numberCommas } from 'utils/dateFormat';
+import { getTownWithOutDist } from 'utils/fetcher';
 
 type Props = {};
 
@@ -55,15 +56,36 @@ const ItemList = (props: Props) => {
                 }),
             );
         } else {
-            const updateItem = itemList.filter(
-                (item) => item.town === filterInfo.name,
-            );
-            dispatch(
-                filterAction.filter({
-                    ...filterInfo,
-                    filteredItem: updateItem,
-                }),
-            );
+            if (filterInfo.name.match('전체')) {
+                const getData = async () => {
+                    const sliceCode = filterInfo.code.slice(2, 4);
+                    const { regcodes } = await getTownWithOutDist(sliceCode);
+                    const towns = regcodes.map(
+                        (town: { name: string; code: string }) =>
+                            town.name.split(' ')[2],
+                    );
+                    const updateItem = itemList.filter((item) =>
+                        towns.some((name: string) => name === item.town),
+                    );
+                    dispatch(
+                        filterAction.filter({
+                            ...filterInfo,
+                            filteredItem: updateItem,
+                        }),
+                    );
+                };
+                getData();
+            } else {
+                const updateItem = itemList.filter(
+                    (item) => item.town === filterInfo.name,
+                );
+                dispatch(
+                    filterAction.filter({
+                        ...filterInfo,
+                        filteredItem: updateItem,
+                    }),
+                );
+            }
         }
     }, [currentUser, itemList]);
 
