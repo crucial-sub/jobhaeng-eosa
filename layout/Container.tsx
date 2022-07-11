@@ -12,7 +12,7 @@ const Wrapper = styled.div`
     max-width: 390px;
     height: 844px;
     max-height: 100vh;
-    background-color: tomato;
+    background-color: #eeeeee;
 `;
 
 export default Container;

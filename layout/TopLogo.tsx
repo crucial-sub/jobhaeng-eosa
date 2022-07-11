@@ -18,7 +18,8 @@ const Title = styled.h1`
     padding: 1.25vh 0;
     text-align: center;
     font-size: 35px;
-    background-color: skyblue;
+    background-color: #393e46;
+    color: #ffd369;
     cursor: pointer;
 `;
 

@@ -114,6 +114,7 @@ const PostBox = styled.div`
     display: flex;
     margin: 20px;
     cursor: pointer;
+    background-color: #eeeeee;
 `;
 
 export default ItemList;
