@@ -6,8 +6,6 @@ import Request from 'components/Request';
 type Props = {};
 
 const request = (props: Props) => {
-    const dispatch = useDispatch();
-
     return (
         <RequestWrapper>
             <Request />
