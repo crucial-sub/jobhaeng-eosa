@@ -88,7 +88,7 @@ const ItemWrapper = styled.div`
     height: 90%;
     margin: 7.5% auto;
     overflow: auto;
-    background-color: aliceblue;
+    background-color: #eeeeee;
 `;
 
 const UpdateBtn = styled.button`

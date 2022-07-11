@@ -32,6 +32,7 @@ const Information = styled.h1`
     width: 100%;
     text-align: center;
     padding: 15px 0;
+    color: #222831;
 `;
 
 const MyInfoBox = styled.div`
@@ -40,7 +41,7 @@ const MyInfoBox = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: skyblue;
+    background-color: #eeeeee;
     & div {
         line-height: 30px;
     }
@@ -49,8 +50,8 @@ const MyInfoBox = styled.div`
 const EditBtn = styled.button`
     width: 100%;
     height: 50px;
-    background-color: blueviolet;
-    color: white;
+    background-color: #393e46;
+    color: #eeeeee;
     font-weight: bold;
 `;
 export default MyInfo;

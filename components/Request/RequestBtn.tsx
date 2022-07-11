@@ -19,9 +19,8 @@ const Button = styled.div`
     position: absolute;
     bottom: 7%;
     right: 10%;
-
     & svg {
-        color: green;
+        color: #222831;
         font-size: 50px;
         cursor: pointer;
     }

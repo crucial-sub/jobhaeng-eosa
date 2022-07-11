@@ -15,12 +15,13 @@ const Footer = ({}: Props) => {
 const FooterBox = styled.div`
     width: 100%;
     flex: 1 1 0;
-    background-color: aliceblue;
+    background-color: #393e46;
+    color: #ffd369;
     display: flex;
     align-items: center;
 
     .clicked {
-        background-color: aqua;
+        background-color: #222831;
     }
 `;
 

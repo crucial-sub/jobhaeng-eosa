@@ -63,7 +63,7 @@ const MydataList = styled.div`
     justify-content: center;
     line-height: 40px;
     text-align: center;
-    background-color: skyblue;
+    background-color: #eeeeee;
     & div {
         display: flex;
         justify-content: center;

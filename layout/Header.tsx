@@ -53,7 +53,7 @@ const HeaderContainer = styled.header`
     flex: 0.75 1 0;
     display: flex;
     flex-direction: column;
-    background-color: aliceblue;
+    background-color: #eeeeee;
 `;
 
 const HeaderBox = styled.div`
