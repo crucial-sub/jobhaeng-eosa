@@ -35,6 +35,9 @@ const EmailVerify = (props: Props) => {
                     ? '이메일인증 확인하기'
                     : '인증되었습니다'}
             </button>
+            {loginUser?.emailVerified && (
+                <input type="submit" value={'update User'} />
+            )}
         </>
     );
 };
