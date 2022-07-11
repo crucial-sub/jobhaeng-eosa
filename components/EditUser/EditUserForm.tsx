@@ -17,6 +17,7 @@ import EditAddress from './EditAddress';
 import EditEmail from './EditEmail';
 import EditNickName from './EditNickName';
 import EditPhoneNumber from './EditPhoneNumber';
+import EmailVerify from './EmailVerify';
 
 export interface addressTypes {
     address: string;
@@ -93,6 +94,7 @@ const EditUserForm = (props: Props) => {
                 addressInfo={addressInfo}
                 setAddressInfo={setAddressInfo}
             />
+            <EmailVerify />
             <input type="submit" value={'update User'} />
         </EditForm>
     );
