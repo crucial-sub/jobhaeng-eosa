@@ -1,7 +1,13 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { currentUserAction, joinAction, loginAction, persistor } from 'store';
+import {
+    currentUserAction,
+    filterAction,
+    joinAction,
+    loginAction,
+    persistor,
+} from 'store';
 import { authService } from 'fbase';
 import { useRouter } from 'next/router';
 
@@ -15,6 +21,13 @@ const Logout = (props: Props) => {
         dispatch(loginAction.login(false));
         dispatch(currentUserAction.user(null));
         dispatch(joinAction.join(false));
+        dispatch(
+            filterAction.filter({
+                name: '',
+                code: '',
+                filteredItem: [],
+            }),
+        );
         await persistor.purge();
         router.push('/');
     };

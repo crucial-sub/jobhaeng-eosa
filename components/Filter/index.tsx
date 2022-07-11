@@ -15,16 +15,10 @@ const Filter = (props: Props) => {
     const handleClick = () => {
         setIsOpen((prev) => !prev);
     };
-    const [currentTown, setCurrentTown] = useState<string>();
-    useEffect(() => {
-        setCurrentTown(currentUser.town);
-    }, [currentUser]);
 
     return (
         <>
-            <FilterButton onClick={handleClick}>
-                {filterInfo.filteredItem ? filterInfo.name : currentTown}
-            </FilterButton>
+            <FilterButton onClick={handleClick}>{filterInfo.name}</FilterButton>
             {isOpen && <FilterContainer setIsOpen={setIsOpen} />}
         </>
     );

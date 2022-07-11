@@ -132,11 +132,17 @@ const ChattingInput = (props: Props) => {
 
 const Container = styled.form`
     width: 100%;
+    flex: 0.75 1 0;
     display: flex;
+    padding: 10px;
+    background-color: gainsboro;
 `;
 const TextArea = styled.textarea`
     width: 80%;
     height: 100%;
+    padding: 0;
+    border-radius: 5px;
+    border: none;
 `;
 
 const Send = styled.input`

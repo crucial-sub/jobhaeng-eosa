@@ -10,7 +10,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ItemTypes, RootState } from 'store';
 import styled from '@emotion/styled';
-import { getMonthDayTime, getTimeDate } from 'utils/dateFormat';
+import { getTimeDate } from 'utils/dateFormat';
 
 type Props = {
     items: ItemTypes | undefined;
@@ -79,16 +79,16 @@ const Conversations = (props: Props) => {
                     if (a.user === currentUser.email) {
                         return (
                             <MyMessage key={i}>
-                                <div>{a.message}</div>
                                 <div>{a.nickName}</div>
+                                <div>{a.message}</div>
                                 <div>{a.timeStamp}</div>
                             </MyMessage>
                         );
                     } else {
                         return (
                             <OpponentMessage key={i}>
-                                <div>{a.message}</div>
                                 <div>{a.nickName}</div>
+                                <div>{a.message}</div>
                                 <div>{a.timeStamp}</div>
                             </OpponentMessage>
                         );
@@ -100,15 +100,15 @@ const Conversations = (props: Props) => {
 
 const ContentBox = styled.div`
     width: 100%;
-
+    flex: 8.5 1 0;
     position: relative;
 `;
 
 const MyMessage = styled.div`
     position: relative;
-
     display: flex;
     text-align: right;
+    flex-direction: row-reverse;
     width: 100%;
 `;
 
