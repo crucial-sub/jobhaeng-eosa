@@ -6,7 +6,7 @@ import {
     query,
     where,
 } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ItemTypes, RootState } from 'store';
 import styled from '@emotion/styled';
@@ -33,7 +33,13 @@ const Conversations = (props: Props) => {
     );
     const { docId } = useSelector((state: RootState) => state.docId);
     const [isOn, setIsOn] = useState<boolean>();
-
+    const lastMessageRef = useRef<null | HTMLDivElement>(null);
+    const bottomScroll = () => {
+        lastMessageRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
+    useEffect(() => {
+        bottomScroll();
+    }, [messages]);
     useEffect(() => {
         if (docId !== '') {
             const chatRef = collection(dbService, 'chats', docId, 'messages');
@@ -94,6 +100,7 @@ const Conversations = (props: Props) => {
                         );
                     }
                 })}
+            <LastOfMessages ref={lastMessageRef} />
         </ContentBox>
     );
 };
@@ -117,6 +124,10 @@ const OpponentMessage = styled.div`
     text-align: left;
     display: flex;
     width: 100%;
+`;
+
+const LastOfMessages = styled.div`
+    margin-bottom: 100;
 `;
 
 export default Conversations;

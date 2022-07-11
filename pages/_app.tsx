@@ -92,7 +92,10 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
                         <Footer />
                     </>
                 ) : (
-                    <LoginJoin />
+                    <>
+                        <TopLogo />
+                        <LoginJoin />
+                    </>
                 )}
             </Container>
         </PersistGate>
