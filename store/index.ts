@@ -22,6 +22,7 @@ export interface ItemTypes {
     id?: string | undefined;
     nickName?: string;
     extraLocation?: string;
+    reqeustEnd?: string;
 }
 
 interface ItemListTypes {

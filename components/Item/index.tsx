@@ -3,7 +3,7 @@ import RequestDltBtn from 'components/Request/RequestDltBtn';
 import RequestEnd from 'components/Request/RequestEnd';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ItemTypes, RootState } from 'store';
 import { numberCommas } from 'utils/dateFormat';
@@ -12,10 +12,11 @@ import ChatOfRequest from './ChatOfRequest';
 
 type Props = {
     item: ItemTypes;
+    setItem: Dispatch<SetStateAction<ItemTypes | undefined>>;
 };
 
 const Item = (props: Props) => {
-    const { item } = props;
+    const { item, setItem } = props;
     const userId = item.userId;
     const userTitle = item.title;
     const router = useRouter();
@@ -35,14 +36,20 @@ const Item = (props: Props) => {
     return (
         <>
             <ItemWrapper>
+                {typeof item.reqeustEnd !== 'undefined' ? (
+                    <div> 완료됐습니다! </div>
+                ) : (
+                    <div>{item.ongoing ? '진행중' : null}</div>
+                )}
+
                 <div>{item.title}</div>
-                <div>{item.ongoing ? '진행중' : null}</div>
                 <div>{item.location}</div>
                 <div>{item.extraLocation}</div>
                 <div>{item.date}</div>
                 <div>{item.contents}</div>
                 <div>{changeDate}</div>
-                {currentUser.uid === userId ? (
+                {typeof item.reqeustEnd === 'undefined' &&
+                currentUser.uid === userId ? (
                     <>
                         <Link
                             href={{
@@ -52,21 +59,23 @@ const Item = (props: Props) => {
                         >
                             <UpdateBtn>수정</UpdateBtn>
                         </Link>
-                        <RequestDltBtn
-                            userId={userId ? userId : ''}
-                            userTitle={userTitle ? userTitle : ''}
-                            currentUserUid={
-                                currentUserUid ? currentUserUid : ''
-                            }
-                        />
-                        <RequestEnd />
+                        <RequestEnd itemId={id} setItem={setItem} />
                         <ChatListOpenBtn onClick={handleClick}>
                             채팅 목록 열기
                         </ChatListOpenBtn>
                         {isOpen && <ChatOfRequest isOpen={isOpen} id={id} />}
                     </>
                 ) : (
-                    <ChatButton id={id} item={item} />
+                    typeof item.reqeustEnd === 'undefined' && (
+                        <ChatButton id={id} item={item} />
+                    )
+                )}
+                {currentUser.uid === userId && (
+                    <RequestDltBtn
+                        userId={userId ? userId : ''}
+                        userTitle={userTitle ? userTitle : ''}
+                        currentUserUid={currentUserUid ? currentUserUid : ''}
+                    />
                 )}
             </ItemWrapper>
         </>
