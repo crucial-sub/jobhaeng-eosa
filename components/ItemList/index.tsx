@@ -46,7 +46,6 @@ const ItemList = (props: Props) => {
             const myTownItem = itemList.filter(
                 (item) => item.town === currentUser.town,
             );
-            console.log('mytownnnnn', myTownItem);
 
             dispatch(
                 filterAction.filter({
@@ -56,7 +55,7 @@ const ItemList = (props: Props) => {
                 }),
             );
         }
-    }, []);
+    }, [currentUser, itemList]);
 
     return (
         <>
