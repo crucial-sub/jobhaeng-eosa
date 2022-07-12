@@ -17,11 +17,11 @@ import { docIdAction, ItemTypes, RootState } from 'store';
 
 type Props = {
     id: string | string[] | undefined;
-    isOpen: boolean;
+    isChatOpen: boolean;
 };
 
 const ChatOfRequest = (props: Props) => {
-    const { id, isOpen } = props;
+    const { id, isChatOpen } = props;
     const dispatch = useDispatch();
     const [chatArr, setChatArr] = useState<DocumentData[]>([]);
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {

@@ -50,9 +50,6 @@ const RequestDltBtn = (props: Props) => {
     return <UpdateBtn onClick={handleOnClick}>삭제</UpdateBtn>;
 };
 
-const UpdateBtn = styled.button`
-    width: 50px;
-    height: 30px;
-`;
+const UpdateBtn = styled.div``;
 
 export default RequestDltBtn;

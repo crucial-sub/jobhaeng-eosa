@@ -27,7 +27,7 @@ const RequestEnd = (props: Props) => {
         router.reload();
     };
     const dispatch = useDispatch();
-    const handleOnClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleOnClick = async (e: React.MouseEvent<HTMLDivElement>) => {
         if (confirm('요청을 종료하시겠습니까?')) {
             const UpdateRef = doc(dbService, 'items', `${itemId}`);
             await updateDoc(UpdateRef, {
@@ -52,9 +52,5 @@ const RequestEnd = (props: Props) => {
     return <EndBtn onClick={handleOnClick}>잡행 완료</EndBtn>;
 };
 
-const EndBtn = styled.button`
-    width: 60px;
-    height: 30px;
-    cursor: pointer;
-`;
+const EndBtn = styled.div``;
 export default RequestEnd;
