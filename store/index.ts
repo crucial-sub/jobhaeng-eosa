@@ -209,6 +209,7 @@ export interface ChatTypes {
     nickName?: [] | undefined;
     lastChat?: string | undefined;
     ongoing?: boolean | undefined;
+    town?: string | undefined;
 }
 
 interface ChatListsTypes {
@@ -288,7 +289,14 @@ const persistConfig = {
     key: 'root',
     version: 1,
     storage,
-    blacklist: ['join', 'currentUser', 'request', 'chatList', 'itemDocId'],
+    blacklist: [
+        'join',
+        'currentUser',
+        'request',
+        'chatList',
+        'itemDocId',
+        'docId',
+    ],
 };
 
 export const persistedReducer = persistReducer(persistConfig, rootReducer);
