@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import RequestDltBtn from 'components/Request/RequestDltBtn';
-import RequestEnd from 'components/Request/RequestEnd';
+import RequestEnd from 'components/Item/RequestEnd';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { Dispatch, SetStateAction, useState } from 'react';
@@ -32,52 +32,60 @@ const Item = (props: Props) => {
     };
 
     const changeDate = numberCommas(item.reward?.toString());
+    console.log(item, item.id, item.ongoing, item.requestEnd);
 
     return (
         <>
-            <ItemWrapper>
-                {typeof item.reqeustEnd !== 'undefined' ? (
-                    <div> 완료됐습니다! </div>
-                ) : (
-                    <div>{item.ongoing ? '진행중' : null}</div>
-                )}
+            {item && (
+                <ItemWrapper>
+                    {item.requestEnd ? (
+                        <div> 잡행이 완료된 글입니다! </div>
+                    ) : (
+                        <div>{item.ongoing ? '진행중' : null}</div>
+                    )}
 
-                <div>{item.title}</div>
-                <div>{item.location}</div>
-                <div>{item.extraLocation}</div>
-                <div>{item.date}</div>
-                <div>{item.contents}</div>
-                <div>{changeDate}</div>
-                {typeof item.reqeustEnd === 'undefined' &&
-                currentUser.uid === userId ? (
-                    <>
-                        <Link
-                            href={{
-                                pathname: `/edititem/${id}`,
-                            }}
-                            as={`/edititem/${id}`}
-                        >
-                            <UpdateBtn>수정</UpdateBtn>
-                        </Link>
-                        <RequestEnd itemId={id} setItem={setItem} />
-                        <ChatListOpenBtn onClick={handleClick}>
-                            채팅 목록 열기
-                        </ChatListOpenBtn>
-                        {isOpen && <ChatOfRequest isOpen={isOpen} id={id} />}
-                    </>
-                ) : (
-                    typeof item.reqeustEnd === 'undefined' && (
-                        <ChatButton id={id} item={item} />
-                    )
-                )}
-                {currentUser.uid === userId && (
-                    <RequestDltBtn
-                        userId={userId ? userId : ''}
-                        userTitle={userTitle ? userTitle : ''}
-                        currentUserUid={currentUserUid ? currentUserUid : ''}
-                    />
-                )}
-            </ItemWrapper>
+                    <div>{item.title}</div>
+                    <div>{item.location}</div>
+                    <div>{item.extraLocation}</div>
+                    <div>{item.date}</div>
+                    <div>{item.contents}</div>
+                    <div>{changeDate}</div>
+                    {!item.requestEnd &&
+                        (currentUser.uid === userId ? (
+                            <>
+                                <Link
+                                    href={{
+                                        pathname: `/edititem/${id}`,
+                                    }}
+                                    as={`/edititem/${id}`}
+                                >
+                                    <UpdateBtn>수정</UpdateBtn>
+                                </Link>
+                                {item.ongoing && (
+                                    <RequestEnd itemId={id} setItem={setItem} />
+                                )}
+
+                                <ChatListOpenBtn onClick={handleClick}>
+                                    채팅 목록 열기
+                                </ChatListOpenBtn>
+                                {isOpen && (
+                                    <ChatOfRequest isOpen={isOpen} id={id} />
+                                )}
+                            </>
+                        ) : (
+                            <ChatButton id={id} item={item} />
+                        ))}
+                    {currentUser.uid === userId && (
+                        <RequestDltBtn
+                            userId={userId ? userId : ''}
+                            userTitle={userTitle ? userTitle : ''}
+                            currentUserUid={
+                                currentUserUid ? currentUserUid : ''
+                            }
+                        />
+                    )}
+                </ItemWrapper>
+            )}
         </>
     );
 };

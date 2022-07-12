@@ -109,7 +109,13 @@ const ItemList = (props: Props) => {
                             <div>{item.town}</div>
                             <div>{item.date}</div>
                             <div>
-                                {item.ongoing ? <span>진행 중</span> : null}
+                                {item.ongoing ? (
+                                    item.requestEnd ? (
+                                        <span>완료 !</span>
+                                    ) : (
+                                        <span>진행 중</span>
+                                    )
+                                ) : null}
                             </div>
                             <div>{numberCommas(item.reward?.toString())}</div>
                         </PostBox>
