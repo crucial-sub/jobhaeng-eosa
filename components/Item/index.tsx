@@ -117,7 +117,7 @@ const ItemWrapper = styled.div`
     background-color: #eeeeee;
 `;
 const ProcessInfo = styled.div`
-    margin: 0 auto;
+    margin: 0 auto 1rem;
     width: 60%;
     padding: 1rem;
     background-color: ${colors.lightDark};
@@ -125,33 +125,28 @@ const ProcessInfo = styled.div`
     border-radius: 30px;
     text-align: center;
 `;
-
-const RequestUser = styled.div``;
-
-const RequestTitle = styled.div``;
-
-const RequestLocationBox = styled.div``;
-
-const RequestDate = styled.div``;
-const RequestContents = styled.div``;
-const RequestReward = styled.div``;
 const OwnerBox = styled.div`
     position: relative;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    color: ${colors.dark};
+`;
+const RequestUser = styled.div`
+    font-size: 1.2rem;
 `;
 const RequestEditOpenBtn = styled.div`
     width: fit-content;
     cursor: pointer;
-    position: absolute;
-    top: 0;
-    right: 0;
     user-select: none;
+    font-size: 1.2rem;
 `;
 const RequestEditBox = styled.div<{ isEditOpen: boolean }>`
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     position: absolute;
     display: flex;
     flex-direction: column;
-    top: 20px;
+    top: 30px;
     right: 0;
     background-color: ${colors.gold};
     color: ${colors.dark};
@@ -171,6 +166,14 @@ const RequestEditBox = styled.div<{ isEditOpen: boolean }>`
         user-select: none;
     }
 `;
+
+const RequestTitle = styled.div``;
+
+const RequestLocationBox = styled.div``;
+
+const RequestDate = styled.div``;
+const RequestContents = styled.div``;
+const RequestReward = styled.div``;
 
 const UpdateBtn = styled.div`
     width: 100%;
