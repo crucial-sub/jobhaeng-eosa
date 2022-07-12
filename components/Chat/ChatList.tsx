@@ -23,6 +23,7 @@ export interface ChatTypes {
     id: string | undefined;
     nickName?: [] | undefined;
     user?: string[] | undefined;
+    town?: string | undefined;
 }
 
 const ChatLists = (props: Props) => {
@@ -40,14 +41,13 @@ const ChatLists = (props: Props) => {
         );
 
         const unsubscribe = onSnapshot(q, async (querySnapshot) => {
-            const chatArray = await querySnapshot.docs.map(
+            const chatArray = querySnapshot.docs.map(
                 (doc: QueryDocumentSnapshot<DocumentData>) => ({
                     ...doc.data(),
                     user: doc.data().users,
                     id: doc.id,
                 }),
             );
-
             dispatch(chatListsAction.chatList(chatArray));
         });
         return unsubscribe;
@@ -56,7 +56,7 @@ const ChatLists = (props: Props) => {
     const handleOnClick = (e: React.MouseEvent<HTMLDivElement>) => {
         dispatch(docIdAction.docId(e.currentTarget.dataset.id));
     };
-
+    console.log(chatsList);
     return (
         <>
             {chatsList.map((a) => {
@@ -67,7 +67,10 @@ const ChatLists = (props: Props) => {
                     return (
                         <Link key={a.id} href={`chats/${a.requestId}`}>
                             <div data-id={a.id} onClick={handleOnClick}>
-                                <div>제목은 {a.title}입니다</div>
+                                <div>
+                                    <div>제목은 {a.title}입니다</div>
+                                    <div>{a.town}</div>
+                                </div>
                                 <div>
                                     닉네임은{' '}
                                     {a.nickName?.map((a) => {

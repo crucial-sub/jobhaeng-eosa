@@ -49,9 +49,6 @@ const ChatButton = (props: Props) => {
                 dispatch(docIdAction.docId(a.docNumber));
             }
         });
-        if (bbb) {
-            dispatch(docIdAction.docId(''));
-        }
     }, [item]);
 
     return (
