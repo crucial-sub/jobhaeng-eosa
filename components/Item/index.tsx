@@ -79,16 +79,14 @@ const Item = (props: Props) => {
                     />
                 </RequestEditBox>
             </OwnerBox>
-
             <RequestTitle>{item.title}</RequestTitle>
+            <RequestDate>{item.date}</RequestDate>
             <RequestLocationBox>
                 <div>{item.location}</div>
                 <div>{item.extraLocation}</div>
             </RequestLocationBox>
-            <RequestDate>{item.date}</RequestDate>
             <RequestContents>{item.contents}</RequestContents>
             <RequestReward>{reward}</RequestReward>
-
             <RequestChatBox>
                 {currentUser.uid === userId ? (
                     <>
@@ -112,7 +110,7 @@ const ItemWrapper = styled.div`
     position: relative;
     max-width: 90%;
     height: 90%;
-    margin: 7.5% auto;
+    margin: 1px auto;
     overflow-x: hidden;
     background-color: #eeeeee;
 `;
@@ -127,10 +125,13 @@ const ProcessInfo = styled.div`
 `;
 const OwnerBox = styled.div`
     position: relative;
-    height: 50px;
+    height: 3.5rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     color: ${colors.dark};
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+    margin-bottom: 1rem;
 `;
 const RequestUser = styled.div`
     font-size: 1.2rem;
@@ -152,7 +153,6 @@ const RequestEditBox = styled.div<{ isEditOpen: boolean }>`
     color: ${colors.dark};
     border-radius: 5px;
     width: 100px;
-
     opacity: ${(props) => (props.isEditOpen ? 1 : 0)};
     transition: 200ms;
     transform: translateX(${(props) => (props.isEditOpen ? 0 : 150)}px);
@@ -166,13 +166,31 @@ const RequestEditBox = styled.div<{ isEditOpen: boolean }>`
         user-select: none;
     }
 `;
+const RequestTitle = styled.div`
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+`;
+const RequestDate = styled.div`
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+`;
 
-const RequestTitle = styled.div``;
+const RequestLocationBox = styled.div`
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    div:nth-child(1) {
+        margin-bottom: 0.2rem;
+    }
+    div:nth-child(2) {
+        display: flex;
+        flex-direction: column;
+    }
+`;
 
-const RequestLocationBox = styled.div``;
-
-const RequestDate = styled.div``;
-const RequestContents = styled.div``;
+const RequestContents = styled.div`
+    line-height: 1.1rem;
+`;
 const RequestReward = styled.div``;
 
 const UpdateBtn = styled.div`
