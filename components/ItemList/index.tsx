@@ -13,7 +13,13 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { filterAction, itemListAction, ItemTypes, RootState } from 'store';
+import {
+    docIdAction,
+    filterAction,
+    itemListAction,
+    ItemTypes,
+    RootState,
+} from 'store';
 import { getMonthDay, getMonthDayTime, numberCommas } from 'utils/dateFormat';
 import { getTownWithOutDist } from 'utils/fetcher';
 
@@ -39,6 +45,7 @@ const ItemList = (props: Props) => {
             );
             dispatch(itemListAction.load(itemsArray));
         });
+        dispatch(docIdAction.docId(''));
         return unsubscribe;
     }, []);
 
