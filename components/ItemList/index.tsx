@@ -142,27 +142,27 @@ const PostBox = styled.div`
     gap: 0.1rem;
     color: ${colors.dark};
 
-    & div:nth-child(1) {
+    & div:nth-of-type(1) {
         grid-column: 1 / 5;
         grid-row: 1 / 2;
         align-self: center;
         font-size: 1.2rem;
     }
-    & div:nth-child(2) {
+    & div:nth-of-type(2) {
         grid-column: 1 / 3;
         grid-row: 2 / 3;
         align-self: center;
         font-size: 0.8rem;
         color: ${colors.lightDark};
     }
-    & div:nth-child(3) {
+    & div:nth-of-type(3) {
         grid-column: 1 / 3;
         grid-row: 3 / 4;
         align-self: center;
         font-size: 0.8rem;
         color: ${colors.lightDark};
     }
-    & div:nth-child(4) {
+    & div:nth-of-type(4) {
         grid-column: 3 / 4;
         grid-row: 2 / 4;
         justify-content: center;
@@ -177,7 +177,7 @@ const PostBox = styled.div`
             color: ${colors.gold};
         }
     }
-    & div:nth-child(5) {
+    & div:nth-of-type(5) {
         grid-column: 4 / 5;
         grid-row: 2 / 4;
         justify-self: center;

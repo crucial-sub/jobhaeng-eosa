@@ -13,7 +13,6 @@ const EmailVerify = (props: Props) => {
             setLoginUser(user);
         });
     }, []);
-    console.log(loginUser);
 
     const handleOnClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
         if (loginUser) {

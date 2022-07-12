@@ -13,10 +13,12 @@ const TopLogo = (props: Props) => {
 };
 
 const Title = styled.h1`
+    display: flex;
     flex: 0.5 1 0;
     width: 100%;
     padding: 1.25vh 0;
-    text-align: center;
+    justify-content: center;
+    align-items: center;
     font-size: 35px;
     background-color: #393e46;
     color: #ffd369;

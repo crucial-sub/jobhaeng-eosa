@@ -56,7 +56,6 @@ const ChatLists = (props: Props) => {
     const handleOnClick = (e: React.MouseEvent<HTMLDivElement>) => {
         dispatch(docIdAction.docId(e.currentTarget.dataset.id));
     };
-    console.log(chatsList);
     return (
         <>
             {chatsList.map((a) => {

@@ -3,7 +3,13 @@ import RequestDltBtn from 'components/Request/RequestDltBtn';
 import RequestEnd from 'components/Item/RequestEnd';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, {
+    Dispatch,
+    SetStateAction,
+    useCallback,
+    useEffect,
+    useState,
+} from 'react';
 import { useSelector } from 'react-redux';
 import { ItemTypes, RootState } from 'store';
 import { numberCommas } from 'utils/dateFormat';
@@ -35,12 +41,30 @@ const Item = (props: Props) => {
         if (boxName === 'chat-box') setIsChatOpen((prev) => !prev);
         else if (boxName === 'edit-box') setIsEditOpen((prev) => !prev);
     };
-
     const reward = numberCommas(item.reward?.toString());
-    console.log(item, item.id, item.ongoing, item.requestEnd);
+
+    const close = useCallback((e: any) => {
+        const clicked = e.target.closest('.modal');
+        if (!clicked) {
+            setIsChatOpen(false);
+            setIsEditOpen(false);
+        } else if (clicked.classList.contains('edit')) {
+            setIsChatOpen(false);
+        } else if (clicked.classList.contains('chat')) {
+            setIsEditOpen(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (isChatOpen || isEditOpen) {
+            document.addEventListener('click', close);
+        } else {
+            document.removeEventListener('click', close);
+        }
+    }, [isChatOpen, isEditOpen]);
 
     return (
-        <ItemWrapper>
+        <ItemWrapper onClick={handleClick}>
             {item.requestEnd ? (
                 <ProcessInfo> 잡행이 완료된 글입니다! </ProcessInfo>
             ) : item.ongoing ? (
@@ -51,6 +75,7 @@ const Item = (props: Props) => {
                 {currentUser.uid === userId && (
                     <RequestEditOpenBtn
                         data-box="edit-box"
+                        className="modal edit"
                         onClick={handleClick}
                     >
                         <AiOutlineMenu />
@@ -86,22 +111,23 @@ const Item = (props: Props) => {
                 <div>{item.extraLocation}</div>
             </RequestLocationBox>
             <RequestContents>{item.contents}</RequestContents>
-            <RequestReward>{reward}</RequestReward>
-            <RequestChatBox>
-                {currentUser.uid === userId ? (
-                    <>
+            <RequestBottomBox>
+                <RequestReward>{reward}</RequestReward>
+                <RequestChatBox>
+                    {currentUser.uid === userId ? (
                         <ChatListOpenBtn
                             data-box="chat-box"
+                            className="modal chat"
                             onClick={handleClick}
                         >
                             채팅 목록 열기
                         </ChatListOpenBtn>
-                        <ChatOfRequest isChatOpen={isChatOpen} id={id} />
-                    </>
-                ) : (
-                    !item.requestEnd && <ChatButton id={id} item={item} />
-                )}
-            </RequestChatBox>
+                    ) : (
+                        !item.requestEnd && <ChatButton id={id} item={item} />
+                    )}
+                </RequestChatBox>
+                <ChatOfRequest isChatOpen={isChatOpen} id={id} />
+            </RequestBottomBox>
         </ItemWrapper>
     );
 };
@@ -109,13 +135,14 @@ const Item = (props: Props) => {
 const ItemWrapper = styled.div`
     position: relative;
     max-width: 90%;
-    height: 90%;
+    height: 99%;
     margin: 1px auto;
     overflow-x: hidden;
+    overflow-y: auto;
     background-color: #eeeeee;
 `;
 const ProcessInfo = styled.div`
-    margin: 0 auto 1rem;
+    margin: 1rem auto 0;
     width: 60%;
     padding: 1rem;
     background-color: ${colors.lightDark};
@@ -147,7 +174,7 @@ const RequestEditBox = styled.div<{ isEditOpen: boolean }>`
     position: absolute;
     display: flex;
     flex-direction: column;
-    top: 30px;
+    top: 3rem;
     right: 0;
     background-color: ${colors.gold};
     color: ${colors.dark};
@@ -179,10 +206,10 @@ const RequestDate = styled.div`
 const RequestLocationBox = styled.div`
     margin-bottom: 1rem;
     font-size: 0.9rem;
-    div:nth-child(1) {
+    div:nth-of-type(1) {
         margin-bottom: 0.2rem;
     }
-    div:nth-child(2) {
+    div:nth-of-type(2) {
         display: flex;
         flex-direction: column;
     }
@@ -190,6 +217,15 @@ const RequestLocationBox = styled.div`
 
 const RequestContents = styled.div`
     line-height: 1.1rem;
+`;
+const RequestBottomBox = styled.div`
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 3rem;
 `;
 const RequestReward = styled.div``;
 
