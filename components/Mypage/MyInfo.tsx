@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'store';
 import styled from '@emotion/styled';
 import Link from 'next/link';
+import colors from 'styles/colors';
 
 type Props = {};
 
@@ -47,11 +48,16 @@ const MyInfoBox = styled.div`
     }
 `;
 
-const EditBtn = styled.button`
+const EditBtn = styled.div`
     width: 100%;
-    height: 50px;
     background-color: #393e46;
-    color: #eeeeee;
+    color: ${colors.gold};
     font-weight: bold;
+    user-select: none;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0;
+    cursor: pointer;
 `;
 export default MyInfo;

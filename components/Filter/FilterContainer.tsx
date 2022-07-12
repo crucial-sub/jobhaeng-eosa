@@ -120,6 +120,7 @@ const FilterWrapper = styled.div`
     background-color: azure;
     z-index: 1;
     flex-direction: column;
+    user-select: none;
 `;
 
 const FilterList = styled.div`

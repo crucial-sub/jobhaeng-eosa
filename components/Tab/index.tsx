@@ -50,6 +50,7 @@ const TabBox = styled.div`
     line-height: 10vh;
     text-align: center;
     cursor: pointer;
+    user-select: none;
 `;
 
 export default Tab;

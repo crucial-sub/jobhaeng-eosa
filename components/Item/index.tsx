@@ -144,6 +144,7 @@ const RequestEditOpenBtn = styled.div`
     position: absolute;
     top: 0;
     right: 0;
+    user-select: none;
 `;
 const RequestEditBox = styled.div<{ isEditOpen: boolean }>`
     font-size: 0.8rem;
@@ -167,6 +168,7 @@ const RequestEditBox = styled.div<{ isEditOpen: boolean }>`
         justify-content: center;
         align-items: center;
         height: 50px;
+        user-select: none;
     }
 `;
 
@@ -177,6 +179,7 @@ const UpdateBtn = styled.div`
 const ChatListOpenBtn = styled.div`
     cursor: pointer;
     width: fit-content;
+    user-select: none;
 `;
 const RequestChatBox = styled.div``;
 
