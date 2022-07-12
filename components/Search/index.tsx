@@ -17,6 +17,11 @@ const Search = (props: Props) => {
             router.push('/');
         }
     };
+    const handleClick = (e: React.MouseEvent<SVGAElement>) => {
+        if (searchValue) {
+            router.push(`/search/searchValue="${searchValue}"`);
+        } else return;
+    };
 
     return (
         <SearchBox onSubmit={handleSubmit}>
@@ -24,7 +29,7 @@ const Search = (props: Props) => {
                 setSearchValue={setSearchValue}
                 searchValue={searchValue}
             />
-            <BsSearch />
+            <BsSearch onClick={handleClick} />
         </SearchBox>
     );
 };
