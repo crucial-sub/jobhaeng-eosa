@@ -217,15 +217,21 @@ const RequestLocationBox = styled.div`
 
 const RequestContents = styled.div`
     line-height: 1.1rem;
+    margin-bottom: 3rem;
 `;
 const RequestBottomBox = styled.div`
-    position: absolute;
-    bottom: 0;
+    position: fixed;
+    bottom: 10vh;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 350px;
+    max-width: 390px;
+    padding: 0 20px;
     height: 3rem;
+    transform: translateX(-19.5px);
+    background-color: ${colors.white};
 `;
 const RequestReward = styled.div``;
 

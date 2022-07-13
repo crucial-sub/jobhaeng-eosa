@@ -42,14 +42,22 @@ const ChatOfRequest = (props: Props) => {
     return (
         <ChatList isChatOpen={isChatOpen}>
             <ChatCount>
-                대화중인 채팅방 <span>{chatArr.length}</span>
+                대화중인 채팅방 <span>{isChatOpen && chatArr.length}</span>
             </ChatCount>
             {chatArr.length > 0 &&
                 chatArr.map((chat) => (
                     <Link key={chat.id} href={`/chats/${id}`}>
-                        <Chat data-id={chat.id} onClick={handleClick}>
-                            <NickName>{chat.nickName[0]}</NickName>
-                            <LastChatText>{chat.lastChat}</LastChatText>
+                        <Chat
+                            data-id={chat.id}
+                            onClick={handleClick}
+                            isChatOpen={isChatOpen}
+                        >
+                            {isChatOpen && (
+                                <>
+                                    <NickName>{chat.nickName[0]}</NickName>
+                                    <LastChatText>{chat.lastChat}</LastChatText>
+                                </>
+                            )}
                         </Chat>
                     </Link>
                 ))}
@@ -58,20 +66,21 @@ const ChatOfRequest = (props: Props) => {
 };
 
 const ChatList = styled.div<{ isChatOpen: boolean }>`
-    position: fixed;
+    position: absolute;
     width: 390px;
     min-height: 10%;
-    bottom: 10vh;
+    bottom: 0;
     background-color: ${colors.lightDark};
-    color: ${colors.white};
+    color: ${(props) => (props.isChatOpen ? colors.white : colors.lightDark)};
     display: flex;
     flex-direction: column;
     transform: translate(
-        -19.5px,
-        ${(props) => (props.isChatOpen ? `0` : `100vh`)}
+        -20px,
+        ${(props) => (props.isChatOpen ? `0` : `200px`)}
     );
     opacity: ${(props) => (props.isChatOpen ? 1 : 0)};
-    transition: 400ms;
+    z-index: ${(props) => (props.isChatOpen ? 10 : -99)};
+    transition: 300ms;
 `;
 const ChatCount = styled.div`
     margin: 10px 0 10px 10px;
@@ -79,12 +88,13 @@ const ChatCount = styled.div`
         color: ${colors.gold};
     }
 `;
-const Chat = styled.div`
+const Chat = styled.div<{ isChatOpen: boolean }>`
     max-width: 100%;
     display: flex;
     padding: 1rem;
     align-items: center;
-    border-top: 0.1px solid ${colors.gold};
+    border-top: ${(props) =>
+        props.isChatOpen ? `0.1px solid ${colors.gold}` : ''};
     cursor: pointer;
 `;
 

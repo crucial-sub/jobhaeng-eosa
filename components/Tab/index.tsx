@@ -28,18 +28,18 @@ const Tab = (props: Props) => {
     }, [pathname]);
 
     return (
-        <>
+        <TabBox>
             {tabArr.map((tab, i) => (
                 <Link key={i} href={`${tab[1]}`}>
-                    <TabBox
+                    <TabItem
                         data-path={tab[1]}
                         className={tab[1] === currentTab ? 'clicked' : ''}
                     >
                         {tab[0]}
-                    </TabBox>
+                    </TabItem>
                 </Link>
             ))}
-        </>
+        </TabBox>
     );
 };
 
@@ -51,6 +51,12 @@ const TabBox = styled.div`
     text-align: center;
     cursor: pointer;
     user-select: none;
+    display: flex;
+    z-index: 10;
+`;
+
+const TabItem = styled.div`
+    flex: 1 1 0;
 `;
 
 export default Tab;
