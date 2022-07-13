@@ -137,6 +137,7 @@ export interface userDataTypes {
     address?: string;
     phoneNumber?: string;
     town?: string;
+    emailVerified?: string;
 }
 
 export interface currentUserDataTypes {
@@ -151,6 +152,7 @@ export const currentUserInitialState: currentUserDataTypes = {
         address: '',
         phoneNumber: '',
         town: '',
+        emailVerified: '',
     },
 };
 
