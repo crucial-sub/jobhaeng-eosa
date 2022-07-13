@@ -1,7 +1,7 @@
 export const getTimeDate = (time: Date) => {
     if (time) {
         const date = time.toLocaleTimeString([], {
-            hour: '2-digit',
+            hour: 'numeric',
             minute: '2-digit',
         });
         return date;
