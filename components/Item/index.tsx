@@ -232,6 +232,7 @@ const RequestBottomBox = styled.div`
     height: 3rem;
     transform: translateX(-19.5px);
     background-color: ${colors.white};
+    box-shadow: rgba(0, 0, 0, 0.13) 0px 1px 2px 0px inset;
 `;
 const RequestReward = styled.div``;
 
