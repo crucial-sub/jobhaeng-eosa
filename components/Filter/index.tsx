@@ -30,6 +30,7 @@ const FilterButton = styled.button`
     text-align: center;
     border: none;
     cursor: pointer;
+    user-select: none;
 `;
 
 export default Filter;

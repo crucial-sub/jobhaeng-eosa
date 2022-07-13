@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import { dbService } from 'fbase';
 import {
     collection,
@@ -43,7 +44,6 @@ const ChatButton = (props: Props) => {
             );
             dispatch(itemNdocAction.itemDocId(chatArray));
         });
-        console.log(itemDocId);
         const bbb = itemDocId.some((a) => {
             if (a.itemsId === item?.id) {
                 dispatch(docIdAction.docId(a.docNumber));
@@ -53,9 +53,13 @@ const ChatButton = (props: Props) => {
 
     return (
         <Link href={`/chats/${id}`}>
-            <button>채팅하기</button>
+            <ChatBtn>채팅하기</ChatBtn>
         </Link>
     );
 };
+
+const ChatBtn = styled.div`
+    cursor: pointer;
+`;
 
 export default ChatButton;

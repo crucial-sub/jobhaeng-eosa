@@ -22,7 +22,7 @@ export interface ItemTypes {
     id?: string | undefined;
     nickName?: string;
     extraLocation?: string;
-    reqeustEnd?: string;
+    requestEnd?: boolean;
 }
 
 interface ItemListTypes {
@@ -81,6 +81,7 @@ export const requestInitialState: RequestTypes = {
         userId: '',
         nickName: '',
         extraLocation: '',
+        requestEnd: false,
     },
 };
 

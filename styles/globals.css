@@ -143,6 +143,7 @@ table {
 
 body {
     -ms-overflow-style: none;
+    overflow: hidden;
 }
 
 ::-webkit-scrollbar {

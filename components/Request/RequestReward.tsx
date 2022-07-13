@@ -45,6 +45,7 @@ const RequestReward = (props: Props) => {
                 onKeyDown={handleChange}
                 value={money}
                 pattern="^[0-9,]*$"
+                maxLength={11}
             ></Input>
         </>
     );
