@@ -113,7 +113,7 @@ const Item = (props: Props) => {
             <RequestContents>{item.contents}</RequestContents>
             <RequestBottomBox>
                 <RequestReward>{reward}</RequestReward>
-                <RequestChatBox>
+                <RequestChatBox isChatOpen={isChatOpen}>
                     {currentUser.uid === userId ? (
                         <ChatListOpenBtn
                             data-box="chat-box"
@@ -193,6 +193,10 @@ const RequestEditBox = styled.div<{ isEditOpen: boolean }>`
         user-select: none;
     }
 `;
+const UpdateBtn = styled.div`
+    width: 100%;
+`;
+
 const RequestTitle = styled.div`
     font-size: 1.3rem;
     font-weight: 700;
@@ -229,22 +233,25 @@ const RequestBottomBox = styled.div`
     width: 350px;
     max-width: 390px;
     padding: 0 20px;
-    height: 3rem;
+    height: 4rem;
     transform: translateX(-19.5px);
     background-color: ${colors.white};
     box-shadow: rgba(0, 0, 0, 0.13) 0px 1px 2px 0px inset;
 `;
-const RequestReward = styled.div``;
-
-const UpdateBtn = styled.div`
-    width: 100%;
+const RequestReward = styled.div`
+    font-size: 1.2rem;
+    font-weight: 700;
 `;
-
+const RequestChatBox = styled.div<{ isChatOpen: boolean }>`
+    user-select: none;
+    padding: 10px;
+    color: ${(props) => (props.isChatOpen ? colors.lightDark : colors.gold)};
+    background-color: ${colors.lightDark};
+    border-radius: 10px;
+`;
 const ChatListOpenBtn = styled.div`
     cursor: pointer;
     width: fit-content;
-    user-select: none;
 `;
-const RequestChatBox = styled.div``;
 
 export default Item;
