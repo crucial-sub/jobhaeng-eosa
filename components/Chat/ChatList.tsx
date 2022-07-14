@@ -13,6 +13,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { chatListsAction, docIdAction, RootState } from 'store';
 import { useDispatch } from 'react-redux';
+import colors from 'styles/colors';
 
 type Props = {};
 
@@ -65,12 +66,15 @@ const ChatLists = (props: Props) => {
                 ) {
                     return (
                         <Link key={a.id} href={`chats/${a.requestId}`}>
-                            <div data-id={a.id} onClick={handleOnClick}>
-                                <div>
-                                    <div>제목은 {a.title}입니다</div>
-                                    <div>{a.town}</div>
-                                </div>
-                                <div>
+                            <ChatBox data-id={a.id} onClick={handleOnClick}>
+                                <TitleNTown>
+                                    <Title>의뢰: {a.title}</Title>
+                                    <Town>{a.town}</Town>
+                                </TitleNTown>
+                                <LastMessages>
+                                    마지막 메세지: {a.lastChat}
+                                </LastMessages>
+                                {/* <div>
                                     닉네임은{' '}
                                     {a.nickName?.map((a) => {
                                         if (a !== currentUser.nickName) {
@@ -78,8 +82,8 @@ const ChatLists = (props: Props) => {
                                         }
                                     })}
                                     입니다
-                                </div>
-                            </div>
+                                </div> */}
+                            </ChatBox>
                         </Link>
                     );
                 }
@@ -88,20 +92,19 @@ const ChatLists = (props: Props) => {
                     a.onOff?.lastIndexOf('on') === 1
                 ) {
                     return (
-                        <Link key={a.id} href={`chats/${a.requestId}`}>
-                            <div data-id={a.id} onClick={handleOnClick}>
-                                <div>제목은 {a.title}입니다</div>
-                                <div>
-                                    닉네임은{' '}
-                                    {a.nickName?.map((a) => {
-                                        if (a !== currentUser.nickName) {
-                                            return a;
-                                        }
-                                    })}
-                                    입니다
-                                </div>
-                            </div>
-                        </Link>
+                        <>
+                            <Link key={a.id} href={`chats/${a.requestId}`}>
+                                <ChatBox data-id={a.id} onClick={handleOnClick}>
+                                    <TitleNTown>
+                                        <Title>의뢰: {a.title}</Title>
+                                        <Town>{a.town}</Town>
+                                    </TitleNTown>
+                                    <LastMessages>
+                                        마지막 메세지: {a.lastChat}
+                                    </LastMessages>
+                                </ChatBox>
+                            </Link>
+                        </>
                     );
                 }
             })}
@@ -110,3 +113,40 @@ const ChatLists = (props: Props) => {
 };
 
 export default ChatLists;
+
+const ChatBox = styled.div`
+    width: 90%;
+    margin: auto;
+    height: 20%;
+    border-bottom: 1px solid ${colors.lightDark};
+    /* border-radius: 10px; */
+    margin-bottom: 15px;
+`;
+
+const TitleNTown = styled.div`
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: space-between;
+`;
+
+const Title = styled.div`
+    font-size: 1.2rem;
+    margin-top: 20px;
+    margin-left: 20px;
+`;
+
+const Town = styled.div`
+    font-size: 0.8rem;
+    opacity: 0.5;
+    margin-top: 20px;
+    margin-right: 20px;
+`;
+
+const LastMessages = styled.div`
+    display: flex;
+    width: 100%;
+    height: 50%;
+    align-items: center;
+    margin-left: 20px;
+`;

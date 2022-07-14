@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import React from 'react';
 
 type Props = {
@@ -13,7 +14,7 @@ type Props = {
 
 const EditNickName = (props: Props) => {
     return (
-        <div>
+        <NickNameInput>
             <label htmlFor="nickName">닉네임</label>
             <input
                 name="nickName"
@@ -23,8 +24,22 @@ const EditNickName = (props: Props) => {
                 onChange={props.handleChange}
                 required
             />
-        </div>
+        </NickNameInput>
     );
 };
 
 export default EditNickName;
+
+const NickNameInput = styled.div`
+    margin: auto;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    & label {
+        line-height: 30px;
+    }
+    & input {
+        width: 80%;
+        height: 30px;
+    }
+`;
