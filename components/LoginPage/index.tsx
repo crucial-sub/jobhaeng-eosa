@@ -9,12 +9,11 @@ import { currentUserAction, joinAction, RootState } from 'store';
 import { useSelector } from 'react-redux';
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import GoogleLogin from './GoogleLogin';
+import colors from 'styles/colors';
 
 type Props = {};
 
 const LoginPage = (props: Props) => {
-    // const [login, setLogin] = useState(false);
-    const router = useRouter();
     const dispatch = useDispatch();
     const { clickJoin } = useSelector((state: RootState) => state.join);
     const [email, setEmail] = useState('');
@@ -39,56 +38,63 @@ const LoginPage = (props: Props) => {
                 email,
                 password,
             );
-            // const collectionRef = collection(dbService, 'users');
-            // const docsRef = await getDocs(collectionRef);
-            // const user = docsRef.docs
-            //     .find((doc) => doc.data().uid === authService.currentUser?.uid)
-            //     ?.data();
         } catch (err: any) {
             setError(err);
             console.log(error);
         }
     };
 
-    const onClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         dispatch(joinAction.join(!clickJoin));
     };
     return (
-        <LoginBox>
-            <LoginForm onSubmit={onSubmit}>
-                <div>
-                    <label htmlFor="email">Email</label>
-                    <input
-                        name="email"
-                        type="text"
-                        id="email"
-                        value={email}
-                        onChange={onChange}
-                        placeholder="Email"
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="password">PW</label>
-                    <input
-                        name="password"
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={onChange}
-                        placeholder="password"
-                        required
-                    />
-                </div>
+        <Container>
+            <LoginBox>
+                <LoginForm onSubmit={onSubmit}>
+                    <LoginTitle>로그인</LoginTitle>
+                    <EmailInput>
+                        <label htmlFor="email">Email</label>
+                        <input
+                            name="email"
+                            type="text"
+                            id="email"
+                            value={email}
+                            onChange={onChange}
+                            placeholder="Email"
+                            required
+                        />
+                    </EmailInput>
+                    <PwInput>
+                        <label htmlFor="password">PW</label>
+                        <input
+                            name="password"
+                            type="password"
+                            id="password"
+                            value={password}
+                            onChange={onChange}
+                            placeholder="password"
+                            required
+                        />
+                    </PwInput>
 
-                <LoginBtn type="submit" value={'Login'} />
-                <p>{error ? `${error}` : <></>}</p>
-            </LoginForm>
-            <GoogleLogin />
-            <JoinBtn onClick={onClick}>회원가입</JoinBtn>
-        </LoginBox>
+                    <LoginBtn type="submit" value={'Login'} />
+                    <p>{error ? `${error}` : <></>}</p>
+                    <GoogleLogin />
+                    <JoinBtn onClick={onClick}>회원가입</JoinBtn>
+                </LoginForm>
+            </LoginBox>
+        </Container>
     );
 };
+
+const Container = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+`;
 
 const LoginBox = styled.div`
     width: 100%;
@@ -101,7 +107,6 @@ const LoginForm = styled.form`
     flex-direction: column;
     justify-content: center;
     & div {
-        margin: 20px 20px;
         width: 90%;
         display: flex;
     }
@@ -111,29 +116,71 @@ const LoginForm = styled.form`
     }
     & div > input {
         width: 80%;
-        height: 30px;
+    }
+`;
+
+const LoginTitle = styled.h1`
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 2rem;
+    text-align: center;
+`;
+
+const EmailInput = styled.div`
+    position: relative;
+    margin: 15px auto 30px auto;
+    & label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height: 4vh;
+        height: 4vh;
+        font-weight: 700;
+    }
+    & input {
+        border-radius: 15px;
+        height: 4vh;
+    }
+`;
+
+const PwInput = styled.div`
+    margin: 0px auto 30px auto;
+    & label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 4vh;
+        line-height: 4vh;
+        font-weight: 700;
+    }
+    & input {
+        border-radius: 15px;
+        height: 4vh;
     }
 `;
 
 const LoginBtn = styled.input`
-    width: 100%;
+    width: 90%;
     height: 4vh;
     line-height: 4vh;
     text-align: center;
-    border: 1px solid silver;
-    background-color: skyblue;
+    margin: 0 auto 30px auto;
+    background-color: ${colors.lightDark};
+    border-radius: 20px;
+    color: ${colors.gold};
     cursor: pointer;
 `;
 
-const JoinBtn = styled.div`
-    width: 5vw;
+const JoinBtn = styled.button`
+    width: 90%;
     height: 4vh;
     line-height: 4vh;
     text-align: center;
-    border: 1px solid silver;
-    background-color: skyblue;
+    margin: 0 auto 30px auto;
+    background-color: ${colors.lightDark};
+    color: ${colors.gold};
+    border-radius: 20px;
     cursor: pointer;
-    margin: auto;
 `;
 
 export default LoginPage;
