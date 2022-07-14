@@ -4,6 +4,7 @@ import MyRequest from './MyRequest';
 import Link from 'next/link';
 
 import Logout from './Logout';
+import MyJabHangList from './MyJabHangList';
 
 type Props = {};
 
@@ -12,6 +13,7 @@ const MyPage = (props: Props) => {
         <div>
             <MyInfo />
             <MyRequest />
+            <MyJabHangList />
             <Link href="/">
                 <Logout />
             </Link>
