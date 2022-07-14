@@ -16,10 +16,22 @@ const MyItemList = (props: Props) => {
     return (
         <div>
             <SelectTab selectedList={selectedList}>
-                <div data-list="request" onClick={handleClick}>
+                <div
+                    className={`${
+                        selectedList === 'request' ? 'selected' : ''
+                    }`}
+                    data-list="request"
+                    onClick={handleClick}
+                >
                     요청 내역
                 </div>
-                <div data-list="job-hang" onClick={handleClick}>
+                <div
+                    className={`${
+                        selectedList === 'job-hang' ? 'selected' : ''
+                    }`}
+                    data-list="job-hang"
+                    onClick={handleClick}
+                >
                     출두 내역
                 </div>
             </SelectTab>
@@ -35,6 +47,20 @@ const SelectTab = styled.div<{ selectedList: string }>`
     > div {
         margin: 0 1rem 1rem;
         cursor: pointer;
+    }
+    .selected {
+        position: relative;
+        font-weight: 700;
+        ::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            bottom: -1rem;
+            left: 0;
+            background-color: ${colors.dark};
+            border-radius: 10px;
+        }
     }
 `;
 
