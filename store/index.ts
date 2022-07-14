@@ -213,6 +213,7 @@ export interface ChatTypes {
     lastChat?: string | undefined;
     ongoing?: boolean | undefined;
     town?: string | undefined;
+    requestEnd?: boolean | undefined;
 }
 
 interface ChatListsTypes {
