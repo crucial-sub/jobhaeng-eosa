@@ -10,7 +10,7 @@ const Wrapper = styled.div`
     flex-direction: column;
     margin: 0 auto;
     max-width: 390px;
-    height: 844px;
+    height: 100vh;
     max-height: 100vh;
     background-color: #eeeeee;
 `;
