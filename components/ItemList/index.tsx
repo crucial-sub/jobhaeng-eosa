@@ -21,7 +21,7 @@ import {
     RootState,
 } from 'store';
 import colors from 'styles/colors';
-import { getMonthDay, getMonthDayTime, numberCommas } from 'utils/dateFormat';
+import { getMonthDayTime } from 'utils/dateFormat';
 import { getTownWithOutDist } from 'utils/fetcher';
 
 type Props = {};
@@ -117,7 +117,7 @@ const ItemList = (props: Props) => {
                                     )
                                 ) : null}
                             </div>
-                            <div>{numberCommas(item.reward?.toString())}</div>
+                            <div>{item.reward}</div>
                         </PostBox>
                     </Link>
                 ))

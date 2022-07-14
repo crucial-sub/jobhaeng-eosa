@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ItemTypes, requestAction } from 'store';
+import { numberCommas } from 'utils/moneyFormat';
 
 type Props = {
     request: ItemTypes;
@@ -27,10 +28,11 @@ const RequestReward = (props: Props) => {
         const value = numberWithCommas(e.currentTarget.value);
         setMoney(value);
         const num = value.replace(/,/g, '');
+
         dispatch(
             requestAction.request({
                 ...props.request,
-                reward: num,
+                reward: numberCommas(num.toString()),
             }),
         );
     };

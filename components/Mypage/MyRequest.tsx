@@ -14,7 +14,6 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { ItemTypes, RootState } from 'store';
 import styled from '@emotion/styled';
-import { numberCommas } from 'utils/dateFormat';
 
 type Props = {};
 
@@ -34,14 +33,13 @@ const MyRequest = (props: Props) => {
 
     return (
         <>
-            <Information>내 글 목록 </Information>
+            <Information>요청 내역 </Information>
             {dataArr.map((data, i) => {
                 return (
                     <MydataList key={i}>
                         <div>{data.title}</div>
-                        <div>{data.contents}</div>
                         <div>{data.location}</div>
-                        <div>{numberCommas(data.reward?.toString())}</div>
+                        <div>{data.reward}</div>
                         <div>{data.date}</div>
                     </MydataList>
                 );

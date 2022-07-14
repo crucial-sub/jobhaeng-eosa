@@ -12,7 +12,6 @@ import React, {
 } from 'react';
 import { useSelector } from 'react-redux';
 import { ItemTypes, RootState } from 'store';
-import { numberCommas } from 'utils/dateFormat';
 import ChatButton from './ChatButton';
 import ChatOfRequest from './ChatOfRequest';
 import { AiOutlineMenu } from 'react-icons/ai';
@@ -41,7 +40,6 @@ const Item = (props: Props) => {
         if (boxName === 'chat-box') setIsChatOpen((prev) => !prev);
         else if (boxName === 'edit-box') setIsEditOpen((prev) => !prev);
     };
-    const reward = numberCommas(item.reward?.toString());
 
     const close = useCallback((e: any) => {
         const clicked = e.target.closest('.modal');
@@ -112,7 +110,7 @@ const Item = (props: Props) => {
             </RequestLocationBox>
             <RequestContents>{item.contents}</RequestContents>
             <RequestBottomBox>
-                <RequestReward>{reward}</RequestReward>
+                <RequestReward>{item.reward}</RequestReward>
                 <RequestChatBox isChatOpen={isChatOpen}>
                     {currentUser.uid === userId ? (
                         <ChatListOpenBtn
