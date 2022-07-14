@@ -138,6 +138,7 @@ export interface userDataTypes {
     address?: string;
     phoneNumber?: string;
     town?: string;
+    emailVerified?: string;
 }
 
 export interface currentUserDataTypes {
@@ -152,6 +153,7 @@ export const currentUserInitialState: currentUserDataTypes = {
         address: '',
         phoneNumber: '',
         town: '',
+        emailVerified: '',
     },
 };
 
@@ -290,14 +292,7 @@ const persistConfig = {
     key: 'root',
     version: 1,
     storage,
-    blacklist: [
-        'join',
-        'currentUser',
-        'request',
-        'chatList',
-        'itemDocId',
-        'docId',
-    ],
+    blacklist: ['join', 'currentUser', 'request', 'chatList', 'itemDocId'],
 };
 
 export const persistedReducer = persistReducer(persistConfig, rootReducer);

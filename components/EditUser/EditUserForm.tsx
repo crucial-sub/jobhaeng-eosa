@@ -85,6 +85,7 @@ const EditUserForm = (props: Props) => {
 
     return (
         <EditForm onSubmit={handleSubmit}>
+            <Title>정보</Title>
             <EditEmail handleChange={handleChange} userInfo={userInfo} />
             <EditNickName handleChange={handleChange} userInfo={userInfo} />
             <EditPhoneNumber handleChange={handleChange} userInfo={userInfo} />
@@ -99,6 +100,19 @@ const EditUserForm = (props: Props) => {
     );
 };
 
-const EditForm = styled.form``;
+const EditForm = styled.form`
+    width: 100%;
+    height: 100%;
+    & div {
+        margin-top: 20px;
+    }
+`;
+
+const Title = styled.div`
+    width: 90%;
+    /* text-align: center; */
+    font-size: 2rem;
+    margin: auto;
+`;
 
 export default EditUserForm;

@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import React from 'react';
 
 type Props = {
@@ -13,8 +14,8 @@ type Props = {
 
 const EditPhoneNumber = (props: Props) => {
     return (
-        <div>
-            <label htmlFor="phoneNumber">핸드폰번호</label>
+        <PhoneNumberInput>
+            <label htmlFor="phoneNumber">연락처</label>
             <input
                 name="phoneNumber"
                 type="text"
@@ -23,8 +24,22 @@ const EditPhoneNumber = (props: Props) => {
                 onChange={props.handleChange}
                 required
             />
-        </div>
+        </PhoneNumberInput>
     );
 };
 
 export default EditPhoneNumber;
+
+const PhoneNumberInput = styled.div`
+    margin: auto;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    & label {
+        line-height: 30px;
+    }
+    & input {
+        width: 80%;
+        height: 30px;
+    }
+`;

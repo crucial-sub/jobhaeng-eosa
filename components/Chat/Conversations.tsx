@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import { ItemTypes, RootState } from 'store';
 import styled from '@emotion/styled';
 import { getTimeDate } from 'utils/dateFormat';
+import colors from 'styles/colors';
 
 type Props = {
     items: ItemTypes | undefined;
@@ -85,15 +86,19 @@ const Conversations = (props: Props) => {
                     if (a.user === currentUser.email) {
                         return (
                             <MyMessage key={i}>
-                                <div>{a.nickName}</div>
-                                <div>{a.message}</div>
-                                <div>{a.timeStamp}</div>
+                                <Message>
+                                    <div>{a.message}</div>
+                                </Message>
+                                <div>
+                                    <div>{a.timeStamp}</div>
+                                </div>
                             </MyMessage>
                         );
                     } else {
                         return (
                             <OpponentMessage key={i}>
                                 <div>{a.nickName}</div>
+
                                 <div>{a.message}</div>
                                 <div>{a.timeStamp}</div>
                             </OpponentMessage>
@@ -116,14 +121,26 @@ const MyMessage = styled.div`
     display: flex;
     text-align: right;
     flex-direction: row-reverse;
-    width: 100%;
+    /* height: 10%; */
+    width: 390px;
+`;
+
+const Message = styled.div`
+    border-radius: 15px;
+    background-color: ${colors.gold};
 `;
 
 const OpponentMessage = styled.div`
     position: relative;
     text-align: left;
     display: flex;
-    width: 100%;
+    /* height: 10%; */
+    width: 390px;
+`;
+
+const Omessage = styled.div`
+    display: flex;
+    flex-direction: column;
 `;
 
 const LastOfMessages = styled.div`

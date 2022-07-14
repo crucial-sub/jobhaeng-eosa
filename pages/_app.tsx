@@ -40,6 +40,9 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     const [userUid, setUserUid] = useState('');
     const dispatch = useDispatch();
     const { checkLogin } = useSelector((state: RootState) => state.login);
+    const { currentUser } = useSelector(
+        (state: RootState) => state.currentUser,
+    );
 
     useEffect(() => {
         const auth = getAuth();
