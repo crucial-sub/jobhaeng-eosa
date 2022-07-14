@@ -33,9 +33,6 @@ const RequestEnd = (props: Props) => {
     const handleOnClick = async (e: React.MouseEvent<HTMLDivElement>) => {
         if (confirm('요청을 종료하시겠습니까?')) {
             const ItemDocRef = doc(dbService, 'items', `${itemId}`);
-            await updateDoc(ItemDocRef, {
-                requestEnd: true,
-            });
             const chatRef = collection(dbService, 'chats');
             const q = query(chatRef, where('requestId', '==', itemId));
             const getChat = onSnapshot(q, async (querySnapshot) => {
@@ -43,6 +40,10 @@ const RequestEnd = (props: Props) => {
                     if (document.data().ongoing) {
                         updateDoc(doc(dbService, 'chats', document.id), {
                             requestEnd: true,
+                        });
+                        updateDoc(ItemDocRef, {
+                            requestEnd: true,
+                            jobHangASa: document.data().users[0],
                         });
                     }
                 });
@@ -54,7 +55,6 @@ const RequestEnd = (props: Props) => {
             );
             const docItem = {
                 ...findDoc?.data(),
-                id: findDoc?.id,
                 date: getMonthDayTime(findDoc?.data().date?.toDate()),
             };
             setItem(docItem);

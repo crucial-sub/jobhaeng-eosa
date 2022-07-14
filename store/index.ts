@@ -23,6 +23,7 @@ export interface ItemTypes {
     nickName?: string;
     extraLocation?: string;
     requestEnd?: boolean;
+    jobHangASa?: string;
 }
 
 interface ItemListTypes {
@@ -82,6 +83,7 @@ export const requestInitialState: RequestTypes = {
         nickName: '',
         extraLocation: '',
         requestEnd: false,
+        jobHangASa: '',
     },
 };
 
