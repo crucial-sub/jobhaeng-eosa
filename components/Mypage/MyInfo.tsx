@@ -4,6 +4,8 @@ import { RootState } from 'store';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import colors from 'styles/colors';
+import { MdEmail, MdOutlinePhoneIphone } from 'react-icons/md';
+import { ImHome } from 'react-icons/im';
 
 type Props = {};
 
@@ -13,51 +15,87 @@ const MyInfo = (props: Props) => {
     );
 
     return (
-        <>
-            <Information>나의 정보</Information>
-            <MyInfoBox>
-                <div>{currentUser?.email}</div>
-                <div>{currentUser?.nickName}</div>
-                <div>{currentUser?.phoneNumber}</div>
-                <div>{currentUser?.address}</div>
-            </MyInfoBox>
-            <Link href="/user/edit">
-                <EditBtn>수정하기</EditBtn>
-            </Link>
-        </>
+        <MyInfoBox>
+            <MyInfoTop>
+                <MyNickName>{currentUser?.nickName}</MyNickName>
+                <Link href="/user/edit">
+                    <EditBtn>프로필 수정</EditBtn>
+                </Link>
+            </MyInfoTop>
+            <MyInfoBottom>
+                <MyEmail>
+                    <SvgBackground>
+                        <MdEmail />
+                    </SvgBackground>
+                    <div>{currentUser?.email}</div>
+                </MyEmail>
+                <MyPhoneNumber>
+                    <SvgBackground>
+                        <MdOutlinePhoneIphone />
+                    </SvgBackground>
+                    <div>{currentUser?.phoneNumber}</div>
+                </MyPhoneNumber>
+                <MyAddress>
+                    <SvgBackground>
+                        <ImHome />
+                    </SvgBackground>
+                    <div>{currentUser?.address}</div>
+                </MyAddress>
+            </MyInfoBottom>
+        </MyInfoBox>
     );
 };
 
-const Information = styled.h1`
-    font-size: 2rem;
-    width: 100%;
-    text-align: center;
-    padding: 15px 0;
-    color: #222831;
-`;
-
 const MyInfoBox = styled.div`
-    width: 100%;
+    max-width: 100%;
+    padding: 1rem;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+`;
+const MyInfoTop = styled.div`
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    background-color: #eeeeee;
-    & div {
-        line-height: 30px;
+    margin-bottom: 10px;
+`;
+const MyInfoBottom = styled.div`
+    > div {
+        display: flex;
+        align-items: center;
+        margin: 3px 0;
+        > div > svg {
+            color: ${colors.gold};
+        }
     }
 `;
+const SvgBackground = styled.div`
+    border-radius: 100%;
+    background-color: ${colors.dark};
+    width: fit-content;
+    padding: 0.37rem;
+    display: flex;
+    align-items: center;
+    margin-right: 0.4rem;
+`;
+const MyNickName = styled.div`
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: ${colors.dark};
+`;
+const MyEmail = styled.div``;
+const MyPhoneNumber = styled.div``;
+const MyAddress = styled.div``;
 
 const EditBtn = styled.div`
-    width: 100%;
-    background-color: #393e46;
-    color: ${colors.gold};
-    font-weight: bold;
+    background-color: ${colors.lightDark};
+    color: ${colors.white};
+    border-radius: 10px;
+    padding: 7px;
+    font-size: 0.8rem;
     user-select: none;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem 0;
     cursor: pointer;
+
+    :hover {
+        color: ${colors.gold};
+    }
 `;
 export default MyInfo;
