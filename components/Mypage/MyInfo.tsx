@@ -50,6 +50,7 @@ const MyInfoBox = styled.div`
     max-width: 100%;
     padding: 1rem;
     box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+    margin-bottom: 2rem;
 `;
 const MyInfoTop = styled.div`
     display: flex;

@@ -1,39 +1,36 @@
-import React from 'react';
+import styled from '@emotion/styled';
+import Link from 'next/link';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
-import styled from '@emotion/styled';
 import colors from 'styles/colors';
-import Link from 'next/link';
 
 type Props = {};
 
-const MyRequest = (props: Props) => {
+const MyJobHangList = (props: Props) => {
+    const { itemList } = useSelector((state: RootState) => state.itemList);
     const { currentUser } = useSelector(
         (state: RootState) => state.currentUser,
     );
-    const { itemList } = useSelector((state: RootState) => state.itemList);
-    const RequestList = itemList.filter(
-        (data) => data.userId === currentUser?.uid,
+    const jobHangList = itemList.filter(
+        (item) => item.jobHangASa === currentUser.uid,
     );
 
     return (
         <div>
-            <Information>요청 내역 </Information>
             <div>
-                {RequestList.length > 0
-                    ? RequestList.map((item) => {
-                          return (
-                              <Link href={`/items/${item.id}`} key={item.id}>
-                                  <ItemBox>
-                                      <div>{item.title}</div>
-                                      <div>{item.town}</div>
-                                      <div>{item.date}</div>
-                                      <div>{item.reward}</div>
-                                  </ItemBox>
-                              </Link>
-                          );
-                      })
-                    : '요청 내역이 없습니다.'}
+                {jobHangList.length > 0
+                    ? jobHangList.map((item) => (
+                          <Link href={`/items/${item.id}`} key={item.id}>
+                              <ItemBox>
+                                  <div>{item.title}</div>
+                                  <div>{item.town}</div>
+                                  <div>{item.date}</div>
+                                  <div>{item.reward}</div>
+                              </ItemBox>
+                          </Link>
+                      ))
+                    : '잡행어사 출두 내역이 없습니다.'}
             </div>
         </div>
     );
@@ -91,4 +88,4 @@ const ItemBox = styled.div`
     }
 `;
 
-export default MyRequest;
+export default MyJobHangList;

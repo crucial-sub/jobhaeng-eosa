@@ -1,10 +1,9 @@
 import React from 'react';
 import MyInfo from './MyInfo';
-import MyRequest from './MyRequest';
 import Link from 'next/link';
 
 import Logout from './Logout';
-import MyJabHangList from './MyJabHangList';
+import MyItemList from './MyItemList';
 
 type Props = {};
 
@@ -12,8 +11,7 @@ const MyPage = (props: Props) => {
     return (
         <div>
             <MyInfo />
-            <MyRequest />
-            <MyJabHangList />
+            <MyItemList />
             <Link href="/">
                 <Logout />
             </Link>
