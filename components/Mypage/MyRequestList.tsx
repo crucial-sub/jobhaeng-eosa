@@ -18,22 +18,22 @@ const MyRequestList = (props: Props) => {
 
     return (
         <div>
-            <div>
-                {RequestList.length > 0
-                    ? RequestList.map((item) => {
-                          return (
-                              <Link href={`/items/${item.id}`} key={item.id}>
-                                  <ItemBox>
-                                      <div>{item.title}</div>
-                                      <div>{item.town}</div>
-                                      <div>{item.date}</div>
-                                      <div>{item.reward}</div>
-                                  </ItemBox>
-                              </Link>
-                          );
-                      })
-                    : '요청 내역이 없습니다.'}
-            </div>
+            {RequestList.length > 0 ? (
+                RequestList.map((item) => {
+                    return (
+                        <Link href={`/items/${item.id}`} key={item.id}>
+                            <ItemBox>
+                                <div>{item.title}</div>
+                                <div>{item.town}</div>
+                                <div>{item.date}</div>
+                                <div>{item.reward}</div>
+                            </ItemBox>
+                        </Link>
+                    );
+                })
+            ) : (
+                <NoList>요청 내역이 없습니다.</NoList>
+            )}
         </div>
     );
 };
@@ -88,6 +88,9 @@ const ItemBox = styled.div`
         align-self: center;
         font-size: 1.2rem;
     }
+`;
+const NoList = styled.div`
+    margin: 15px;
 `;
 
 export default MyRequestList;

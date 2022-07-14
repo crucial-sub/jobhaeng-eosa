@@ -14,7 +14,7 @@ const MyItemList = (props: Props) => {
     };
 
     return (
-        <div>
+        <MyListContainer>
             <SelectTab selectedList={selectedList}>
                 <div
                     className={`${
@@ -37,10 +37,11 @@ const MyItemList = (props: Props) => {
             </SelectTab>
             {selectedList === 'request' && <MyRequestList />}
             {selectedList === 'job-hang' && <MyJobHangList />}
-        </div>
+        </MyListContainer>
     );
 };
 
+const MyListContainer = styled.div``;
 const SelectTab = styled.div<{ selectedList: string }>`
     display: flex;
     border-bottom: 1px solid ${colors.dark};

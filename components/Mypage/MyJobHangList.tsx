@@ -18,20 +18,20 @@ const MyJobHangList = (props: Props) => {
 
     return (
         <div>
-            <div>
-                {jobHangList.length > 0
-                    ? jobHangList.map((item) => (
-                          <Link href={`/items/${item.id}`} key={item.id}>
-                              <ItemBox>
-                                  <div>{item.title}</div>
-                                  <div>{item.town}</div>
-                                  <div>{item.date}</div>
-                                  <div>{item.reward}</div>
-                              </ItemBox>
-                          </Link>
-                      ))
-                    : '잡행어사 출두 내역이 없습니다.'}
-            </div>
+            {jobHangList.length > 0 ? (
+                jobHangList.map((item) => (
+                    <Link href={`/items/${item.id}`} key={item.id}>
+                        <ItemBox>
+                            <div>{item.title}</div>
+                            <div>{item.town}</div>
+                            <div>{item.date}</div>
+                            <div>{item.reward}</div>
+                        </ItemBox>
+                    </Link>
+                ))
+            ) : (
+                <NoList>잡행어사 출두 내역이 없습니다.</NoList>
+            )}
         </div>
     );
 };
@@ -86,6 +86,10 @@ const ItemBox = styled.div`
         align-self: center;
         font-size: 1.2rem;
     }
+`;
+
+const NoList = styled.div`
+    margin: 15px;
 `;
 
 export default MyJobHangList;
