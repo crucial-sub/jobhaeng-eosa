@@ -72,7 +72,8 @@ const ChatLists = (props: Props) => {
                                     <Town>{a.town}</Town>
                                 </TitleNTown>
                                 <LastMessages>
-                                    마지막 메세지: {a.lastChat}
+                                    <span>마지막 메세지: </span>
+                                    {a.lastChat?.slice(0, 30)}
                                 </LastMessages>
                                 {/* <div>
                                     닉네임은{' '}
@@ -100,7 +101,8 @@ const ChatLists = (props: Props) => {
                                         <Town>{a.town}</Town>
                                     </TitleNTown>
                                     <LastMessages>
-                                        마지막 메세지: {a.lastChat}
+                                        마지막 메세지:{' '}
+                                        {a.lastChat?.slice(0, 20)}
                                     </LastMessages>
                                 </ChatBox>
                             </Link>
@@ -147,6 +149,7 @@ const LastMessages = styled.div`
     display: flex;
     width: 100%;
     height: 50%;
+    overflow: hidden;
     align-items: center;
     margin-left: 20px;
 `;
