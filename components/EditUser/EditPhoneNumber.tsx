@@ -22,6 +22,7 @@ const EditPhoneNumber = (props: Props) => {
                 id="phoneNumber"
                 value={props.userInfo.phoneNumber}
                 onChange={props.handleChange}
+                pattern="01[016789]-?[^0][0-9]{2,3}-?[0-9]{3,4}"
                 required
             />
         </PhoneNumberInput>
