@@ -86,63 +86,61 @@ const Conversations = (props: Props) => {
     }, [messages, docId]);
 
     return (
-        <ContentBox>
+        <>
             {userNickName !== '' && (
                 <ChatWith>{userNickName}님 과의 채팅</ChatWith>
             )}
-            {messages &&
-                isOn &&
-                messages.map((a, i) => {
-                    if (a.user === currentUser.email) {
-                        return (
-                            <MyMessage key={i}>
-                                <Message>{a.message}</Message>
-                                <Times>
-                                    <div>{a.timeStamp}</div>
-                                </Times>
-                            </MyMessage>
-                        );
-                    } else {
-                        return (
-                            <OpponentMessage key={i}>
-                                <Omessage>
-                                    <OppoMessage>{a.message}</OppoMessage>
-                                    <Times>{a.timeStamp}</Times>
-                                </Omessage>
-                            </OpponentMessage>
-                        );
-                    }
-                })}
-            <LastOfMessages ref={lastMessageRef} />
-        </ContentBox>
+            <ContentBox>
+                {messages &&
+                    isOn &&
+                    messages.map((a, i) => {
+                        if (a.user === currentUser.email) {
+                            return (
+                                <MyMessage key={i}>
+                                    <Message>{a.message}</Message>
+                                    <Times>
+                                        <div>{a.timeStamp}</div>
+                                    </Times>
+                                </MyMessage>
+                            );
+                        } else {
+                            return (
+                                <OpponentMessage key={i}>
+                                    <Omessage>
+                                        <OppoMessage>{a.message}</OppoMessage>
+                                        <Times>{a.timeStamp}</Times>
+                                    </Omessage>
+                                </OpponentMessage>
+                            );
+                        }
+                    })}
+                <LastOfMessages ref={lastMessageRef} />
+            </ContentBox>
+        </>
     );
 };
 
 const ContentBox = styled.div`
     width: 100%;
     flex: 8.5 1 0;
-    height: 80%;
-    position: relative;
+    overflow: scroll;
     margin-top: 10px;
 `;
 
 const ChatWith = styled.div`
-    max-width: 380px;
-    margin: auto;
+    width: 390px;
+    margin: 5px auto 0px auto;
     text-align: center;
-    border: 1px solid silver;
+    position: sticky;
 `;
 
 const MyMessage = styled.div`
     width: 100%;
     position: relative;
     display: flex;
-    /* text-align: right; */
     flex-direction: row-reverse;
-    /* height: 10%; */
     margin-bottom: 5px;
-    right: 0;
-    /* max-width: 300px; */
+    right: 5px;
 
     & div {
         padding: 5px;
@@ -162,6 +160,7 @@ const OpponentMessage = styled.div`
     position: relative;
     text-align: left;
     display: flex;
+    left: 5px;
 `;
 
 const Omessage = styled.div`
