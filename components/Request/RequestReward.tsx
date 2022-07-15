@@ -21,19 +21,15 @@ const RequestReward = (props: Props) => {
         const final = Number(first).toLocaleString('ko-KR').toString();
         return final;
     };
-    const handleChange = (
-        e:
-            | React.ChangeEvent<HTMLInputElement>
-            | React.KeyboardEvent<HTMLInputElement>,
-    ) => {
-        const value = numberWithCommas(e.currentTarget.value);
-        setMoney(value);
-        const num = value.replace(/,/g, '');
-
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const valueWithCommas = numberWithCommas(e.currentTarget.value);
+        const removeCommas = valueWithCommas.replace(/,/g, '');
+        const reward = numberCommas(removeCommas.toString());
+        setMoney(reward!);
         dispatch(
             requestAction.request({
                 ...props.request,
-                reward: numberCommas(num.toString()),
+                reward: reward,
             }),
         );
     };
@@ -44,10 +40,9 @@ const RequestReward = (props: Props) => {
                 placeholder="₩ 잡행보상금"
                 required
                 onChange={handleChange}
-                onKeyDown={handleChange}
                 value={money}
-                pattern="^[0-9,]*$"
-                maxLength={11}
+                pattern="^[0-9,₩]*$"
+                maxLength={12}
             ></Input>
         </RewardBox>
     );
