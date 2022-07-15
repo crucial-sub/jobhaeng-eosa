@@ -89,6 +89,5 @@ const RequestSubmit = styled.input`
     padding: 1rem 0;
     cursor: pointer;
 `;
-const LogoutBtn = styled.div``;
 
 export default Request;

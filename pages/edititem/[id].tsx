@@ -1,111 +1,24 @@
-import { useRouter } from 'next/router';
-import React, { useState } from 'react';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import { itemListAction, ItemTypes, RootState } from 'store';
-import { dbService } from 'fbase';
-import { json } from 'stream/consumers';
-import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
-import RequestLocation from 'components/Request/RequestLocation';
-import EditItemLocation from 'components/Item/EditItemLocation';
+import React from 'react';
+import EditItem from 'components/EditItem';
+import styled from '@emotion/styled';
+import colors from 'styles/colors';
 
-type Props = {
-    item: ItemTypes;
-};
-
-interface IndexNumber {
-    targetIndex: number;
-}
+type Props = {};
 
 const ItemEdit = (props: Props) => {
-    const router = useRouter();
-    const { id } = router.query;
-    const { itemList } = useSelector((state: RootState) => state.itemList);
-    const { currentUser } = useSelector(
-        (state: RootState) => state.currentUser,
-    );
-    const [items, setItems] = useState<ItemTypes>();
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        setItems(itemList.find((item) => item.id === id));
-    }, [itemList]);
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const info = e.currentTarget.dataset.info;
-        if (info === 'title') {
-            setItems({ ...items, title: e.target.value });
-        } else if (info === 'reward') {
-            setItems({ ...items, reward: e.target.value });
-        } else if (info === 'contents') {
-            setItems({ ...items, contents: e.target.value });
-        }
-    };
-
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        // setItems({...items, id: id,
-        //     nickName: currentUser.nickName,
-        //     userId: currentUser.uid,
-        //     date: serverTimestamp(),})
-        setItems({
-            ...items,
-            date: serverTimestamp().toString(),
-        });
-        if (items && id) {
-            dispatch(itemListAction.update({ items, id }));
-            const UpdateRef = doc(dbService, 'items', `${id}`);
-            await updateDoc(UpdateRef, {
-                ...items,
-                id: id,
-                nickName: currentUser.nickName,
-                userId: currentUser.uid,
-                date: serverTimestamp(),
-            });
-            router.push(`/items/${id}`);
-        } else {
-            return;
-        }
-    };
     return (
-        <>
-            {items && (
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label htmlFor="title">제목</label>
-                        <input
-                            data-info="title"
-                            value={items.title}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <EditItemLocation
-                        items={items}
-                        currentUser={currentUser}
-                        setItems={setItems}
-                    />
-                    <div>
-                        <label htmlFor="reward">보상</label>
-                        <input
-                            data-info="reward"
-                            value={items.reward}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="contents">내용</label>
-                        <input
-                            data-info="contents"
-                            value={items.contents}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <input type="submit" value={'update request'} />
-                </form>
-            )}
-        </>
+        <EditItemWrapper>
+            <EditItem />
+        </EditItemWrapper>
     );
 };
+
+const EditItemWrapper = styled.div`
+    max-width: 90%;
+    height: 90%;
+    margin: 7.5% auto;
+    overflow: auto;
+    background-color: ${colors.white};
+`;
 
 export default ItemEdit;

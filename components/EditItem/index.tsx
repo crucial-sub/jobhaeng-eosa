@@ -1,9 +1,10 @@
 import React from 'react';
+import EditItemForm from './EditItemForm';
 
 type Props = {};
 
-const index = (props: Props) => {
-    return <div>index</div>;
+const EditItem = (props: Props) => {
+    return <EditItemForm />;
 };
 
-export default index;
+export default EditItem;
