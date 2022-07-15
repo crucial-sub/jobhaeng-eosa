@@ -87,6 +87,7 @@ const ChattingInput = (props: Props) => {
                 town: items?.town,
                 lastChat: '',
                 ongoing: false,
+                requestEnd: false,
             });
 
             await updateDoc(doc(dbService, 'chats', docRef.id), {

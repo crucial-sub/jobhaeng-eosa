@@ -1,35 +1,31 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { ItemTypes, requestAction } from 'store';
+import { ItemTypes } from 'store';
 import colors from 'styles/colors';
 
 type Props = {
-    request: ItemTypes;
+    items: ItemTypes;
+    handleChange: React.ChangeEventHandler<
+        HTMLInputElement | HTMLTextAreaElement
+    >;
 };
 
-const RequestTitle = (props: Props) => {
-    const dispatch = useDispatch();
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(
-            requestAction.request({
-                ...props.request,
-                title: e.target.value,
-            }),
-        );
-    };
-
+const EditItemTitle = (props: Props) => {
+    const { items, handleChange } = props;
     return (
         <TitleBox>
             <Input
                 type="text"
                 required
+                data-info="title"
                 onChange={handleChange}
                 placeholder="제목"
+                value={items.title}
             ></Input>
         </TitleBox>
     );
 };
+
 const TitleBox = styled.div`
     > input {
         padding-top: 0;
@@ -42,4 +38,4 @@ const Input = styled.input`
     font-weight: 700;
 `;
 
-export default RequestTitle;
+export default EditItemTitle;

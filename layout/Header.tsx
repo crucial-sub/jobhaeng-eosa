@@ -31,14 +31,14 @@ const Header = (props: Props) => {
                         <SearchBox />
                     </>
                 )}
-                {pathname === '/chats' && <div>채팅</div>}
+                {pathname === '/chats' && <TabName>채팅</TabName>}
                 {pathname === '/chats/[chatId]' && (
                     <>
                         <GoBack />
                         <ChatHeader />
                     </>
                 )}
-                {pathname === '/user' && <div>마이 페이지</div>}
+                {pathname === '/user' && <TabName>마이 페이지</TabName>}
                 {pathname === '/request' && <GoBack />}
                 {pathname === '/user/edit' && <GoBack />}
                 {pathname === '/items/[id]' && <GoBack />}
@@ -67,6 +67,9 @@ const HeaderBox = styled.div`
     & svg {
         cursor: pointer;
     }
+`;
+const TabName = styled.div`
+    margin-left: 1rem;
 `;
 
 export default Header;

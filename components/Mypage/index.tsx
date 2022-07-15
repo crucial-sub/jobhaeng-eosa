@@ -1,22 +1,28 @@
 import React from 'react';
 import MyInfo from './MyInfo';
-import MyRequest from './MyRequest';
 import Link from 'next/link';
 
 import Logout from './Logout';
+import MyItemList from './MyItemList';
+import styled from '@emotion/styled';
 
 type Props = {};
 
 const MyPage = (props: Props) => {
     return (
-        <div>
+        <MyPageContainer>
             <MyInfo />
-            <MyRequest />
+            <MyItemList />
             <Link href="/">
                 <Logout />
             </Link>
-        </div>
+        </MyPageContainer>
     );
 };
+
+const MyPageContainer = styled.div`
+    position: relative;
+    height: 100%;
+`;
 
 export default MyPage;

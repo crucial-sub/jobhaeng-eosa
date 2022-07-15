@@ -19,6 +19,7 @@ const ChatHeader = (props: Props) => {
     const { itemList } = useSelector((state: RootState) => state.itemList);
     const [item, setItem] = useState<ItemTypes>();
     const [chat, setChat] = useState<ChatTypes>();
+    const [isOngoing, setIsOngoing] = useState<boolean>(false);
     const router = useRouter();
     const itemId = router.query.chatId?.toString();
 
@@ -31,8 +32,11 @@ const ChatHeader = (props: Props) => {
     const getChat = async () => {};
     useEffect(() => {
         const collectionRef = collection(dbService, 'chats');
-        const q = query(collectionRef, where('id', '==', docId));
+        const q = query(collectionRef, where('requestId', '==', itemId));
         const getChat = onSnapshot(q, async (querySnapshot) => {
+            if (querySnapshot.docs.some((doc) => doc.data().ongoing === true)) {
+                setIsOngoing(true);
+            } else setIsOngoing(false);
             querySnapshot.docs.forEach((doc) => {
                 doc.id === docId && setChat(doc.data());
             });
@@ -42,7 +46,8 @@ const ChatHeader = (props: Props) => {
     return (
         <HeaderBox>
             <ChatOut />
-            {currentUser.uid === item?.userId && !chat?.ongoing && (
+            {}
+            {currentUser.uid === item?.userId && !chat?.ongoing && !isOngoing && (
                 <>
                     <RequestAccept item={item} itemId={itemId!} />
                 </>

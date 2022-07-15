@@ -1,11 +1,10 @@
 import styled from '@emotion/styled';
-import React, { useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { ItemTypes, requestAction, RootState, userDataTypes } from 'store';
+import { ItemTypes, requestAction, userDataTypes } from 'store';
+import colors from 'styles/colors';
 import { coordToAddress } from 'utils/fetcher';
 import Map from './Map';
-import Location from './Map';
 
 type Props = {
     request: ItemTypes;
@@ -22,6 +21,7 @@ const RequestLocation = (props: Props) => {
         isLoading: true,
     });
     const [visible, setVisible] = useState(false);
+    const [selectedMethod, setSelectedMethod] = useState<string>('');
 
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         const method = e.currentTarget.dataset.method;
@@ -44,6 +44,7 @@ const RequestLocation = (props: Props) => {
                 }),
             );
         }
+        setSelectedMethod(method!);
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -100,17 +101,33 @@ const RequestLocation = (props: Props) => {
         }
     }, [visible]);
     return (
-        <>
-            <Label>잡행어사 출두 위치</Label>
-            <div>
-                <div onClick={handleClick} data-method="address">
-                    내 주소
-                </div>
-                <div onClick={handleClick} data-method="location">
-                    현재 위치
-                </div>
-            </div>
-            <Input type="text" required value={request.location}></Input>
+        <LocationBox>
+            <LocationSelectTab>
+                <Tab
+                    onClick={handleClick}
+                    className={`${
+                        selectedMethod === 'address' ? 'selected' : ''
+                    }`}
+                    data-method="address"
+                >
+                    내 주소 입력
+                </Tab>
+                <Tab
+                    onClick={handleClick}
+                    className={`${
+                        selectedMethod === 'location' ? 'selected' : ''
+                    }`}
+                    data-method="location"
+                >
+                    지도로 선택
+                </Tab>
+            </LocationSelectTab>
+            <Input
+                type="text"
+                required
+                value={request.location}
+                placeholder="잡행어사 출두 위치"
+            ></Input>
             {visible && (
                 <Map
                     lat={geoLocation.lat}
@@ -119,17 +136,51 @@ const RequestLocation = (props: Props) => {
                     mapUseFor="request"
                 />
             )}
-            <label>출두 위치 부가 설명 (선택)</label>
-            <textarea
+            <TextArea
                 onChange={handleChange}
                 value={request.extraLocation}
-            ></textarea>
-        </>
+                placeholder={`출두 위치에 대한 부가정보를 입력해주세요. 잡행어사가 보다 쉽게 찾아갈 수 있어요.\nex) XX사거리 ○○건물 2층 화장실 3번째 칸`}
+            ></TextArea>
+        </LocationBox>
     );
 };
 
-const Label = styled.label``;
+const LocationBox = styled.div`
+    margin: 1rem 0 0;
 
-const Input = styled.input``;
+    > textarea {
+        min-height: 4rem;
+        border-bottom: 1px solid black;
+    }
+`;
+
+const LocationSelectTab = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;
+const Tab = styled.div`
+    width: 100%;
+    text-align: center;
+    background-color: ${colors.lightDark};
+    color: ${colors.white};
+    padding: 1rem;
+    cursor: pointer;
+    &.selected {
+        background-color: ${colors.dark};
+        color: ${colors.gold};
+    }
+`;
+const Input = styled.input`
+    padding: 1rem 0;
+    background-color: ${colors.white};
+    font-weight: 700;
+`;
+const TextArea = styled.textarea`
+    padding: 1rem 0;
+    border: none;
+    resize: none;
+    background-color: ${colors.white};
+    font-size: 1rem;
+`;
 
 export default RequestLocation;

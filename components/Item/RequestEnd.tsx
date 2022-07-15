@@ -5,8 +5,11 @@ import {
     doc,
     DocumentData,
     getDocs,
+    onSnapshot,
+    query,
     QueryDocumentSnapshot,
     updateDoc,
+    where,
 } from 'firebase/firestore';
 import { dbService } from 'fbase';
 import { itemListAction, ItemTypes } from 'store';
@@ -29,9 +32,21 @@ const RequestEnd = (props: Props) => {
     const dispatch = useDispatch();
     const handleOnClick = async (e: React.MouseEvent<HTMLDivElement>) => {
         if (confirm('요청을 종료하시겠습니까?')) {
-            const UpdateRef = doc(dbService, 'items', `${itemId}`);
-            await updateDoc(UpdateRef, {
-                requestEnd: true,
+            const ItemDocRef = doc(dbService, 'items', `${itemId}`);
+            const chatRef = collection(dbService, 'chats');
+            const q = query(chatRef, where('requestId', '==', itemId));
+            const getChat = onSnapshot(q, async (querySnapshot) => {
+                querySnapshot.docs.forEach((document) => {
+                    if (document.data().ongoing) {
+                        updateDoc(doc(dbService, 'chats', document.id), {
+                            requestEnd: true,
+                        });
+                        updateDoc(ItemDocRef, {
+                            requestEnd: true,
+                            jobHangASa: document.data().users[0],
+                        });
+                    }
+                });
             });
 
             const querySnapshot = await getDocs(collection(dbService, 'items'));
@@ -40,7 +55,6 @@ const RequestEnd = (props: Props) => {
             );
             const docItem = {
                 ...findDoc?.data(),
-                id: findDoc?.id,
                 date: getMonthDayTime(findDoc?.data().date?.toDate()),
             };
             setItem(docItem);
