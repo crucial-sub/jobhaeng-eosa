@@ -67,12 +67,12 @@ const Conversations = (props: Props) => {
                     if (currentUser.uid === items?.userId) {
                         chatOnOff = querySnapshot.docs[0].data().onOff[1];
                         setUserNickName(
-                            querySnapshot.docs[0].data().nickName[1],
+                            querySnapshot.docs[0].data().nickName[0],
                         );
                     } else {
                         chatOnOff = querySnapshot.docs[0].data().onOff[0];
                         setUserNickName(
-                            querySnapshot.docs[0].data().nickName[0],
+                            querySnapshot.docs[0].data().nickName[1],
                         );
                     }
                     if (chatOnOff === 'on') {
@@ -87,7 +87,9 @@ const Conversations = (props: Props) => {
 
     return (
         <ContentBox>
-            <ChatWith>{userNickName}님 과의 채팅</ChatWith>
+            {userNickName !== '' && (
+                <ChatWith>{userNickName}님 과의 채팅</ChatWith>
+            )}
             {messages &&
                 isOn &&
                 messages.map((a, i) => {
