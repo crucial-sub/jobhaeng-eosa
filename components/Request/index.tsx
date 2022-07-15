@@ -22,6 +22,7 @@ import RequestLocation from './RequestLocation';
 import RequestReward from './RequestReward';
 import RequestTitle from './RequestTitle';
 import { useRouter } from 'next/router';
+import colors from 'styles/colors';
 
 type Props = {};
 
@@ -71,8 +72,23 @@ const Request = (props: Props) => {
 const Form = styled.form`
     display: flex;
     flex-direction: column;
+    & * {
+        width: 100%;
+    }
 `;
 
-const RequestSubmit = styled.input``;
+const RequestSubmit = styled.input`
+    width: 100%;
+    background-color: ${colors.gold};
+    color: ${colors.lightDark};
+    font-weight: bold;
+    user-select: none;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0;
+    cursor: pointer;
+`;
+const LogoutBtn = styled.div``;
 
 export default Request;
