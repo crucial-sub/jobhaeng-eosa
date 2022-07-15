@@ -72,17 +72,9 @@ const ChatLists = (props: Props) => {
                                     <Town>{a.town}</Town>
                                 </TitleNTown>
                                 <LastMessages>
-                                    마지막 메세지: {a.lastChat}
+                                    <span>마지막 메세지: </span>
+                                    {a.lastChat?.slice(0, 30)}
                                 </LastMessages>
-                                {/* <div>
-                                    닉네임은{' '}
-                                    {a.nickName?.map((a) => {
-                                        if (a !== currentUser.nickName) {
-                                            return a;
-                                        }
-                                    })}
-                                    입니다
-                                </div> */}
                             </ChatBox>
                         </Link>
                     );
@@ -100,7 +92,8 @@ const ChatLists = (props: Props) => {
                                         <Town>{a.town}</Town>
                                     </TitleNTown>
                                     <LastMessages>
-                                        마지막 메세지: {a.lastChat}
+                                        마지막 메세지:{' '}
+                                        {a.lastChat?.slice(0, 20)}
                                     </LastMessages>
                                 </ChatBox>
                             </Link>
@@ -118,9 +111,11 @@ const ChatBox = styled.div`
     width: 90%;
     margin: auto;
     height: 20%;
-    border-bottom: 1px solid ${colors.lightDark};
-    /* border-radius: 10px; */
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px,
+        rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
     margin-bottom: 15px;
+    margin-top: 15px;
+    border-radius: 10px;
 `;
 
 const TitleNTown = styled.div`
@@ -147,6 +142,7 @@ const LastMessages = styled.div`
     display: flex;
     width: 100%;
     height: 50%;
+    overflow: hidden;
     align-items: center;
     margin-left: 20px;
 `;

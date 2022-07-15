@@ -29,6 +29,7 @@ const Conversations = (props: Props) => {
     const date = new Date();
     const { items } = props;
     const [messages, setMessages] = useState<ChatContentType[]>([]);
+    const [userNickName, setUserNickName] = useState('');
     const { currentUser } = useSelector(
         (state: RootState) => state.currentUser,
     );
@@ -65,8 +66,14 @@ const Conversations = (props: Props) => {
                     let chatOnOff;
                     if (currentUser.uid === items?.userId) {
                         chatOnOff = querySnapshot.docs[0].data().onOff[1];
+                        setUserNickName(
+                            querySnapshot.docs[0].data().nickName[1],
+                        );
                     } else {
                         chatOnOff = querySnapshot.docs[0].data().onOff[0];
+                        setUserNickName(
+                            querySnapshot.docs[0].data().nickName[0],
+                        );
                     }
                     if (chatOnOff === 'on') {
                         setIsOn(true);
@@ -80,27 +87,26 @@ const Conversations = (props: Props) => {
 
     return (
         <ContentBox>
+            <ChatWith>{userNickName}님 과의 채팅</ChatWith>
             {messages &&
                 isOn &&
                 messages.map((a, i) => {
                     if (a.user === currentUser.email) {
                         return (
                             <MyMessage key={i}>
-                                <Message>
-                                    <div>{a.message}</div>
-                                </Message>
-                                <div>
+                                <Message>{a.message}</Message>
+                                <Times>
                                     <div>{a.timeStamp}</div>
-                                </div>
+                                </Times>
                             </MyMessage>
                         );
                     } else {
                         return (
                             <OpponentMessage key={i}>
-                                <div>{a.nickName}</div>
-
-                                <div>{a.message}</div>
-                                <div>{a.timeStamp}</div>
+                                <Omessage>
+                                    <OppoMessage>{a.message}</OppoMessage>
+                                    <Times>{a.timeStamp}</Times>
+                                </Omessage>
                             </OpponentMessage>
                         );
                     }
@@ -113,38 +119,68 @@ const Conversations = (props: Props) => {
 const ContentBox = styled.div`
     width: 100%;
     flex: 8.5 1 0;
+    height: 80%;
     position: relative;
+    margin-top: 10px;
+`;
+
+const ChatWith = styled.div`
+    max-width: 380px;
+    margin: auto;
+    text-align: center;
+    border: 1px solid silver;
 `;
 
 const MyMessage = styled.div`
+    width: 100%;
     position: relative;
     display: flex;
-    text-align: right;
+    /* text-align: right; */
     flex-direction: row-reverse;
     /* height: 10%; */
-    width: 390px;
+    margin-bottom: 5px;
+    right: 0;
+    /* max-width: 300px; */
+
+    & div {
+        padding: 5px;
+    }
 `;
 
 const Message = styled.div`
     border-radius: 15px;
+    /* max-width: 80%;ㄴ */
     background-color: ${colors.gold};
+    line-height: 30px;
+    padding: 5px;
 `;
 
 const OpponentMessage = styled.div`
+    margin-top: 5px;
     position: relative;
     text-align: left;
     display: flex;
-    /* height: 10%; */
-    width: 390px;
 `;
 
 const Omessage = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+`;
+
+const OppoMessage = styled.div`
+    border-radius: 15px;
+    background-color: ${colors.gold};
+    padding: 10px;
+    margin-right: 5px;
+`;
+
+const Times = styled.div`
+    padding: 10px;
+    min-width: 80px;
 `;
 
 const LastOfMessages = styled.div`
-    margin-bottom: 100;
+    margin-bottom: 0;
 `;
 
 export default Conversations;

@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { joinAction } from 'store';
+import colors from 'styles/colors';
 
 type Props = {};
 
@@ -14,13 +15,14 @@ const BacktoLogin = (props: Props) => {
 };
 
 const BackBtn = styled.button`
-    margin-top: 50px;
-    width: 100%;
+    width: 90%;
     height: 4vh;
     line-height: 4vh;
     text-align: center;
-    border: none;
-    background-color: skyblue;
+    margin: 0 auto 30px auto;
+    background-color: ${colors.lightDark};
+    border-radius: 20px;
+    color: ${colors.gold};
     cursor: pointer;
 `;
 

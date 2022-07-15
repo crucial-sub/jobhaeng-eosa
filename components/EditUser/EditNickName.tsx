@@ -22,6 +22,8 @@ const EditNickName = (props: Props) => {
                 id="nickName"
                 value={props.userInfo.nickName}
                 onChange={props.handleChange}
+                placeholder="2글자 이상 6글자 이하"
+                pattern="^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,6}$"
                 required
             />
         </NickNameInput>
