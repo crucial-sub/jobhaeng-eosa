@@ -4,6 +4,7 @@ import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import React from 'react';
+import colors from 'styles/colors';
 
 type Props = {};
 
@@ -33,14 +34,16 @@ const GoogleLogin = (props: Props) => {
     );
 };
 const GoogleLoginBtn = styled.button`
-    margin-bottom: 50px;
-    width: 100%;
+    width: 90%;
     height: 4vh;
     line-height: 4vh;
+    margin: 0 auto 30px auto;
     text-align: center;
     border: none;
-    background-color: skyblue;
+    background-color: ${colors.lightDark};
+    color: ${colors.gold};
     cursor: pointer;
+    border-radius: 20px;
 `;
 
 export default GoogleLogin;

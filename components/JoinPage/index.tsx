@@ -12,6 +12,8 @@ import { currentUserAction, joinAction, loginAction, RootState } from 'store';
 import { useSelector } from 'react-redux';
 import { addDoc, collection, getDoc } from 'firebase/firestore';
 import BacktoLogin from './BacktoLogin';
+import colors from 'styles/colors';
+import GoogleLogin from 'components/LoginPage/GoogleLogin';
 
 type Props = {};
 
@@ -67,42 +69,58 @@ const JoinPage = (props: Props) => {
         };
     }, []);
     return (
-        <RegistBox>
-            <RegistForm onSubmit={onSubmit}>
-                <RegistTitle>잡행어사 회원가입</RegistTitle>
-                <div>
-                    <label htmlFor="email">Email</label>
-                    <input
-                        name="email"
-                        type="text"
-                        id="email"
-                        value={email}
-                        onChange={onChange}
-                        placeholder="Email"
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="password">PW</label>
-                    <input
-                        name="password"
-                        type="password"
-                        id="password"
-                        value={Password}
-                        onChange={onChange}
-                        placeholder="password"
-                        required
-                    />
-                </div>
+        <Container>
+            <JoinBox>
+                <RegistBox>
+                    <RegistForm onSubmit={onSubmit}>
+                        <RegistTitle>잡행어사 회원가입</RegistTitle>
+                        <EmailInput>
+                            <label htmlFor="email">Email</label>
+                            <input
+                                name="email"
+                                type="text"
+                                id="email"
+                                value={email}
+                                onChange={onChange}
+                                placeholder="Email"
+                                required
+                            />
+                        </EmailInput>
+                        <PwInput>
+                            <label htmlFor="password">PW</label>
+                            <input
+                                name="password"
+                                type="password"
+                                id="password"
+                                value={Password}
+                                onChange={onChange}
+                                placeholder="password"
+                                required
+                            />
+                        </PwInput>
 
-                <RegistBtn type="submit" value={'Create Account'} />
-                <p>{error ? `${error}` : <></>}</p>
-            </RegistForm>
-
-            <BacktoLogin />
-        </RegistBox>
+                        <RegistBtn type="submit" value={'회원가입하기'} />
+                        <p>{error ? `${error}` : <></>}</p>
+                        <BacktoLogin />
+                    </RegistForm>
+                </RegistBox>
+            </JoinBox>
+        </Container>
     );
 };
+
+const Container = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+`;
+const JoinBox = styled.div`
+    width: 100%;
+    height: 100%;
+`;
 
 const RegistBox = styled.div`
     width: 100%;
@@ -113,6 +131,7 @@ const RegistTitle = styled.h1`
     width: 100%;
     font-size: 2rem;
     text-align: center;
+    margin-bottom: 15px;
 `;
 
 const RegistForm = styled.form`
@@ -121,7 +140,7 @@ const RegistForm = styled.form`
     flex-direction: column;
     justify-content: center;
     & div {
-        margin: 20px 20px;
+        /* margin: 20px 20px; */
         width: 90%;
         display: flex;
     }
@@ -131,17 +150,52 @@ const RegistForm = styled.form`
     }
     & div > input {
         width: 80%;
-        height: 30px;
+        height: 4vh;
+    }
+`;
+
+const EmailInput = styled.div`
+    position: relative;
+    margin: 15px auto 30px auto;
+    & label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height: 4vh;
+        height: 4vh;
+        font-weight: 700;
+    }
+    & input {
+        border-radius: 15px;
+        height: 4vh;
+    }
+`;
+
+const PwInput = styled.div`
+    margin: 0px auto 30px auto;
+    & label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 4vh;
+        line-height: 4vh;
+        font-weight: 700;
+    }
+    & input {
+        border-radius: 15px;
+        height: 4vh;
     }
 `;
 
 const RegistBtn = styled.input`
-    width: 100%;
+    width: 90%;
     height: 4vh;
     line-height: 4vh;
     text-align: center;
-    border: 1px solid silver;
-    background-color: skyblue;
+    margin: 0 auto 30px auto;
+    background-color: ${colors.lightDark};
+    border-radius: 20px;
+    color: ${colors.gold};
     cursor: pointer;
 `;
 

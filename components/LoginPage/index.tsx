@@ -76,7 +76,6 @@ const LoginPage = (props: Props) => {
                             required
                         />
                     </PwInput>
-
                     <LoginBtn type="submit" value={'Login'} />
                     <p>{error ? `${error}` : <></>}</p>
                     <GoogleLogin />
