@@ -1,12 +1,10 @@
 import styled from '@emotion/styled';
-import React, { useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { ItemTypes, requestAction, RootState, userDataTypes } from 'store';
+import { ItemTypes, requestAction, userDataTypes } from 'store';
 import colors from 'styles/colors';
 import { coordToAddress } from 'utils/fetcher';
 import Map from './Map';
-import Location from './Map';
 
 type Props = {
     request: ItemTypes;
