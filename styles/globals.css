@@ -149,3 +149,8 @@ body {
 ::-webkit-scrollbar {
     display: none;
 }
+
+input,
+textarea:focus {
+    outline: none;
+}
