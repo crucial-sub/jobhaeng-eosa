@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import RequestDltBtn from 'components/Request/RequestDltBtn';
+import RequestDltBtn from 'components/Item/RequestDltBtn';
 import RequestEnd from 'components/Item/RequestEnd';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
