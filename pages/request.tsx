@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { useDispatch } from 'react-redux';
 import Request from 'components/Request';
+import colors from 'styles/colors';
 
 type Props = {};
 
@@ -18,7 +18,7 @@ const RequestWrapper = styled.div`
     height: 90%;
     margin: 7.5% auto;
     overflow: auto;
-    background-color: aliceblue;
+    background-color: ${colors.white};
 `;
 
 export default request;

@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ItemTypes, requestAction } from 'store';
+import colors from 'styles/colors';
 import { numberCommas } from 'utils/moneyFormat';
 
 type Props = {
@@ -37,11 +38,10 @@ const RequestReward = (props: Props) => {
         );
     };
     return (
-        <>
-            <Label>잡행 보상금</Label>
+        <RewardBox>
             <Input
                 type="text"
-                placeholder="숫자만 입력해주세요"
+                placeholder="₩ 잡행보상금"
                 required
                 onChange={handleChange}
                 onKeyDown={handleChange}
@@ -49,12 +49,15 @@ const RequestReward = (props: Props) => {
                 pattern="^[0-9,]*$"
                 maxLength={11}
             ></Input>
-        </>
+        </RewardBox>
     );
 };
-
-const Label = styled.label``;
-
-const Input = styled.input``;
+const RewardBox = styled.div``;
+const Input = styled.input`
+    padding: 1rem 0;
+    border-bottom: 1px solid black;
+    background-color: ${colors.white};
+    font-weight: 700;
+`;
 
 export default RequestReward;
