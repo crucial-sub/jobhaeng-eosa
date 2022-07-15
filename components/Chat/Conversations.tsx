@@ -125,6 +125,7 @@ const ContentBox = styled.div`
     flex: 8.5 1 0;
     overflow: scroll;
     margin-top: 10px;
+    padding-top: 5px;
 `;
 
 const ChatWith = styled.div`
@@ -156,7 +157,7 @@ const Message = styled.div`
 `;
 
 const OpponentMessage = styled.div`
-    margin-top: 5px;
+    margin-bottom: 5px;
     position: relative;
     text-align: left;
     display: flex;
@@ -181,7 +182,7 @@ const Times = styled.div`
 `;
 
 const LastOfMessages = styled.div`
-    margin-bottom: 0;
+    margin-bottom: -10;
 `;
 
 export default Conversations;
