@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import {
@@ -46,6 +46,17 @@ const ChattingInput = (props: Props) => {
             lastChat: newMessage,
         });
         setNewMessage('');
+    };
+
+    useEffect(() => {}, []);
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === 'Enter') {
+            const enterKey = document.getElementById('submitBtn');
+            enterKey?.click();
+        } else {
+            return;
+        }
     };
 
     const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -124,9 +135,10 @@ const ChattingInput = (props: Props) => {
                 id="story"
                 name="story"
                 onChange={handleOnChange}
+                onKeyDown={handleKeyDown}
                 value={newMessage}
             />
-            <Send type="submit" value="전송" />
+            <Send type="submit" id="submitBtn" value="전송" />
         </Container>
     );
 };
