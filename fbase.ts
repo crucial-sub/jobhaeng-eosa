@@ -1,32 +1,26 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app';
+import { getApp, getApps, initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
 import { connectAuthEmulator, getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import * as firebase from 'firebase/app';
 import 'firebase/database';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: 'AIzaSyAnxU6Hx7FJ-zVTNsMKGc54YjpDID2Gfu4',
-    authDomain: 'job-hang-a-sa-f0dd7.firebaseapp.com',
-    projectId: 'job-hang-a-sa-f0dd7',
-    storageBucket: 'job-hang-a-sa-f0dd7.appspot.com',
-    messagingSenderId: '344216554127',
-    appId: '1:344216554127:web:86f433b4f45d02ef1cfefa',
-    measurementId: 'G-P0NBKN0SBN',
+    apiKey: process.env.NEXT_PUBLIC_API_KEY,
+    authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+    projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+    storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+    messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+    appId: process.env.NEXT_PUBLIC_APP_ID,
+    measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-// initializeApp(firebaseConfig);
+let app;
+if (!firebase.getApps().length) {
+    app = firebase.initializeApp(firebaseConfig);
+} else {
+    app = firebase.getApp();
+}
 export const authService = getAuth();
 export const firebaseInstance = firebase;
-// export const analytics = getAnalytics(app);
-// export const authService = getAuth(app);
 export const dbService = getFirestore(app);
-
-// connectAuthEmulator(authService, 'http://localhost:3000');

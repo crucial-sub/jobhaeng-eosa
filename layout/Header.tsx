@@ -3,10 +3,6 @@ import styled from '@emotion/styled';
 import Filter from 'components/Filter';
 import SearchBox from 'components/Search';
 import GoBack from './GoBack';
-import ChatOut from 'components/Chat/ChatOut';
-import { useSelector } from 'react-redux';
-import { RootState } from 'store';
-import RequestAccept from 'components/Chat/RequestAccept';
 import ChatHeader from 'components/Chat/ChatHeader';
 
 type Props = {

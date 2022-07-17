@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { RefObject } from 'react';
+import React from 'react';
 import { PlaceCodeTypes } from './FilterContainer';
 
 type Props = {

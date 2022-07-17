@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { authService, dbService } from 'fbase';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
+import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import React from 'react';
 import colors from 'styles/colors';

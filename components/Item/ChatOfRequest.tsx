@@ -4,7 +4,6 @@ import {
     collection,
     DocumentData,
     onSnapshot,
-    orderBy,
     query,
     QueryDocumentSnapshot,
     where,
@@ -12,8 +11,7 @@ import {
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import { docIdAction, ItemTypes, RootState } from 'store';
+import { docIdAction } from 'store';
 import colors from 'styles/colors';
 
 type Props = {

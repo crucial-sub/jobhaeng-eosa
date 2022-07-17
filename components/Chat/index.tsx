@@ -12,7 +12,6 @@ type Props = {
 
 const ChattingRoom = (props: Props) => {
     const { items } = props;
-    const [userNickName, setUserNickName] = useState('');
 
     return (
         <ChattingContainer>

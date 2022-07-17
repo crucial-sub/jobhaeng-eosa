@@ -1,7 +1,5 @@
 import styled from '@emotion/styled';
 import React, { Dispatch, SetStateAction } from 'react';
-import { useDispatch } from 'react-redux';
-import { filterAction } from 'store';
 import { PlaceCodeTypes } from './FilterContainer';
 
 type Props = {

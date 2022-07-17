@@ -139,7 +139,12 @@ const ChattingInput = (props: Props) => {
                 onKeyDown={handleKeyDown}
                 value={newMessage}
             />
-            <Send type="submit" id="submitBtn" value="전송" />
+            <Send
+                type="submit"
+                id="submitBtn"
+                value="전송"
+                disabled={newMessage === ''}
+            />
         </Container>
     );
 };
@@ -148,6 +153,8 @@ const Container = styled.form`
     width: 100%;
     flex: 0.75 1 0;
     display: flex;
+    bottom: 0;
+    position: sticky;
     padding: 10px;
     background-color: gainsboro;
 `;
