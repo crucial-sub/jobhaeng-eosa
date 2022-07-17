@@ -7,9 +7,6 @@ import FilterContainer from './FilterContainer';
 type Props = {};
 
 const Filter = (props: Props) => {
-    const { currentUser } = useSelector(
-        (state: RootState) => state.currentUser,
-    );
     const { filterInfo } = useSelector((state: RootState) => state.filter);
     const [isOpen, setIsOpen] = useState(false);
     const handleClick = () => {

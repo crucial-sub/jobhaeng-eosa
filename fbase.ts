@@ -19,7 +19,7 @@ let app;
 if (!firebase.getApps().length) {
     app = firebase.initializeApp(firebaseConfig);
 } else {
-    app = firebase.getApp(); // if already initialized, use that one
+    app = firebase.getApp();
 }
 export const authService = getAuth();
 export const firebaseInstance = firebase;

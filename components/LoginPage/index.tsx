@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import Link from 'next/link';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { authService, dbService } from 'fbase';
-import { useRouter } from 'next/router';
+import { authService } from 'fbase';
 import { useDispatch } from 'react-redux';
-import { currentUserAction, joinAction, RootState } from 'store';
+import { joinAction, RootState } from 'store';
 import { useSelector } from 'react-redux';
-import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import GoogleLogin from './GoogleLogin';
 import colors from 'styles/colors';
 

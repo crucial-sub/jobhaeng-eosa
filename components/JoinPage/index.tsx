@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import {
-    createUserWithEmailAndPassword,
-    GoogleAuthProvider,
-    signInWithPopup,
-} from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { authService, dbService } from 'fbase';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { currentUserAction, joinAction, loginAction, RootState } from 'store';
+import { joinAction, loginAction, RootState } from 'store';
 import { useSelector } from 'react-redux';
-import { addDoc, collection, getDoc } from 'firebase/firestore';
+import { addDoc, collection } from 'firebase/firestore';
 import BacktoLogin from './BacktoLogin';
 import colors from 'styles/colors';
-import GoogleLogin from 'components/LoginPage/GoogleLogin';
 
 type Props = {};
 

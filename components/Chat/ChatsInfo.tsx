@@ -4,7 +4,6 @@ import { ItemTypes } from 'store';
 
 type Props = {
     items: ItemTypes | undefined;
-    // userNickName: string;
 };
 
 const ChatsInfo = (props: Props) => {

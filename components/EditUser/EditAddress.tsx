@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import DaumPostcode from 'react-daum-postcode';
 import { userDataTypes } from 'store';
 import colors from 'styles/colors';

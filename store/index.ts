@@ -308,7 +308,6 @@ const makeStore = () => {
     if (isServer) {
         return makeConfiguredStore(rootReducer);
     } else {
-        // we need it only on client side
         const store = makeConfiguredStore(persistedReducer);
         let persistor = persistStore(store);
         return { persistor, ...store };
@@ -324,8 +323,6 @@ export const joinAction = joinSlice.actions;
 export const currentUserAction = currentUserSlice.actions;
 export const filterAction = filterSlice.actions;
 export const chatListsAction = chatListsSlice.actions;
-// export const itemEditCheckAction = itemEditCheckSlice.actions;
-// export const removeItemAction = removeItemSlice.actions;
 export const tabAction = tabSlice.actions;
 export const itemNdocAction = itemDocIdSlice.actions;
 export const docIdAction = docIdSlice.actions;

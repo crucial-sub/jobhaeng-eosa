@@ -3,7 +3,6 @@ import { dbService } from 'fbase';
 import {
     collection,
     DocumentData,
-    getDocs,
     onSnapshot,
     orderBy,
     query,
@@ -13,13 +12,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import {
-    docIdAction,
-    filterAction,
-    itemListAction,
-    ItemTypes,
-    RootState,
-} from 'store';
+import { docIdAction, filterAction, itemListAction, RootState } from 'store';
 import colors from 'styles/colors';
 import { getMonthDayTime } from 'utils/dateFormat';
 import { getTownWithOutDist } from 'utils/fetcher';

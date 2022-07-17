@@ -13,7 +13,7 @@ import {
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { ItemTypes, RootState } from 'store';
+import { RootState } from 'store';
 
 type Props = {};
 

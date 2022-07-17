@@ -26,7 +26,6 @@ export interface ChatContentType {
 }
 
 const Conversations = (props: Props) => {
-    const date = new Date();
     const { items } = props;
     const [messages, setMessages] = useState<ChatContentType[]>([]);
     const [userNickName, setUserNickName] = useState('');
