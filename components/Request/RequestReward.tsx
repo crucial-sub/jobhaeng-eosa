@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ItemTypes, requestAction } from 'store';
 import colors from 'styles/colors';
-import { numberCommas } from 'utils/moneyFormat';
+import { numberCommas, numberWithCommas } from 'utils/moneyFormat';
 
 type Props = {
     request: ItemTypes;
@@ -16,11 +16,6 @@ const my = {
 const RequestReward = (props: Props) => {
     const dispatch = useDispatch();
     const [money, setMoney] = useState('');
-    const numberWithCommas = (reward: string) => {
-        const first = reward.replace(/,/g, '').replace(/[^0-9]/g, '');
-        const final = Number(first).toLocaleString('ko-KR').toString();
-        return final;
-    };
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const valueWithCommas = numberWithCommas(e.currentTarget.value);
         const removeCommas = valueWithCommas.replace(/,/g, '');

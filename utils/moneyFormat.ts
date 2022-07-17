@@ -9,3 +9,9 @@ export function numberCommas(reward: string | undefined) {
         return money;
     }
 }
+
+export const numberWithCommas = (reward: string) => {
+    const first = reward.replace(/,/g, '').replace(/[^0-9]/g, '');
+    const final = Number(first).toLocaleString('ko-KR').toString();
+    return final;
+};

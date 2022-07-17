@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { itemListAction, ItemTypes, RootState } from 'store';
 import colors from 'styles/colors';
-import { numberCommas } from 'utils/moneyFormat';
+import { numberCommas, numberWithCommas } from 'utils/moneyFormat';
 import EditItemDetail from './EditItemDetail';
 import EditItemLocation from './EditItemLocation';
 import EditItemReward from './EditItemReward';
@@ -24,11 +24,6 @@ const EditItemForm = (props: Props) => {
     );
     const [items, setItems] = useState<ItemTypes>();
     const dispatch = useDispatch();
-    const numberWithCommas = (reward: string) => {
-        const first = reward.replace(/,/g, '').replace(/[^0-9]/g, '');
-        const final = Number(first).toLocaleString('ko-KR').toString();
-        return final;
-    };
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
