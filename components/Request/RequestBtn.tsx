@@ -1,29 +1,18 @@
-import styled from '@emotion/styled';
 import Link from 'next/link';
 import React from 'react';
 import { AiFillPlusCircle } from 'react-icons/ai';
+import * as S from './styles';
 
 type Props = {};
 
 const RequestBtn = (props: Props) => {
     return (
         <Link href={'/request'}>
-            <Button>
+            <S.Button>
                 <AiFillPlusCircle />
-            </Button>
+            </S.Button>
         </Link>
     );
 };
-
-const Button = styled.div`
-    position: absolute;
-    bottom: 7%;
-    right: 10%;
-    & svg {
-        color: #222831;
-        font-size: 50px;
-        cursor: pointer;
-    }
-`;
 
 export default RequestBtn;

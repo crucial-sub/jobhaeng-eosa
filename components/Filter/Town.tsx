@@ -1,6 +1,6 @@
-import styled from '@emotion/styled';
 import React, { Dispatch, SetStateAction } from 'react';
 import { PlaceCodeTypes } from './FilterContainer';
+import * as S from './styles';
 
 type Props = {
     townArray: PlaceCodeTypes[];
@@ -16,10 +16,10 @@ const Town = (props: Props) => {
         setClickedTown({ name: town!, code: code! });
     };
     return (
-        <TownWrapper>
+        <S.TownWrapper>
             {townArray &&
                 townArray.map((town) => (
-                    <TownItem
+                    <S.TownItem
                         key={town.code}
                         data-town={town.name}
                         data-code={town.code}
@@ -29,28 +29,10 @@ const Town = (props: Props) => {
                         }
                     >
                         {town.name}
-                    </TownItem>
+                    </S.TownItem>
                 ))}
-        </TownWrapper>
+        </S.TownWrapper>
     );
 };
-
-const TownWrapper = styled.div`
-    flex: 1 1 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: auto;
-`;
-const TownItem = styled.div`
-    width: 90%;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    cursor: pointer;
-    &.clicked {
-        background-color: burlywood;
-    }
-`;
 
 export default Town;

@@ -9,9 +9,8 @@ import {
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ItemTypes, RootState } from 'store';
-import styled from '@emotion/styled';
 import { getTimeDate } from 'utils/dateFormat';
-import colors from 'styles/colors';
+import * as S from './styles';
 
 type Props = {
     items: ItemTypes | undefined;
@@ -87,101 +86,38 @@ const Conversations = (props: Props) => {
     return (
         <>
             {userNickName !== '' && (
-                <ChatWith>{userNickName}님 과의 채팅</ChatWith>
+                <S.ChatWith>{userNickName}님 과의 채팅</S.ChatWith>
             )}
-            <ContentBox>
+            <S.ContentBox>
                 {messages &&
                     isOn &&
                     messages.map((a, i) => {
                         if (a.user === currentUser.email) {
                             return (
-                                <MyMessage key={i}>
-                                    <Message>{a.message}</Message>
-                                    <Times>
+                                <S.MyMessage key={i}>
+                                    <S.Message>{a.message}</S.Message>
+                                    <S.Times>
                                         <div>{a.timeStamp}</div>
-                                    </Times>
-                                </MyMessage>
+                                    </S.Times>
+                                </S.MyMessage>
                             );
                         } else {
                             return (
-                                <OpponentMessage key={i}>
-                                    <Omessage>
-                                        <OppoMessage>{a.message}</OppoMessage>
-                                        <Times>{a.timeStamp}</Times>
-                                    </Omessage>
-                                </OpponentMessage>
+                                <S.OpponentMessage key={i}>
+                                    <S.Omessage>
+                                        <S.OppoMessage>
+                                            {a.message}
+                                        </S.OppoMessage>
+                                        <S.Times>{a.timeStamp}</S.Times>
+                                    </S.Omessage>
+                                </S.OpponentMessage>
                             );
                         }
                     })}
-                <LastOfMessages ref={lastMessageRef} />
-            </ContentBox>
+                <S.LastOfMessages ref={lastMessageRef} />
+            </S.ContentBox>
         </>
     );
 };
-
-const ContentBox = styled.div`
-    width: 100%;
-    flex: 8.5 1 0;
-    overflow: scroll;
-    margin-top: 10px;
-    padding-top: 5px;
-`;
-
-const ChatWith = styled.div`
-    width: 390px;
-    margin: 5px auto 0px auto;
-    text-align: center;
-    position: sticky;
-`;
-
-const MyMessage = styled.div`
-    width: 100%;
-    position: relative;
-    display: flex;
-    flex-direction: row-reverse;
-    margin-bottom: 5px;
-    right: 5px;
-
-    & div {
-        padding: 5px;
-    }
-`;
-
-const Message = styled.div`
-    border-radius: 15px;
-    /* max-width: 80%;ㄴ */
-    background-color: ${colors.gold};
-    line-height: 30px;
-    padding: 5px;
-`;
-
-const OpponentMessage = styled.div`
-    margin-bottom: 5px;
-    position: relative;
-    text-align: left;
-    display: flex;
-    left: 5px;
-`;
-
-const Omessage = styled.div`
-    display: flex;
-    flex-direction: row;
-`;
-
-const OppoMessage = styled.div`
-    border-radius: 15px;
-    background-color: ${colors.gold};
-    padding: 10px;
-    margin-right: 5px;
-`;
-
-const Times = styled.div`
-    padding: 10px;
-    min-width: 80px;
-`;
-
-const LastOfMessages = styled.div`
-    margin-bottom: -10;
-`;
 
 export default Conversations;

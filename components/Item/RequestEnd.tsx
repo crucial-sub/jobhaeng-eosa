@@ -1,5 +1,4 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import styled from '@emotion/styled';
 import {
     collection,
     doc,
@@ -16,6 +15,7 @@ import { itemListAction, ItemTypes } from 'store';
 import { useRouter } from 'next/router';
 import { getMonthDayTime } from 'utils/dateFormat';
 import { useDispatch } from 'react-redux';
+import * as S from './styles';
 
 type Props = {
     itemId: string | string[] | undefined;
@@ -63,8 +63,7 @@ const RequestEnd = (props: Props) => {
         } else return;
     };
 
-    return <EndBtn onClick={handleOnClick}>잡행 완료</EndBtn>;
+    return <S.EndBtn onClick={handleOnClick}>잡행 완료</S.EndBtn>;
 };
 
-const EndBtn = styled.div``;
 export default RequestEnd;

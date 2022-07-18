@@ -1,6 +1,5 @@
-import styled from '@emotion/styled';
-import React, { Dispatch, SetStateAction } from 'react';
-import { userDataTypes } from 'store';
+import React from 'react';
+import * as S from './styles';
 
 type Props = {
     handleChange: React.ChangeEventHandler<HTMLInputElement>;
@@ -15,7 +14,7 @@ type Props = {
 
 const EditEmail = (props: Props) => {
     return (
-        <EmailInput>
+        <S.EmailInput>
             <label htmlFor="email">이메일</label>
             <input
                 name="email"
@@ -25,22 +24,8 @@ const EditEmail = (props: Props) => {
                 onChange={props.handleChange}
                 readOnly
             />
-        </EmailInput>
+        </S.EmailInput>
     );
 };
 
 export default EditEmail;
-
-const EmailInput = styled.div`
-    margin: auto;
-    width: 90%;
-    display: flex;
-    justify-content: space-between;
-    & label {
-        line-height: 30px;
-    }
-    & input {
-        width: 80%;
-        height: 30px;
-    }
-`;

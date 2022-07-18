@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from '@emotion/styled';
 import { useSelector } from 'react-redux';
 import { itemListAction, RootState } from 'store';
 import { useDispatch } from 'react-redux';
@@ -13,6 +12,7 @@ import {
     where,
 } from 'firebase/firestore';
 import { dbService } from 'fbase';
+import * as S from './styles';
 
 type Props = {
     userId: string;
@@ -47,9 +47,7 @@ const RequestDltBtn = (props: Props) => {
             router.push('/');
         }
     };
-    return <UpdateBtn onClick={handleOnClick}>삭제</UpdateBtn>;
+    return <S.DeleteBtn onClick={handleOnClick}>삭제</S.DeleteBtn>;
 };
-
-const UpdateBtn = styled.div``;
 
 export default RequestDltBtn;

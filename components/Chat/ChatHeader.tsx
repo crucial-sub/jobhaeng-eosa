@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import { dbService } from 'fbase';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { useRouter } from 'next/router';
@@ -8,6 +7,7 @@ import { ChatTypes, ItemTypes, RootState } from 'store';
 import ChatOut from './ChatOut';
 import RequestAccept from './RequestAccept';
 import RequestCancel from './RequestCancel';
+import * as S from './styles';
 
 type Props = {};
 
@@ -44,7 +44,7 @@ const ChatHeader = (props: Props) => {
     }, [docId, chat]);
 
     return (
-        <HeaderBox>
+        <S.HeaderBox>
             <ChatOut />
             {}
             {currentUser.uid === item?.userId && !chat?.ongoing && !isOngoing && (
@@ -57,13 +57,8 @@ const ChatHeader = (props: Props) => {
                     <RequestCancel item={item!} itemId={itemId!} />
                 </>
             )}
-        </HeaderBox>
+        </S.HeaderBox>
     );
 };
-
-const HeaderBox = styled.div`
-    display: flex;
-    justify-content: space-between;
-`;
 
 export default ChatHeader;

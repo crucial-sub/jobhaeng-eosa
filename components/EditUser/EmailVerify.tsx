@@ -1,9 +1,8 @@
-import styled from '@emotion/styled';
 import { authService } from 'fbase';
 import { sendEmailVerification, User } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import colors from 'styles/colors';
+import * as S from './styles';
 
 type Props = {};
 
@@ -27,50 +26,25 @@ const EmailVerify = (props: Props) => {
         router.reload();
     };
     return (
-        <Emailbox>
+        <S.Emailbox>
             {!loginUser?.emailVerified && (
-                <VerifyBtn onClick={handleOnClick}>이메일 인증하기</VerifyBtn>
+                <S.VerifyBtn onClick={handleOnClick}>
+                    이메일 인증하기
+                </S.VerifyBtn>
             )}
-            <CheckVerified
+            <S.CheckVerified
                 onClick={handleCheck}
                 disabled={loginUser?.emailVerified && true}
             >
                 {!loginUser?.emailVerified
                     ? '이메일인증 확인하기'
                     : '인증되었습니다'}
-            </CheckVerified>
+            </S.CheckVerified>
             {loginUser?.emailVerified && (
-                <UpdateUser type="submit" value={'update User'} />
+                <S.UpdateUser type="submit" value={'update User'} />
             )}
-        </Emailbox>
+        </S.Emailbox>
     );
 };
 
 export default EmailVerify;
-
-const Emailbox = styled.div`
-    width: 90%;
-    margin: auto;
-    display: flex;
-    justify-content: space-around;
-`;
-
-const VerifyBtn = styled.button`
-    width: 33%;
-`;
-
-const CheckVerified = styled.button`
-    width: 33%;
-    height: 40px;
-    border-radius: 15px;
-    background-color: ${colors.lightDark};
-    color: ${colors.gold};
-`;
-
-const UpdateUser = styled.input`
-    width: 33%;
-    height: 40px;
-    border-radius: 15px;
-    background-color: ${colors.gold};
-    color: ${colors.dark};
-`;

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import styled from '@emotion/styled';
 import { useState } from 'react';
 import {
     addDoc,
@@ -15,6 +14,7 @@ import { dbService } from 'fbase';
 import { useSelector } from 'react-redux';
 import { docIdAction, ItemTypes, RootState } from 'store';
 import { useDispatch } from 'react-redux';
+import * as S from './styles';
 
 type Props = {
     items: ItemTypes | undefined;
@@ -131,43 +131,22 @@ const ChattingInput = (props: Props) => {
     };
 
     return (
-        <Container onSubmit={handleOnSubmit}>
-            <TextArea
+        <S.Container onSubmit={handleOnSubmit}>
+            <S.TextArea
                 id="story"
                 name="story"
                 onChange={handleOnChange}
                 onKeyDown={handleKeyDown}
                 value={newMessage}
             />
-            <Send
+            <S.Send
                 type="submit"
                 id="submitBtn"
                 value="전송"
                 disabled={newMessage === ''}
             />
-        </Container>
+        </S.Container>
     );
 };
 
-const Container = styled.form`
-    width: 100%;
-    flex: 0.75 1 0;
-    display: flex;
-    bottom: 0;
-    position: sticky;
-    padding: 10px;
-    background-color: gainsboro;
-`;
-const TextArea = styled.textarea`
-    width: 80%;
-    height: 100%;
-    padding: 0;
-    border-radius: 5px;
-    border: none;
-`;
-
-const Send = styled.input`
-    height: 100%;
-    width: 15%;
-`;
 export default ChattingInput;

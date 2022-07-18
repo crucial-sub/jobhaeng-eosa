@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import { dbService } from 'fbase';
 import {
     addDoc,
@@ -22,7 +21,7 @@ import RequestLocation from './RequestLocation';
 import RequestReward from './RequestReward';
 import RequestTitle from './RequestTitle';
 import { useRouter } from 'next/router';
-import colors from 'styles/colors';
+import * as S from './styles';
 
 type Props = {};
 
@@ -59,35 +58,14 @@ const Request = (props: Props) => {
     };
 
     return (
-        <Form onSubmit={handleSubmit}>
+        <S.Form onSubmit={handleSubmit}>
             <RequestTitle request={request} />
             <RequestReward request={request} />
             <RequestLocation request={request} currentUser={currentUser} />
             <RequestDetail request={request} />
-            <RequestSubmit type="submit" value="잡행 요청하기" />
-        </Form>
+            <S.RequestSubmit type="submit" value="잡행 요청하기" />
+        </S.Form>
     );
 };
-
-const Form = styled.form`
-    display: flex;
-    flex-direction: column;
-    & * {
-        width: 100%;
-    }
-`;
-
-const RequestSubmit = styled.input`
-    width: 100%;
-    background-color: ${colors.gold};
-    color: ${colors.lightDark};
-    font-weight: bold;
-    user-select: none;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem 0;
-    cursor: pointer;
-`;
 
 export default Request;

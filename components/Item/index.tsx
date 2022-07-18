@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import RequestDltBtn from 'components/Item/RequestDltBtn';
 import RequestEnd from 'components/Item/RequestEnd';
 import Link from 'next/link';
@@ -15,7 +14,7 @@ import { ItemTypes, RootState } from 'store';
 import ChatButton from './ChatButton';
 import ChatOfRequest from './ChatOfRequest';
 import { AiOutlineMenu } from 'react-icons/ai';
-import colors from 'styles/colors';
+import * as S from './styles';
 
 type Props = {
     item: ItemTypes;
@@ -62,24 +61,24 @@ const Item = (props: Props) => {
     }, [isChatOpen, isEditOpen]);
 
     return (
-        <ItemWrapper onClick={handleClick}>
+        <S.ItemWrapper onClick={handleClick}>
             {item.requestEnd ? (
-                <ProcessInfo> 잡행이 완료된 글입니다! </ProcessInfo>
+                <S.ProcessInfo> 잡행이 완료된 글입니다! </S.ProcessInfo>
             ) : item.ongoing ? (
-                <ProcessInfo>잡행어사가 출두 중인 글입니다!</ProcessInfo>
+                <S.ProcessInfo>잡행어사가 출두 중인 글입니다!</S.ProcessInfo>
             ) : null}
-            <OwnerBox>
-                <RequestUser>{item.nickName}</RequestUser>
+            <S.OwnerBox>
+                <S.RequestUser>{item.nickName}</S.RequestUser>
                 {currentUser.uid === userId && (
-                    <RequestEditOpenBtn
+                    <S.RequestEditOpenBtn
                         data-box="edit-box"
                         className="modal edit"
                         onClick={handleClick}
                     >
                         <AiOutlineMenu />
-                    </RequestEditOpenBtn>
+                    </S.RequestEditOpenBtn>
                 )}
-                <RequestEditBox isEditOpen={isEditOpen}>
+                <S.RequestEditBox isEditOpen={isEditOpen}>
                     {!item.requestEnd && (
                         <>
                             <Link
@@ -88,7 +87,7 @@ const Item = (props: Props) => {
                                 }}
                                 as={`/edititem/${id}`}
                             >
-                                <UpdateBtn>요청글 수정</UpdateBtn>
+                                <S.UpdateBtn>요청글 수정</S.UpdateBtn>
                             </Link>
                             {item.ongoing && (
                                 <RequestEnd itemId={id} setItem={setItem} />
@@ -100,156 +99,34 @@ const Item = (props: Props) => {
                         userTitle={userTitle ? userTitle : ''}
                         currentUserUid={currentUserUid ? currentUserUid : ''}
                     />
-                </RequestEditBox>
-            </OwnerBox>
-            <RequestTitle>{item.title}</RequestTitle>
-            <RequestDate>{item.date}</RequestDate>
-            <RequestLocationBox>
+                </S.RequestEditBox>
+            </S.OwnerBox>
+            <S.RequestTitle>{item.title}</S.RequestTitle>
+            <S.RequestDate>{item.date}</S.RequestDate>
+            <S.RequestLocationBox>
                 <div>{item.location}</div>
                 <div>{item.extraLocation}</div>
-            </RequestLocationBox>
-            <RequestContents>{item.contents}</RequestContents>
-            <RequestBottomBox>
-                <RequestReward>{item.reward}</RequestReward>
-                <RequestChatBox isChatOpen={isChatOpen}>
+            </S.RequestLocationBox>
+            <S.RequestContents>{item.contents}</S.RequestContents>
+            <S.RequestBottomBox>
+                <S.RequestReward>{item.reward}</S.RequestReward>
+                <S.RequestChatBox isChatOpen={isChatOpen}>
                     {currentUser.uid === userId ? (
-                        <ChatListOpenBtn
+                        <S.ChatListOpenBtn
                             data-box="chat-box"
                             className="modal chat"
                             onClick={handleClick}
                         >
                             채팅 목록 열기
-                        </ChatListOpenBtn>
+                        </S.ChatListOpenBtn>
                     ) : (
                         !item.requestEnd && <ChatButton id={id} item={item} />
                     )}
-                </RequestChatBox>
+                </S.RequestChatBox>
                 <ChatOfRequest isChatOpen={isChatOpen} id={id} />
-            </RequestBottomBox>
-        </ItemWrapper>
+            </S.RequestBottomBox>
+        </S.ItemWrapper>
     );
 };
-
-const ItemWrapper = styled.div`
-    position: relative;
-    max-width: 90%;
-    height: 99%;
-    margin: 1px auto;
-    overflow-x: hidden;
-    overflow-y: auto;
-    background-color: #eeeeee;
-`;
-const ProcessInfo = styled.div`
-    margin: 1rem auto 0;
-    width: 60%;
-    padding: 1rem;
-    background-color: ${colors.lightDark};
-    color: ${colors.gold};
-    border-radius: 30px;
-    text-align: center;
-`;
-const OwnerBox = styled.div`
-    position: relative;
-    height: 3.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: ${colors.dark};
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
-    margin-bottom: 1rem;
-`;
-const RequestUser = styled.div`
-    font-size: 1.2rem;
-`;
-const RequestEditOpenBtn = styled.div`
-    width: fit-content;
-    cursor: pointer;
-    user-select: none;
-    font-size: 1.2rem;
-`;
-const RequestEditBox = styled.div<{ isEditOpen: boolean }>`
-    font-size: 0.9rem;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    top: 3rem;
-    right: 0;
-    background-color: ${colors.gold};
-    color: ${colors.dark};
-    border-radius: 5px;
-    width: 100px;
-    opacity: ${(props) => (props.isEditOpen ? 1 : 0)};
-    transition: 200ms;
-    transform: translateX(${(props) => (props.isEditOpen ? 0 : 150)}px);
-
-    & div {
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 50px;
-        user-select: none;
-    }
-`;
-const UpdateBtn = styled.div`
-    width: 100%;
-`;
-
-const RequestTitle = styled.div`
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin-bottom: 0.3rem;
-`;
-const RequestDate = styled.div`
-    font-size: 0.8rem;
-    margin-bottom: 1rem;
-`;
-
-const RequestLocationBox = styled.div`
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
-    div:nth-of-type(1) {
-        margin-bottom: 0.2rem;
-    }
-    div:nth-of-type(2) {
-        display: flex;
-        flex-direction: column;
-    }
-`;
-
-const RequestContents = styled.div`
-    line-height: 1.1rem;
-    margin-bottom: 3rem;
-`;
-const RequestBottomBox = styled.div`
-    position: fixed;
-    bottom: 10vh;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 350px;
-    max-width: 390px;
-    padding: 0 20px;
-    height: 4rem;
-    transform: translateX(-19.5px);
-    background-color: ${colors.white};
-    box-shadow: rgba(0, 0, 0, 0.13) 0px 1px 2px 0px inset;
-`;
-const RequestReward = styled.div`
-    font-size: 1.2rem;
-    font-weight: 700;
-`;
-const RequestChatBox = styled.div<{ isChatOpen: boolean }>`
-    user-select: none;
-    padding: 10px;
-    color: ${(props) => (props.isChatOpen ? colors.lightDark : colors.gold)};
-    background-color: ${colors.lightDark};
-    border-radius: 10px;
-`;
-const ChatListOpenBtn = styled.div`
-    cursor: pointer;
-    width: fit-content;
-`;
 
 export default Item;
