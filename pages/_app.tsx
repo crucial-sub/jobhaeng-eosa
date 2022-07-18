@@ -8,6 +8,7 @@ import {
     currentUserAction,
     loginAction,
     persistedReducer,
+    persistor,
     RootState,
     wrapper,
 } from 'store';
@@ -39,7 +40,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     const router = useRouter();
     const { pathname } = router;
     const store = createStore(persistedReducer);
-    const persistor = persistStore(store);
     const [userUid, setUserUid] = useState('');
     const dispatch = useDispatch();
     const { checkLogin } = useSelector((state: RootState) => state.login);
