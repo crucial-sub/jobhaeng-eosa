@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { currentUserAction, RootState } from 'store';
+import { currentUserAction, emailSendingAction, RootState } from 'store';
 import * as S from './styles';
 
 type Props = {};
@@ -15,6 +15,9 @@ const EmailVerify = (props: Props) => {
     const [loginUser, setLoginUser] = useState<User | null>();
     const { currentUser } = useSelector(
         (state: RootState) => state.currentUser,
+    );
+    const { isEmailSended } = useSelector(
+        (state: RootState) => state.emailSending,
     );
     useEffect(() => {
         authService.onAuthStateChanged((user) => {
@@ -31,6 +34,10 @@ const EmailVerify = (props: Props) => {
 
     const handleOnClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
         if (loginUser) {
+            alert(
+                '회원님의 이메일로 인증 메일이 발송되었습니다. 메일의 링크를 통해 인증을 완료하신 후 확인 버튼을 눌러주세요.',
+            );
+            dispatch(emailSendingAction.emailSending(true));
             sendEmailVerification(loginUser);
         }
     };
@@ -40,19 +47,21 @@ const EmailVerify = (props: Props) => {
     };
     return (
         <S.Emailbox>
-            {loginUser?.emailVerified === false && (
-                <S.VerifyBtn type="button" onClick={handleOnClick}>
-                    이메일 인증하기
-                </S.VerifyBtn>
-            )}
+            <S.VerifyBtn
+                type="button"
+                onClick={handleOnClick}
+                disabled={isEmailSended ? true : false}
+                isEmailSended={isEmailSended}
+            >
+                이메일 인증하기
+            </S.VerifyBtn>
             <S.CheckVerified
                 onClick={handleCheck}
                 type="button"
-                disabled={loginUser?.emailVerified && true}
+                disabled={isEmailSended ? false : true}
+                isEmailSended={isEmailSended}
             >
-                {loginUser?.emailVerified === false
-                    ? '이메일인증 확인하기'
-                    : '인증되었습니다'}
+                인증 확인하기
             </S.CheckVerified>
         </S.Emailbox>
     );

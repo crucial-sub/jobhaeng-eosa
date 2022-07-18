@@ -142,16 +142,34 @@ export const Emailbox = styled.div`
     justify-content: space-around;
 `;
 
-export const VerifyBtn = styled.button`
-    width: 33%;
-`;
-
-export const CheckVerified = styled.button`
+export const VerifyBtn = styled.button<{ isEmailSended: boolean }>`
     width: 33%;
     height: 40px;
     border-radius: 15px;
     background-color: ${colors.lightDark};
-    color: ${colors.gold};
+    color: ${colors.white};
+    cursor: ${(props) => (props.isEmailSended ? '' : 'pointer')};
+    :hover {
+        background-color: ${(props) =>
+            props.isEmailSended ? colors.lightDark : colors.dark};
+        color: ${(props) => (props.isEmailSended ? colors.white : colors.gold)};
+    }
+    opacity: ${(props) => (props.isEmailSended ? 0.5 : 1)};
+`;
+
+export const CheckVerified = styled.button<{ isEmailSended: boolean }>`
+    width: 33%;
+    height: 40px;
+    border-radius: 15px;
+    background-color: ${colors.lightDark};
+    color: ${colors.white};
+    cursor: ${(props) => (props.isEmailSended ? 'pointer' : '')};
+    :hover {
+        background-color: ${(props) =>
+            props.isEmailSended ? colors.dark : colors.lightDark};
+        color: ${(props) => (props.isEmailSended ? colors.gold : colors.white)};
+        opacity: ${(props) => (props.isEmailSended ? 1 : 0.5)};
+    }
 `;
 
 export const UpdateBtnBox = styled.div`
