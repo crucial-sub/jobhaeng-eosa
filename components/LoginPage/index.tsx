@@ -36,8 +36,13 @@ const LoginPage = (props: Props) => {
                 password,
             );
         } catch (err: any) {
-            setError(err);
-            console.log(error);
+            switch (err.code) {
+                case 'auth/invalid-email':
+                    setError('잘못된 이메일 주소입니다');
+                    break;
+                case 'auth/wrong-password':
+                    setError('비밀번호가 다릅니다');
+            }
         }
     };
 
@@ -73,8 +78,8 @@ const LoginPage = (props: Props) => {
                             required
                         />
                     </PwInput>
+                    {error ? <ErrMessage> {error}</ErrMessage> : <></>}
                     <LoginBtn type="submit" value={'Login'} />
-                    <p>{error ? `${error}` : <></>}</p>
                     <GoogleLogin />
                     <JoinBtn onClick={onClick}>회원가입</JoinBtn>
                 </LoginForm>
@@ -153,6 +158,17 @@ const PwInput = styled.div`
         border-radius: 15px;
         height: 4vh;
     }
+`;
+
+const ErrMessage = styled.h1`
+    width: 90%;
+    height: 4vh;
+    line-height: 4vh;
+    text-align: center;
+    margin: 0 auto 30px auto;
+    background-color: ${colors.gold};
+    color: ${colors.dark};
+    border-radius: 15px;
 `;
 
 const LoginBtn = styled.input`
