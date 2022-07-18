@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { BsSearch } from 'react-icons/bs';
 import SearchInput from './SearchInput';
 import { useRouter } from 'next/router';
+import colors from 'styles/colors';
 
 type Props = {};
 
@@ -38,6 +39,7 @@ const SearchBox = styled.form`
     position: relative;
     flex: 8 1 0;
     height: 100%;
+    background-color: ${colors.white};
     & svg {
         position: absolute;
         right: 7%;
