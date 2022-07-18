@@ -154,9 +154,15 @@ export const CheckVerified = styled.button`
     color: ${colors.gold};
 `;
 
+export const UpdateBtnBox = styled.div`
+    width: 90%;
+    margin: auto;
+`;
+
 export const UpdateUser = styled.input`
-    width: 33%;
+    width: 100%;
     height: 40px;
+    margin: 30px auto;
     border-radius: 15px;
     background-color: ${colors.gold};
     color: ${colors.dark};
