@@ -25,6 +25,7 @@ const Tab = (props: Props) => {
         if (tabArr.some((tab) => tab[1] === pathname)) {
             dispatch(tabAction.tab(pathname));
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pathname]);
 
     return (

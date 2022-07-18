@@ -41,6 +41,7 @@ const ChatHeader = (props: Props) => {
                 doc.id === docId && setChat(doc.data());
             });
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [docId, chat]);
 
     return (
