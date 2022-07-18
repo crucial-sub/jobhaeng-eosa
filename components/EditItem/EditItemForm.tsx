@@ -64,6 +64,7 @@ const EditItemForm = (props: Props) => {
 
     useEffect(() => {
         setItems(itemList.find((item) => item.id === id));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
     return (
         <>

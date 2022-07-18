@@ -80,6 +80,8 @@ const EditItemLocation = (props: Props) => {
                 isLoading: false,
             }));
         }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [visible]);
     return (
         <S.LocationBox>

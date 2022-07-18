@@ -58,6 +58,7 @@ const Item = (props: Props) => {
         } else {
             document.removeEventListener('click', close);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isChatOpen, isEditOpen]);
 
     return (
