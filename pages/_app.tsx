@@ -56,7 +56,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
                     }),
                 );
             }
-            console.log(user);
         });
     }, []);
     useEffect(() => {

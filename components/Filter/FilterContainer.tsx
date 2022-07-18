@@ -3,6 +3,7 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { filterAction, RootState } from 'store';
+import colors from 'styles/colors';
 import { getDistrict, getTown } from 'utils/fetcher';
 import District from './District';
 import Town from './Town';
@@ -117,8 +118,8 @@ const FilterWrapper = styled.div`
     display: flex;
     width: 390px;
     height: 85vh;
-    background-color: azure;
-    z-index: 1;
+    background-color: ${colors.white};
+    z-index: 99;
     flex-direction: column;
     user-select: none;
 `;
