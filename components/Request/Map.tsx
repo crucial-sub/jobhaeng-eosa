@@ -1,8 +1,8 @@
-import styled from '@emotion/styled';
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ItemTypes, requestAction } from 'store';
 import { coordToAddress } from 'utils/fetcher';
+import * as S from './styles';
 
 type Props = {
     lat: number;
@@ -88,12 +88,7 @@ const Map = (props: Props) => {
         return onLoadKakaoMap();
     }, [position]);
 
-    return <MapContainer id="map" />;
+    return <S.MapContainer id="map" />;
 };
-
-const MapContainer = styled.div`
-    max-width: 390px;
-    height: 300px;
-`;
 
 export default Map;
