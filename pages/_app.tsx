@@ -31,6 +31,8 @@ import {
 import TopLogo from 'layout/TopLogo';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import EmailVerify from 'components/EditUser/EmailVerify';
+import EditUser from 'components/EditUser';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     const router = useRouter();
@@ -40,16 +42,18 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     const [userUid, setUserUid] = useState('');
     const dispatch = useDispatch();
     const { checkLogin } = useSelector((state: RootState) => state.login);
-
+    const { currentUser } = useSelector(
+        (state: RootState) => state.currentUser,
+    );
     useEffect(() => {
         const auth = getAuth();
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 setUserUid(user.uid);
                 dispatch(loginAction.login(true));
-                const a = [user.email, user.uid, user.emailVerified];
                 dispatch(
                     currentUserAction.user({
+                        ...currentUser,
                         email: user.email,
                         uid: user.uid,
                         emailVerified: user.emailVerified,
@@ -84,11 +88,19 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
                 {checkLogin ? (
                     <>
                         <TopLogo />
-                        <Header pathname={pathname} />
-                        <ContentsBox>
-                            <Component {...pageProps} />
-                        </ContentsBox>
-                        <Footer />
+                        {!currentUser.emailVerified ? (
+                            <EmailVerify />
+                        ) : !currentUser.address || !currentUser.nickName ? (
+                            <EditUser />
+                        ) : (
+                            <>
+                                <Header pathname={pathname} />
+                                <ContentsBox>
+                                    <Component {...pageProps} />
+                                </ContentsBox>
+                                <Footer />
+                            </>
+                        )}
                     </>
                 ) : (
                     <>

@@ -95,7 +95,9 @@ const EditUserForm = (props: Props) => {
                 addressInfo={addressInfo}
                 setAddressInfo={setAddressInfo}
             />
-            <EmailVerify />
+            <S.UpdateBtnBox>
+                <S.UpdateUser type="submit" value={'update User'} />
+            </S.UpdateBtnBox>
         </S.EditForm>
     );
 };
