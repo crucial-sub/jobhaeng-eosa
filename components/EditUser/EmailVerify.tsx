@@ -28,7 +28,6 @@ const EmailVerify = (props: Props) => {
     const handleOnClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
         if (loginUser) {
             sendEmailVerification(loginUser);
-            console.log('이메일발송');
         }
     };
 
