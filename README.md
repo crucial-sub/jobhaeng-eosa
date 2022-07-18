@@ -1,6 +1,6 @@
 <h1 align="center"> 잡행어사 </h1>
 
-<h3 align="center"> 서비스 링크: https://ncnc-app-iota.vercel.app/ </h3>
+<h3 align="center"> 서비스 링크: https://job-hang-a-sa.vercel.app/ </h3>
 
 <p align="center"></p>
 
