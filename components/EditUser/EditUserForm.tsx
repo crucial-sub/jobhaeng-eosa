@@ -16,7 +16,6 @@ import EditAddress from './EditAddress';
 import EditEmail from './EditEmail';
 import EditNickName from './EditNickName';
 import EditPhoneNumber from './EditPhoneNumber';
-import EmailVerify from './EmailVerify';
 import * as S from './styles';
 
 export interface addressTypes {

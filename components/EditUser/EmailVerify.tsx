@@ -2,8 +2,9 @@ import { authService } from 'fbase';
 import { sendEmailVerification, User } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { currentUserAction } from 'store';
+import { currentUserAction, RootState } from 'store';
 import * as S from './styles';
 
 type Props = {};
@@ -12,13 +13,15 @@ const EmailVerify = (props: Props) => {
     const router = useRouter();
     const dispatch = useDispatch();
     const [loginUser, setLoginUser] = useState<User | null>();
+    const { currentUser } = useSelector(
+        (state: RootState) => state.currentUser,
+    );
     useEffect(() => {
         authService.onAuthStateChanged((user) => {
             setLoginUser(user);
             dispatch(
                 currentUserAction.user({
-                    email: user!.email,
-                    uid: user!.uid,
+                    ...currentUser,
                     emailVerified: user!.emailVerified,
                 }),
             );
