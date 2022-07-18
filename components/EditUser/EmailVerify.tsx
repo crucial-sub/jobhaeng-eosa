@@ -22,7 +22,7 @@ const EmailVerify = (props: Props) => {
             dispatch(
                 currentUserAction.user({
                     ...currentUser,
-                    emailVerified: user!.emailVerified,
+                    emailVerified: user?.emailVerified,
                 }),
             );
         });

@@ -80,6 +80,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
             });
             return unsubscribe;
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch, userUid]);
 
     return (
