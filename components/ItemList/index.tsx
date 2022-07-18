@@ -9,7 +9,7 @@ import {
     QueryDocumentSnapshot,
 } from 'firebase/firestore';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { docIdAction, filterAction, itemListAction, RootState } from 'store';
@@ -93,7 +93,9 @@ const ItemList = (props: Props) => {
     return (
         <>
             {filterInfo.filteredItem?.length === 0 ? (
-                <div>{filterInfo.name}에 요청글이 없습니다 !</div>
+                <NoResult>
+                    <h1>{filterInfo.name}에는 글이 없어요!</h1>
+                </NoResult>
             ) : (
                 filterInfo.filteredItem?.map((item) => (
                     <Link key={item.id} href={`/items/${item.id}`}>
@@ -176,6 +178,21 @@ const PostBox = styled.div`
         justify-self: center;
         align-self: center;
         font-size: 1.2rem;
+    }
+`;
+
+const NoResult = styled.div`
+    width: 100%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+    background-color: ${colors.lightDark};
+    & h1 {
+        font-size: 20px;
+        text-align: center;
+        color: ${colors.gold};
     }
 `;
 
