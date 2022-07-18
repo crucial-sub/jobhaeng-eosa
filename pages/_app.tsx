@@ -12,11 +12,11 @@ import {
     wrapper,
 } from 'store';
 import { useEffect, useState } from 'react';
-import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import LoginJoin from 'components/LoginJoin';
-import { authService, dbService } from 'fbase';
+import { dbService } from 'fbase';
 import { createStore } from '@reduxjs/toolkit';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -40,9 +40,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     const [userUid, setUserUid] = useState('');
     const dispatch = useDispatch();
     const { checkLogin } = useSelector((state: RootState) => state.login);
-    const { currentUser } = useSelector(
-        (state: RootState) => state.currentUser,
-    );
 
     useEffect(() => {
         const auth = getAuth();
@@ -76,7 +73,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
             });
             return unsubscribe;
         }
-    }, [authService.currentUser, userUid]);
+    }, [dispatch, userUid]);
 
     return (
         <PersistGate persistor={persistor} loading={<div>loading...</div>}>

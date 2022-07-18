@@ -47,8 +47,14 @@ const JoinPage = (props: Props) => {
             });
             router.push('/user/edit');
         } catch (err: any) {
-            setError(err);
-            console.log(error);
+            switch (err.code) {
+                case 'auth/email-already-in-use':
+                    setError('이미 가입되어 있는 계정입니다');
+                    break;
+                case 'auth/weak-password':
+                    setError('비밀번호는 6자리 이상이어야 합니다');
+                    break;
+            }
         }
     };
 
@@ -93,9 +99,8 @@ const JoinPage = (props: Props) => {
                                 required
                             />
                         </PwInput>
-
+                        {error ? <ErrMessage> {error} </ErrMessage> : <></>}
                         <RegistBtn type="submit" value={'회원가입하기'} />
-                        <p>{error ? `${error}` : <></>}</p>
                         <BacktoLogin />
                     </RegistForm>
                 </RegistBox>
@@ -180,6 +185,17 @@ const PwInput = styled.div`
         border-radius: 15px;
         height: 4vh;
     }
+`;
+
+const ErrMessage = styled.h1`
+    width: 90%;
+    height: 4vh;
+    line-height: 4vh;
+    text-align: center;
+    margin: 0 auto 30px auto;
+    background-color: ${colors.gold};
+    color: ${colors.dark};
+    border-radius: 15px;
 `;
 
 const RegistBtn = styled.input`
