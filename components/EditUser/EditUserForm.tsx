@@ -1,3 +1,4 @@
+import Logout from 'components/Mypage/Logout';
 import { dbService } from 'fbase';
 import {
     collection,
@@ -83,21 +84,27 @@ const EditUserForm = (props: Props) => {
     }, [currentUser]);
 
     return (
-        <S.EditForm onSubmit={handleSubmit}>
-            <S.FormTitle>정보</S.FormTitle>
-            <EditEmail handleChange={handleChange} userInfo={userInfo} />
-            <EditNickName handleChange={handleChange} userInfo={userInfo} />
-            <EditPhoneNumber handleChange={handleChange} userInfo={userInfo} />
-            <EditAddress
-                userInfo={userInfo}
-                setUserInfo={setUserInfo}
-                addressInfo={addressInfo}
-                setAddressInfo={setAddressInfo}
-            />
-            <S.UpdateBtnBox>
-                <S.UpdateUser type="submit" value={'update User'} />
-            </S.UpdateBtnBox>
-        </S.EditForm>
+        <>
+            <S.EditForm onSubmit={handleSubmit}>
+                <S.FormTitle>정보</S.FormTitle>
+                <EditEmail handleChange={handleChange} userInfo={userInfo} />
+                <EditNickName handleChange={handleChange} userInfo={userInfo} />
+                <EditPhoneNumber
+                    handleChange={handleChange}
+                    userInfo={userInfo}
+                />
+                <EditAddress
+                    userInfo={userInfo}
+                    setUserInfo={setUserInfo}
+                    addressInfo={addressInfo}
+                    setAddressInfo={setAddressInfo}
+                />
+                <S.UpdateBtnBox>
+                    <S.UpdateUser type="submit" value={'update User'} />
+                </S.UpdateBtnBox>
+            </S.EditForm>
+            <Logout />
+        </>
     );
 };
 

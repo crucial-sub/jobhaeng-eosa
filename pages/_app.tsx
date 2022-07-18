@@ -33,6 +33,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import EmailVerify from 'components/EditUser/EmailVerify';
 import EditUser from 'components/EditUser';
+import Logout from 'components/Mypage/Logout';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     const router = useRouter();
@@ -91,8 +92,11 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
                 {checkLogin ? (
                     <>
                         <TopLogo />
-                        {!currentUser.emailVerified ? (
-                            <EmailVerify />
+                        {currentUser.emailVerified === false ? (
+                            <>
+                                <EmailVerify />
+                                <Logout />
+                            </>
                         ) : !currentUser.address || !currentUser.nickName ? (
                             <EditUser />
                         ) : (
