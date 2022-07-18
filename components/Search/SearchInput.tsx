@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
 import React, { Dispatch, SetStateAction } from 'react';
+import * as S from './styles';
 
 type Props = {
     setSearchValue: Dispatch<SetStateAction<string>>;
@@ -13,20 +13,12 @@ const SearchInput = (props: Props) => {
     };
 
     return (
-        <Input
+        <S.Input
             placeholder="검색어를 입력해주세요"
             onChange={handleChange}
             value={props.searchValue}
-        ></Input>
+        ></S.Input>
     );
 };
-
-const Input = styled.input`
-    width: 100%;
-    height: 100%;
-    position: relative;
-    text-align: center;
-    border: none;
-`;
 
 export default SearchInput;

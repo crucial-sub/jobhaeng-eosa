@@ -1,9 +1,9 @@
-import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ItemTypes, RootState } from 'store';
+import * as S from './styles';
 
 type Props = {};
 
@@ -28,26 +28,30 @@ const SearchResult = (props: Props) => {
             {searchResult.length ? (
                 searchResult.map((item) => (
                     <Link key={item.id} href={`/items/${item.id}`}>
-                        <PostBox>
-                            <div>{item.ongoing ? '진행 중' : null}</div>
+                        <S.PostBox>
                             <div>{item.title}</div>
-                            <div>{item.location}</div>
+                            <div>{item.town}</div>
                             <div>{item.date}</div>
+                            <div>
+                                {item.ongoing ? (
+                                    item.requestEnd ? (
+                                        <span>완료 !</span>
+                                    ) : (
+                                        <span>진행 중</span>
+                                    )
+                                ) : null}
+                            </div>
                             <div>{item.reward}</div>
-                        </PostBox>
+                        </S.PostBox>
                     </Link>
                 ))
             ) : (
-                <span>{searchValue} 검색 결과와 일치하는 요청이 없습니다.</span>
+                <S.NoResult>
+                    <span>{searchValue}에 해당하는 검색 결과가 없습니다.</span>
+                </S.NoResult>
             )}
         </>
     );
 };
-
-const PostBox = styled.div`
-    display: flex;
-    margin: 20px;
-    cursor: pointer;
-`;
 
 export default SearchResult;

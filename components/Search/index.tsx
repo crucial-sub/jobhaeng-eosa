@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import styled from '@emotion/styled';
 import { BsSearch } from 'react-icons/bs';
 import SearchInput from './SearchInput';
 import { useRouter } from 'next/router';
+import * as S from './styles';
 
 type Props = {};
 
@@ -24,26 +24,14 @@ const Search = (props: Props) => {
     };
 
     return (
-        <SearchBox onSubmit={handleSubmit}>
+        <S.SearchBox onSubmit={handleSubmit}>
             <SearchInput
                 setSearchValue={setSearchValue}
                 searchValue={searchValue}
             />
             <BsSearch onClick={handleClick} />
-        </SearchBox>
+        </S.SearchBox>
     );
 };
-
-const SearchBox = styled.form`
-    position: relative;
-    flex: 8 1 0;
-    height: 100%;
-    & svg {
-        position: absolute;
-        right: 7%;
-        height: 100%;
-        top: 0;
-    }
-`;
 
 export default Search;

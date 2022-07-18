@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import RequestBtn from 'components/Request/RequestBtn';
 import SearchResult from 'components/Search/SearchResult';
 import React from 'react';
+import colors from 'styles/colors';
 
 type Props = {};
 
@@ -20,7 +21,7 @@ const ItemWrapper = styled.div`
     height: 90%;
     margin: 7.5% auto;
     overflow: auto;
-    background-color: aliceblue;
+    background-color: ${colors.white};
 `;
 
 export default search;
