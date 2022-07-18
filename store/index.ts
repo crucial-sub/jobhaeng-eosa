@@ -275,6 +275,16 @@ const docIdSlice = createSlice({
     },
 });
 
+const emailSendingSlice = createSlice({
+    name: 'emailSending',
+    initialState: { isEmailSended: false },
+    reducers: {
+        emailSending(state, action) {
+            state.isEmailSended = action.payload;
+        },
+    },
+});
+
 const rootReducer = combineReducers({
     itemList: itemListSlice.reducer,
     request: requestSlice.reducer,
@@ -287,6 +297,7 @@ const rootReducer = combineReducers({
     chatList: chatListsSlice.reducer,
     itemDoc: itemDocIdSlice.reducer,
     docId: docIdSlice.reducer,
+    emailSending: emailSendingSlice.reducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -326,6 +337,7 @@ export const chatListsAction = chatListsSlice.actions;
 export const tabAction = tabSlice.actions;
 export const itemNdocAction = itemDocIdSlice.actions;
 export const docIdAction = docIdSlice.actions;
+export const emailSendingAction = emailSendingSlice.actions;
 
 export const wrapper = createWrapper(makeStore, {
     debug: process.env.NODE_ENV !== 'production',
