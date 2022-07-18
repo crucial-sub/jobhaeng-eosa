@@ -73,7 +73,9 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
                         ...doc.data(),
                     }),
                 );
-                dispatch(currentUserAction.user(userArray[0]));
+                dispatch(
+                    currentUserAction.user({ ...currentUser, ...userArray[0] }),
+                );
             });
             return unsubscribe;
         }
