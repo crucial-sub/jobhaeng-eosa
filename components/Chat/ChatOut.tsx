@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import { dbService } from 'fbase';
 import {
     collection,
@@ -14,6 +13,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
+import * as S from './styles';
 
 type Props = {};
 
@@ -61,11 +61,7 @@ const ChatOut = (props: Props) => {
             router.push('/');
         } else return;
     };
-    return <ChatOutBtn onClick={handleClick}>채팅방 나가기</ChatOutBtn>;
+    return <S.ChatOutBtn onClick={handleClick}>채팅방 나가기</S.ChatOutBtn>;
 };
-
-const ChatOutBtn = styled.div`
-    cursor: pointer;
-`;
 
 export default ChatOut;

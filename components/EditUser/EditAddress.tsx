@@ -1,9 +1,8 @@
-import styled from '@emotion/styled';
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import DaumPostcode from 'react-daum-postcode';
 import { userDataTypes } from 'store';
-import colors from 'styles/colors';
 import { addressTypes } from './EditUserForm';
+import * as S from './styles';
 
 type Props = {
     userInfo: userDataTypes;
@@ -51,22 +50,22 @@ const EditAddress = (props: Props) => {
     };
 
     return (
-        <AddressContainer>
-            <Title>주소</Title>
+        <S.AddressContainer>
+            <S.AddressTitle>주소</S.AddressTitle>
             <div>
                 <span>주소 등록</span>
-                <Find
+                <S.Find
                     type="button"
                     onClick={sample3_execDaumPostcode}
                     value="주소 찾기"
                 >
                     주소찾기
-                </Find>
+                </S.Find>
             </div>
-            <RefAddress>
+            <S.RefAddress>
                 <div>
                     <label htmlFor="sample3_address"> 주소 </label>
-                    <ShowFind
+                    <S.ShowFind
                         type="text"
                         id="sample3_address"
                         placeholder="주소"
@@ -76,7 +75,7 @@ const EditAddress = (props: Props) => {
                 </div>
                 <div>
                     <label htmlFor="sample3_detailAddress"> 상세주소 </label>
-                    <DetailAddress
+                    <S.DetailAddress
                         type="text"
                         id="sample3_detailAddress"
                         name="detail"
@@ -88,7 +87,7 @@ const EditAddress = (props: Props) => {
                 </div>
                 <div>
                     <label htmlFor="sample3_extraAddress"> 참고항목 </label>
-                    <ExtraAddress
+                    <S.ExtraAddress
                         type="text"
                         id="sample3_extraAddress"
                         name="extra"
@@ -97,10 +96,10 @@ const EditAddress = (props: Props) => {
                         onChange={handleChange}
                     />
                 </div>
-            </RefAddress>
+            </S.RefAddress>
             {visible ? (
-                <Wrap id="wrap">
-                    <CloseImg
+                <S.Wrap id="wrap">
+                    <S.CloseImg
                         src="//t1.daumcdn.net/postcode/resource/images/close.png"
                         id="btnFoldWrap"
                         onClick={foldDaumPostcode}
@@ -108,93 +107,12 @@ const EditAddress = (props: Props) => {
                     />
                     <DaumPostcode
                         onComplete={handleComplete}
-                        style={postCodeStyle}
+                        style={S.postCodeStyle}
                     />
-                </Wrap>
+                </S.Wrap>
             ) : null}
-        </AddressContainer>
+        </S.AddressContainer>
     );
 };
-
-const AddressContainer = styled.div`
-    margin: auto;
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    /* justify-content: space-between; */
-    & div {
-        width: 100%;
-        display: flex;
-        margin-top: 10px;
-        & span {
-            width: 20%;
-            line-height: 30px;
-        }
-    }
-`;
-
-const Title = styled.div`
-    width: 100%;
-    text-align: center;
-    font-size: 2rem;
-    margin: auto;
-`;
-
-const Find = styled.button`
-    width: 80%;
-    height: 30px;
-    background-color: ${colors.lightDark};
-    color: ${colors.white};
-    font-weight: 700;
-    border-radius: 10px;
-`;
-
-const RefAddress = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    & div {
-        height: 30px;
-        justify-content: space-between;
-        & label {
-            line-height: 30px;
-        }
-    }
-`;
-
-const ShowFind = styled.input`
-    width: 80%;
-`;
-
-const DetailAddress = styled.input`
-    width: 80%;
-`;
-
-const ExtraAddress = styled.input`
-    width: 80%;
-`;
-
-const postCodeStyle = {
-    width: '390px',
-    height: '300px',
-};
-
-const Wrap = styled.div`
-    border: 1px solid;
-    width: 390px;
-    height: 300px;
-    margin: 5px 0;
-    position: relative;
-`;
-const CloseImg = styled.img`
-    cursor: pointer;
-    position: absolute;
-    right: 0px;
-    top: -20px;
-    z-index: 1;
-`;
 
 export default EditAddress;

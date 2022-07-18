@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -7,6 +6,7 @@ import colors from 'styles/colors';
 import { getDistrict, getTown } from 'utils/fetcher';
 import District from './District';
 import Town from './Town';
+import * as S from './styles';
 
 type Props = {
     setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -93,8 +93,8 @@ const FilterContainer = (props: Props) => {
         setIsOpen(false);
     };
     return (
-        <FilterWrapper>
-            <FilterList>
+        <S.FilterWrapper>
+            <S.FilterList>
                 <District
                     districtArray={districtArray}
                     handleClick={handleClick}
@@ -105,39 +105,10 @@ const FilterContainer = (props: Props) => {
                     setClickedTown={setClickedTown}
                     clickedTown={clickedTown}
                 />
-            </FilterList>
-            <ApplyBtn onClick={selectTown}>적용하기</ApplyBtn>
-        </FilterWrapper>
+            </S.FilterList>
+            <S.ApplyBtn onClick={selectTown}>적용하기</S.ApplyBtn>
+        </S.FilterWrapper>
     );
 };
-
-const FilterWrapper = styled.div`
-    position: absolute;
-    top: 7.5vh;
-    right: 0;
-    display: flex;
-    width: 390px;
-    height: 85vh;
-    background-color: ${colors.white};
-    z-index: 99;
-    flex-direction: column;
-    user-select: none;
-`;
-
-const FilterList = styled.div`
-    flex: 9 0 0;
-    display: flex;
-    overflow: auto;
-`;
-const ApplyBtn = styled.div`
-    flex: 1 0 0;
-    display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    background-color: bisque;
-    cursor: pointer;
-`;
 
 export default FilterContainer;

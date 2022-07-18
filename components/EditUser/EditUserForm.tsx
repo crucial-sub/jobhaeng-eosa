@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import { dbService } from 'fbase';
 import {
     collection,
@@ -18,6 +17,7 @@ import EditEmail from './EditEmail';
 import EditNickName from './EditNickName';
 import EditPhoneNumber from './EditPhoneNumber';
 import EmailVerify from './EmailVerify';
+import * as S from './styles';
 
 export interface addressTypes {
     address: string;
@@ -84,8 +84,8 @@ const EditUserForm = (props: Props) => {
     }, [currentUser]);
 
     return (
-        <EditForm onSubmit={handleSubmit}>
-            <Title>정보</Title>
+        <S.EditForm onSubmit={handleSubmit}>
+            <S.FormTitle>정보</S.FormTitle>
             <EditEmail handleChange={handleChange} userInfo={userInfo} />
             <EditNickName handleChange={handleChange} userInfo={userInfo} />
             <EditPhoneNumber handleChange={handleChange} userInfo={userInfo} />
@@ -96,23 +96,8 @@ const EditUserForm = (props: Props) => {
                 setAddressInfo={setAddressInfo}
             />
             <EmailVerify />
-        </EditForm>
+        </S.EditForm>
     );
 };
-
-const EditForm = styled.form`
-    width: 100%;
-    height: 100%;
-    & div {
-        margin-top: 20px;
-    }
-`;
-
-const Title = styled.div`
-    width: 90%;
-    /* text-align: center; */
-    font-size: 2rem;
-    margin: auto;
-`;
 
 export default EditUserForm;

@@ -1,5 +1,4 @@
 import { dbService } from 'fbase';
-import styled from '@emotion/styled';
 import {
     collection,
     DocumentData,
@@ -13,7 +12,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { chatListsAction, docIdAction, RootState } from 'store';
 import { useDispatch } from 'react-redux';
-import colors from 'styles/colors';
+import * as S from './styles';
 
 type Props = {};
 
@@ -66,16 +65,16 @@ const ChatLists = (props: Props) => {
                 ) {
                     return (
                         <Link key={a.id} href={`chats/${a.requestId}`}>
-                            <ChatBox data-id={a.id} onClick={handleOnClick}>
-                                <TitleNTown>
-                                    <Title>의뢰: {a.title}</Title>
-                                    <Town>{a.town}</Town>
-                                </TitleNTown>
-                                <LastMessages>
+                            <S.ChatBox data-id={a.id} onClick={handleOnClick}>
+                                <S.TitleNTown>
+                                    <S.Title>의뢰: {a.title}</S.Title>
+                                    <S.Town>{a.town}</S.Town>
+                                </S.TitleNTown>
+                                <S.LastMessages>
                                     <span>마지막 메세지: </span>
                                     {a.lastChat?.slice(0, 30)}
-                                </LastMessages>
-                            </ChatBox>
+                                </S.LastMessages>
+                            </S.ChatBox>
                         </Link>
                     );
                 }
@@ -86,16 +85,19 @@ const ChatLists = (props: Props) => {
                     return (
                         <>
                             <Link key={a.id} href={`chats/${a.requestId}`}>
-                                <ChatBox data-id={a.id} onClick={handleOnClick}>
-                                    <TitleNTown>
-                                        <Title>의뢰: {a.title}</Title>
-                                        <Town>{a.town}</Town>
-                                    </TitleNTown>
-                                    <LastMessages>
+                                <S.ChatBox
+                                    data-id={a.id}
+                                    onClick={handleOnClick}
+                                >
+                                    <S.TitleNTown>
+                                        <S.Title>의뢰: {a.title}</S.Title>
+                                        <S.Town>{a.town}</S.Town>
+                                    </S.TitleNTown>
+                                    <S.LastMessages>
                                         마지막 메세지:{' '}
                                         {a.lastChat?.slice(0, 20)}
-                                    </LastMessages>
-                                </ChatBox>
+                                    </S.LastMessages>
+                                </S.ChatBox>
                             </Link>
                         </>
                     );
@@ -106,43 +108,3 @@ const ChatLists = (props: Props) => {
 };
 
 export default ChatLists;
-
-const ChatBox = styled.div`
-    width: 90%;
-    margin: auto;
-    height: 20%;
-    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px,
-        rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
-    margin-bottom: 15px;
-    margin-top: 15px;
-    border-radius: 10px;
-`;
-
-const TitleNTown = styled.div`
-    width: 100%;
-    height: 50%;
-    display: flex;
-    justify-content: space-between;
-`;
-
-const Title = styled.div`
-    font-size: 1.2rem;
-    margin-top: 20px;
-    margin-left: 20px;
-`;
-
-const Town = styled.div`
-    font-size: 0.8rem;
-    opacity: 0.5;
-    margin-top: 20px;
-    margin-right: 20px;
-`;
-
-const LastMessages = styled.div`
-    display: flex;
-    width: 100%;
-    height: 50%;
-    overflow: hidden;
-    align-items: center;
-    margin-left: 20px;
-`;

@@ -3,25 +3,20 @@ import MyInfo from './MyInfo';
 import Link from 'next/link';
 import Logout from './Logout';
 import MyItemList from './MyItemList';
-import styled from '@emotion/styled';
+import * as S from './styles';
 
 type Props = {};
 
 const MyPage = (props: Props) => {
     return (
-        <MyPageContainer>
+        <S.MyPageContainer>
             <MyInfo />
             <MyItemList />
             <Link href="/">
                 <Logout />
             </Link>
-        </MyPageContainer>
+        </S.MyPageContainer>
     );
 };
-
-const MyPageContainer = styled.div`
-    position: relative;
-    height: 100%;
-`;
 
 export default MyPage;

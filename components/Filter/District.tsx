@@ -1,6 +1,6 @@
-import styled from '@emotion/styled';
 import React from 'react';
 import { PlaceCodeTypes } from './FilterContainer';
+import * as S from './styles';
 
 type Props = {
     districtArray: PlaceCodeTypes[];
@@ -11,10 +11,10 @@ type Props = {
 const District = (props: Props) => {
     const { districtArray, handleClick, clickedDist } = props;
     return (
-        <DistrictWrapper>
+        <S.DistrictWrapper>
             {districtArray &&
                 districtArray.map((dist) => (
-                    <DistrictItem
+                    <S.DistrictItem
                         key={dist.code}
                         data-code={dist.code}
                         data-name={dist.name}
@@ -22,28 +22,10 @@ const District = (props: Props) => {
                         className={dist.name === clickedDist ? 'clicked' : ''}
                     >
                         {dist.name}
-                    </DistrictItem>
+                    </S.DistrictItem>
                 ))}
-        </DistrictWrapper>
+        </S.DistrictWrapper>
     );
 };
-
-const DistrictWrapper = styled.div`
-    flex: 1 1 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: auto;
-`;
-const DistrictItem = styled.div`
-    width: 90%;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    cursor: pointer;
-    &.clicked {
-        background-color: burlywood;
-    }
-`;
 
 export default District;

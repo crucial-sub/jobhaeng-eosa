@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import { dbService } from 'fbase';
 import {
     collection,
@@ -13,6 +12,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { docIdAction, itemNdocAction, ItemTypes, RootState } from 'store';
+import * as S from './styles';
 
 type Props = {
     id: string | string[] | undefined;
@@ -53,13 +53,9 @@ const ChatButton = (props: Props) => {
 
     return (
         <Link href={`/chats/${id}`}>
-            <ChatBtn>채팅하기</ChatBtn>
+            <S.ChatBtn>채팅하기</S.ChatBtn>
         </Link>
     );
 };
-
-const ChatBtn = styled.div`
-    cursor: pointer;
-`;
 
 export default ChatButton;

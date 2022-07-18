@@ -1,10 +1,10 @@
-import styled from '@emotion/styled';
 import { dbService } from 'fbase';
 import { doc, updateDoc } from 'firebase/firestore';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { itemListAction, ItemTypes, RootState } from 'store';
+import * as S from './styles';
 
 type Props = {
     item: ItemTypes;
@@ -31,12 +31,10 @@ const RequestAccept = (props: Props) => {
     };
 
     return (
-        <RequestAcceptBtn onClick={handleClick}>잡행어사 임명</RequestAcceptBtn>
+        <S.RequestAcceptBtn onClick={handleClick}>
+            잡행어사 임명
+        </S.RequestAcceptBtn>
     );
 };
-
-const RequestAcceptBtn = styled.div`
-    cursor: pointer;
-`;
 
 export default RequestAccept;

@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import styled from '@emotion/styled';
+import React from 'react';
 import ChattingInput from './ChattingInput';
 import { ItemTypes } from 'store';
 import Conversations from './Conversations';
-import colors from 'styles/colors';
 import ChatsInfo from './ChatsInfo';
+import * as S from './styles';
 
 type Props = {
     items: ItemTypes | undefined;
@@ -14,20 +13,12 @@ const ChattingRoom = (props: Props) => {
     const { items } = props;
 
     return (
-        <ChattingContainer>
+        <S.ChattingContainer>
             <ChatsInfo items={items} />
             <Conversations items={items} />
             <ChattingInput items={items} />
-        </ChattingContainer>
+        </S.ChattingContainer>
     );
 };
-
-const ChattingContainer = styled.div`
-    width: 100%;
-    height: 100%;
-    background-color: ${colors.white};
-    display: flex;
-    flex-direction: column;
-`;
 
 export default ChattingRoom;

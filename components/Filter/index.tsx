@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import styled from '@emotion/styled';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
 import FilterContainer from './FilterContainer';
+import * as S from './styles';
 
 type Props = {};
 
@@ -15,19 +15,12 @@ const Filter = (props: Props) => {
 
     return (
         <>
-            <FilterButton onClick={handleClick}>{filterInfo.name}</FilterButton>
+            <S.FilterButton onClick={handleClick}>
+                {filterInfo.name}
+            </S.FilterButton>
             {isOpen && <FilterContainer setIsOpen={setIsOpen} />}
         </>
     );
 };
-
-const FilterButton = styled.button`
-    flex: 2 0 0;
-    height: 100%;
-    text-align: center;
-    border: none;
-    cursor: pointer;
-    user-select: none;
-`;
 
 export default Filter;

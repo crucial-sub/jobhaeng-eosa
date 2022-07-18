@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import {
@@ -10,7 +9,7 @@ import {
 } from 'store';
 import { authService } from 'fbase';
 import { useRouter } from 'next/router';
-import colors from 'styles/colors';
+import * as S from './styles';
 
 type Props = {};
 
@@ -34,20 +33,7 @@ const Logout = (props: Props) => {
             router.push('/');
         } else return;
     };
-    return <LogoutBtn onClick={handleClick}>로그아웃</LogoutBtn>;
+    return <S.LogoutBtn onClick={handleClick}>로그아웃</S.LogoutBtn>;
 };
-
-const LogoutBtn = styled.div`
-    width: 100%;
-    background-color: ${colors.gold};
-    color: ${colors.lightDark};
-    font-weight: bold;
-    user-select: none;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem 0;
-    cursor: pointer;
-`;
 
 export default Logout;

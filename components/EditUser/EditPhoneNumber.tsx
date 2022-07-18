@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
 import React from 'react';
+import * as S from './styles';
 
 type Props = {
     handleChange: React.ChangeEventHandler<HTMLInputElement>;
@@ -14,7 +14,7 @@ type Props = {
 
 const EditPhoneNumber = (props: Props) => {
     return (
-        <PhoneNumberInput>
+        <S.PhoneNumberInput>
             <label htmlFor="phoneNumber">연락처</label>
             <input
                 name="phoneNumber"
@@ -25,22 +25,8 @@ const EditPhoneNumber = (props: Props) => {
                 pattern="01[016789]-?[^0][0-9]{2,3}-?[0-9]{3,4}"
                 required
             />
-        </PhoneNumberInput>
+        </S.PhoneNumberInput>
     );
 };
 
 export default EditPhoneNumber;
-
-const PhoneNumberInput = styled.div`
-    margin: auto;
-    width: 90%;
-    display: flex;
-    justify-content: space-between;
-    & label {
-        line-height: 30px;
-    }
-    & input {
-        width: 80%;
-        height: 30px;
-    }
-`;

@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import { dbService } from 'fbase';
 import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
@@ -6,12 +5,12 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { itemListAction, ItemTypes, RootState } from 'store';
-import colors from 'styles/colors';
 import { numberCommas, numberWithCommas } from 'utils/moneyFormat';
 import EditItemDetail from './EditItemDetail';
 import EditItemLocation from './EditItemLocation';
 import EditItemReward from './EditItemReward';
 import EditItemTitle from './EditItemTitle';
+import * as S from './styles';
 
 type Props = {};
 
@@ -69,7 +68,7 @@ const EditItemForm = (props: Props) => {
     return (
         <>
             {items && (
-                <Form onSubmit={handleSubmit}>
+                <S.Form onSubmit={handleSubmit}>
                     <EditItemTitle items={items!} handleChange={handleChange} />
                     <EditItemReward
                         items={items!}
@@ -84,32 +83,11 @@ const EditItemForm = (props: Props) => {
                         items={items!}
                         handleChange={handleChange}
                     />
-                    <EditItemSubmit type="submit" value="수정하기" />
-                </Form>
+                    <S.EditItemSubmit type="submit" value="수정하기" />
+                </S.Form>
             )}
         </>
     );
 };
-
-const Form = styled.form`
-    display: flex;
-    flex-direction: column;
-    & * {
-        width: 100%;
-    }
-`;
-
-const EditItemSubmit = styled.input`
-    width: 100%;
-    background-color: ${colors.gold};
-    color: ${colors.lightDark};
-    font-weight: bold;
-    user-select: none;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem 0;
-    cursor: pointer;
-`;
 
 export default EditItemForm;

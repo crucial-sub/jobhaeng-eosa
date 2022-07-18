@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import styled from '@emotion/styled';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { authService, dbService } from 'fbase';
 import { useRouter } from 'next/router';
@@ -8,7 +7,7 @@ import { joinAction, loginAction, RootState } from 'store';
 import { useSelector } from 'react-redux';
 import { addDoc, collection } from 'firebase/firestore';
 import BacktoLogin from './BacktoLogin';
-import colors from 'styles/colors';
+import * as S from './styles';
 
 type Props = {};
 
@@ -70,12 +69,12 @@ const JoinPage = (props: Props) => {
         };
     }, []);
     return (
-        <Container>
-            <JoinBox>
-                <RegistBox>
-                    <RegistForm onSubmit={onSubmit}>
-                        <RegistTitle>잡행어사 회원가입</RegistTitle>
-                        <EmailInput>
+        <S.Container>
+            <S.JoinBox>
+                <S.RegistBox>
+                    <S.RegistForm onSubmit={onSubmit}>
+                        <S.RegistTitle>잡행어사 회원가입</S.RegistTitle>
+                        <S.EmailInput>
                             <label htmlFor="email">Email</label>
                             <input
                                 name="email"
@@ -86,8 +85,8 @@ const JoinPage = (props: Props) => {
                                 placeholder="Email"
                                 required
                             />
-                        </EmailInput>
-                        <PwInput>
+                        </S.EmailInput>
+                        <S.PwInput>
                             <label htmlFor="password">PW</label>
                             <input
                                 name="password"
@@ -98,116 +97,15 @@ const JoinPage = (props: Props) => {
                                 placeholder="password"
                                 required
                             />
-                        </PwInput>
-                        {error ? <ErrMessage> {error} </ErrMessage> : <></>}
-                        <RegistBtn type="submit" value={'회원가입하기'} />
+                        </S.PwInput>
+                        {error ? <S.ErrMessage> {error} </S.ErrMessage> : <></>}
+                        <S.RegistBtn type="submit" value={'회원가입하기'} />
                         <BacktoLogin />
-                    </RegistForm>
-                </RegistBox>
-            </JoinBox>
-        </Container>
+                    </S.RegistForm>
+                </S.RegistBox>
+            </S.JoinBox>
+        </S.Container>
     );
 };
-
-const Container = styled.div`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 80px;
-`;
-const JoinBox = styled.div`
-    width: 100%;
-    height: 100%;
-`;
-
-const RegistBox = styled.div`
-    width: 100%;
-    height: 100%;
-`;
-
-const RegistTitle = styled.h1`
-    width: 100%;
-    font-size: 2rem;
-    text-align: center;
-    margin-bottom: 15px;
-`;
-
-const RegistForm = styled.form`
-    display: flex;
-    height: 50%;
-    flex-direction: column;
-    justify-content: center;
-    & div {
-        /* margin: 20px 20px; */
-        width: 90%;
-        display: flex;
-    }
-    & div > label {
-        width: 20%;
-        line-height: 30px;
-    }
-    & div > input {
-        width: 80%;
-        height: 4vh;
-    }
-`;
-
-const EmailInput = styled.div`
-    position: relative;
-    margin: 15px auto 30px auto;
-    & label {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        line-height: 4vh;
-        height: 4vh;
-        font-weight: 700;
-    }
-    & input {
-        border-radius: 15px;
-        height: 4vh;
-    }
-`;
-
-const PwInput = styled.div`
-    margin: 0px auto 30px auto;
-    & label {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 4vh;
-        line-height: 4vh;
-        font-weight: 700;
-    }
-    & input {
-        border-radius: 15px;
-        height: 4vh;
-    }
-`;
-
-const ErrMessage = styled.h1`
-    width: 90%;
-    height: 4vh;
-    line-height: 4vh;
-    text-align: center;
-    margin: 0 auto 30px auto;
-    background-color: ${colors.gold};
-    color: ${colors.dark};
-    border-radius: 15px;
-`;
-
-const RegistBtn = styled.input`
-    width: 90%;
-    height: 4vh;
-    line-height: 4vh;
-    text-align: center;
-    margin: 0 auto 30px auto;
-    background-color: ${colors.lightDark};
-    border-radius: 20px;
-    color: ${colors.gold};
-    cursor: pointer;
-`;
 
 export default JoinPage;
