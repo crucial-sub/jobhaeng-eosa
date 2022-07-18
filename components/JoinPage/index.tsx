@@ -67,6 +67,7 @@ const JoinPage = (props: Props) => {
         return () => {
             router.beforePopState(() => false);
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (
         <S.Container>

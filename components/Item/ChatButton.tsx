@@ -49,6 +49,7 @@ const ChatButton = (props: Props) => {
                 dispatch(docIdAction.docId(a.docNumber));
             }
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [item]);
 
     return (

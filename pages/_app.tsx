@@ -61,6 +61,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
                 );
             }
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     useEffect(() => {
         if (userUid) {
