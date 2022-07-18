@@ -118,7 +118,7 @@ const FilterWrapper = styled.div`
     width: 390px;
     height: 85vh;
     background-color: azure;
-    z-index: 1;
+    z-index: 99;
     flex-direction: column;
     user-select: none;
 `;
