@@ -13,17 +13,25 @@ const GoogleLogin = (props: Props) => {
         event: React.MouseEvent<HTMLButtonElement>,
     ) => {
         const provider = new GoogleAuthProvider();
-        const data = await signInWithPopup(authService, provider);
-        const uid = data.user.uid;
-        const collectionRef = collection(dbService, 'users');
-        const docsRef = await getDocs(collectionRef);
-        const isExist = docsRef.docs.some((doc) => doc.data().uid === uid);
-        if (!isExist) {
-            const docRef = await addDoc(collectionRef, {
-                uid: uid,
-                email: data.user.email,
-            });
-            router.push('/user/edit');
+        try {
+            const data = await signInWithPopup(authService, provider);
+            const uid = data.user.uid;
+            const collectionRef = collection(dbService, 'users');
+            const docsRef = await getDocs(collectionRef);
+            const isExist = docsRef.docs.some((doc) => doc.data().uid === uid);
+            if (!isExist) {
+                const docRef = await addDoc(collectionRef, {
+                    uid: uid,
+                    email: data.user.email,
+                });
+                router.push('/user/edit');
+            }
+        } catch (err: any) {
+            switch (err.code) {
+                case 'auth/cancelled-popup-request':
+                    const error = err.code;
+                    break;
+            }
         }
     };
     return (
