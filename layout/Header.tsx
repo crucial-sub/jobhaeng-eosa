@@ -57,6 +57,8 @@ const HeaderBox = styled.div`
     position: relative;
     height: 100%;
     display: flex;
+    /* justify-content: space-between; */
+    flex-grow: 1 4 4;
     width: 100%;
     align-items: center;
 
@@ -66,6 +68,8 @@ const HeaderBox = styled.div`
 `;
 const TabName = styled.div`
     margin-left: 1rem;
+    font-size: 1.3rem;
+    font-weight: 600;
 `;
 
 export default Header;
