@@ -67,12 +67,21 @@ const ChatLists = (props: Props) => {
                         <Link key={a.id} href={`chats/${a.requestId}`}>
                             <S.ChatBox data-id={a.id} onClick={handleOnClick}>
                                 <S.TitleNTown>
-                                    <S.Title>의뢰: {a.title}</S.Title>
+                                    <S.Title>의뢰: {a.title} </S.Title>
                                     <S.Town>{a.town}</S.Town>
                                 </S.TitleNTown>
                                 <S.LastMessages>
-                                    <span>마지막 메세지: </span>
-                                    {a.lastChat?.slice(0, 30)}
+                                    <span>메시지: </span>
+                                    {a.lastChat?.slice(0, 10)}
+                                    <div>
+                                        {a.ongoing ? (
+                                            a.requestEnd ? (
+                                                <div>완료 !</div>
+                                            ) : (
+                                                <div>진행중</div>
+                                            )
+                                        ) : null}
+                                    </div>
                                 </S.LastMessages>
                             </S.ChatBox>
                         </Link>

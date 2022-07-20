@@ -52,6 +52,16 @@ export const LastMessages = styled.div`
     overflow: hidden;
     align-items: center;
     margin-left: 20px;
+    & div > div {
+        width: 3.8rem;
+        line-height: 1.5rem;
+        font-size: 0.9rem;
+        text-align: center;
+        border-radius: 4px;
+        background-color: ${colors.lightDark};
+        margin-left: 0.5rem;
+        color: ${colors.gold};
+    }
 `;
 
 export const ChatOutBtn = styled.div`
