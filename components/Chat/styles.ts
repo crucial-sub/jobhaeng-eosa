@@ -27,9 +27,22 @@ export const ChatBox = styled.div`
 
 export const TitleNTown = styled.div`
     width: 100%;
-    height: 50%;
+    height: 40%;
     display: flex;
     justify-content: space-between;
+`;
+
+export const OpponentNick = styled.div`
+    width: 50%;
+    max-width: 70%;
+    height: 10%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    background-color: ${colors.lightDark};
+    color: ${colors.gold};
+    text-align: center;
+    margin-left: 20px;
+    border-radius: 10px;
 `;
 
 export const Title = styled.div`
@@ -48,7 +61,7 @@ export const Town = styled.div`
 export const LastMessages = styled.div`
     display: flex;
     width: 100%;
-    height: 50%;
+    height: 40%;
     overflow: hidden;
     align-items: center;
     margin-left: 20px;

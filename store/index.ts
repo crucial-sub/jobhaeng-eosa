@@ -206,6 +206,7 @@ const tabSlice = createSlice({
 
 export interface ChatTypes {
     user?: string[] | undefined;
+    nickNames?: string[];
     onOff?: string[] | undefined;
     users?: [] | undefined;
     requestId?: string | undefined;
