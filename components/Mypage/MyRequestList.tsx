@@ -25,6 +25,15 @@ const MyRequestList = (props: Props) => {
                                 <div>{item.title}</div>
                                 <div>{item.town}</div>
                                 <div>{item.date}</div>
+                                <div>
+                                    {item.ongoing ? (
+                                        item.requestEnd ? (
+                                            <span>완료 !</span>
+                                        ) : (
+                                            <span>진행 중</span>
+                                        )
+                                    ) : null}
+                                </div>
                                 <div>{item.reward}</div>
                             </S.ItemBox>
                         </Link>
