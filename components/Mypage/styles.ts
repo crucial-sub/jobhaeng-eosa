@@ -102,7 +102,7 @@ export const ItemBox = styled.div`
     margin: 15px 5px;
     height: 5rem;
     cursor: pointer;
-    background-color: ${colors.white};
+    background-color: #eeeeee;
     grid-template-columns: 1.5fr 1.5fr 1fr 2fr;
     grid-template-rows: 2fr 1fr 1fr;
     border: none;
@@ -134,6 +134,21 @@ export const ItemBox = styled.div`
         color: ${colors.lightDark};
     }
     & div:nth-of-type(4) {
+        grid-column: 3 / 4;
+        grid-row: 2 / 4;
+        justify-content: center;
+        align-self: center;
+        display: flex;
+        font-size: 0.8rem;
+        background-color: ${colors.lightDark};
+        border-radius: 5px;
+        & span {
+            max-width: 100%;
+            margin: 0.4rem 0.2rem;
+            color: ${colors.gold};
+        }
+    }
+    & div:nth-of-type(5) {
         grid-column: 4 / 5;
         grid-row: 2 / 4;
         justify-self: center;
