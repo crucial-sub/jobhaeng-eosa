@@ -46,8 +46,6 @@ const ChatHeader = (props: Props) => {
 
     return (
         <S.HeaderBox>
-            <ChatOut />
-            {}
             {currentUser.uid === item?.userId && !chat?.ongoing && !isOngoing && (
                 <>
                     <RequestAccept item={item} itemId={itemId!} />
@@ -58,6 +56,7 @@ const ChatHeader = (props: Props) => {
                     <RequestCancel item={item!} itemId={itemId!} />
                 </>
             )}
+            <ChatOut />
         </S.HeaderBox>
     );
 };

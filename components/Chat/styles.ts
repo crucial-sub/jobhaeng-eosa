@@ -10,8 +10,10 @@ export const ChattingContainer = styled.div`
 `;
 
 export const HeaderBox = styled.div`
+    width: 80%;
+    margin-left: 20px;
     display: flex;
-    justify-content: space-between;
+    flex-grow: 6 1;
 `;
 
 export const ChatBox = styled.div`
@@ -78,7 +80,14 @@ export const LastMessages = styled.div`
 `;
 
 export const ChatOutBtn = styled.div`
+    line-height: 30px;
+    width: 110px;
+    background-color: ${colors.lightDark};
+    text-align: center;
+    border-radius: 15px;
+    color: ${colors.gold};
     cursor: pointer;
+    margin-left: 30px;
 `;
 export const ChatInfo = styled.div`
     max-width: 380px;
@@ -206,8 +215,20 @@ export const LastOfMessages = styled.div`
     margin-bottom: -10;
 `;
 export const RequestAcceptBtn = styled.div`
+    line-height: 30px;
+    width: 110px;
+    background-color: ${colors.lightDark};
+    text-align: center;
+    border-radius: 15px;
+    color: ${colors.gold};
     cursor: pointer;
 `;
 export const RequestCancelBtn = styled.div`
+    line-height: 30px;
+    width: 110px;
+    text-align: center;
+    border-radius: 15px;
+    background-color: ${colors.dark};
+    color: ${colors.gold};
     cursor: pointer;
 `;
