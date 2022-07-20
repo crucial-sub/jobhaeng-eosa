@@ -16,15 +16,15 @@ import * as S from './styles';
 
 type Props = {};
 
-export interface ChatTypes {
-    requestId?: string | undefined;
-    title?: string | undefined;
-    users?: [] | undefined;
-    id: string | undefined;
-    nickName?: [] | undefined;
-    user?: string[] | undefined;
-    town?: string | undefined;
-}
+// export interface ChatTypes {
+//     requestId?: string | undefined;
+//     title?: string | undefined;
+//     users?: [] | undefined;
+//     id: string | undefined;
+//     nickName?: [] | undefined;
+//     user?: string[] | undefined;
+//     town?: string | undefined;
+// }
 
 const ChatLists = (props: Props) => {
     const dispatch = useDispatch();
@@ -45,6 +45,7 @@ const ChatLists = (props: Props) => {
                 (doc: QueryDocumentSnapshot<DocumentData>) => ({
                     ...doc.data(),
                     user: doc.data().users,
+                    nickNames: doc.data().nickName,
                     id: doc.id,
                 }),
             );
@@ -56,9 +57,12 @@ const ChatLists = (props: Props) => {
     const handleOnClick = (e: React.MouseEvent<HTMLDivElement>) => {
         dispatch(docIdAction.docId(e.currentTarget.dataset.id));
     };
+
+    const chatOpponent = () => {};
     return (
         <>
             {chatsList.map((a) => {
+                console.log(Array.isArray(a.nickNames));
                 if (
                     a.user?.indexOf(currentUseruid) === 0 &&
                     a.onOff?.indexOf('on') === 0
@@ -67,12 +71,26 @@ const ChatLists = (props: Props) => {
                         <Link key={a.id} href={`chats/${a.requestId}`}>
                             <S.ChatBox data-id={a.id} onClick={handleOnClick}>
                                 <S.TitleNTown>
-                                    <S.Title>의뢰: {a.title}</S.Title>
+                                    <S.Title>의뢰: {a.title} </S.Title>
                                     <S.Town>{a.town}</S.Town>
                                 </S.TitleNTown>
+                                <S.OpponentNick>
+                                    {a.nickNames !== undefined &&
+                                        a.nickNames[1]}{' '}
+                                    님과의 채팅
+                                </S.OpponentNick>
                                 <S.LastMessages>
-                                    <span>마지막 메세지: </span>
-                                    {a.lastChat?.slice(0, 30)}
+                                    <span>메시지: </span>
+                                    {a.lastChat?.slice(0, 10)}
+                                    <div>
+                                        {a.ongoing ? (
+                                            a.requestEnd ? (
+                                                <div>완료 !</div>
+                                            ) : (
+                                                <div>진행중</div>
+                                            )
+                                        ) : null}
+                                    </div>
                                 </S.LastMessages>
                             </S.ChatBox>
                         </Link>
@@ -93,9 +111,23 @@ const ChatLists = (props: Props) => {
                                         <S.Title>의뢰: {a.title}</S.Title>
                                         <S.Town>{a.town}</S.Town>
                                     </S.TitleNTown>
+                                    <S.OpponentNick>
+                                        {a.nickNames !== undefined &&
+                                            a.nickNames[0]}
+                                        님과의 채팅
+                                    </S.OpponentNick>
                                     <S.LastMessages>
-                                        마지막 메세지:{' '}
-                                        {a.lastChat?.slice(0, 20)}
+                                        <span>메시지: </span>
+                                        {a.lastChat?.slice(0, 10)}
+                                        <div>
+                                            {a.ongoing ? (
+                                                a.requestEnd ? (
+                                                    <div>완료 !</div>
+                                                ) : (
+                                                    <div>진행중</div>
+                                                )
+                                            ) : null}
+                                        </div>
                                     </S.LastMessages>
                                 </S.ChatBox>
                             </Link>
