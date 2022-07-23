@@ -91,7 +91,7 @@ export const ChatOutBtn = styled.div`
 `;
 export const ChatInfo = styled.div`
     max-width: 380px;
-    height: 10%;
+    min-height: 10%;
     margin-top: 10px;
     padding: 20px;
     display: flex;
