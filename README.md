@@ -1,5 +1,7 @@
 <h1 align="center"> 잡행어사 </h1>
 
+<p align="center"><img width="390" height="700" src="https://user-images.githubusercontent.com/87363422/180652820-a7c169ac-9bd1-48f5-aa85-92d2451235bb.jpeg" /></p>
+
 <h3 align="center"> 서비스 링크: https://job-hang-a-sa.vercel.app/ </h3>
 
 <p align="center"></p>
@@ -107,8 +109,6 @@ $ npm run dev || yarn dev
     "swr": "^1.3.0"
   },
 ```
-
-## 📂 파일 구조
 
 ## ✨ 구현 사항
 
