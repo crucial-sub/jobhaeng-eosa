@@ -62,7 +62,6 @@ const ChatLists = (props: Props) => {
     return (
         <>
             {chatsList.map((a) => {
-                console.log(Array.isArray(a.nickNames));
                 if (
                     a.user?.indexOf(currentUseruid) === 0 &&
                     a.onOff?.indexOf('on') === 0
