@@ -141,10 +141,11 @@ export const Container = styled.form`
 `;
 export const TextArea = styled.textarea`
     width: 80%;
-    height: 100%;
+    height: auto;
     padding: 0;
     border-radius: 5px;
     border: none;
+    resize: none;
 `;
 
 export const Send = styled.input`
