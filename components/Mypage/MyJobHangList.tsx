@@ -21,7 +21,7 @@ const MyJobHangList = (props: Props) => {
                 jobHangList.map((item) => (
                     <Link href={`/items/${item.id}`} key={item.id}>
                         <S.ItemBox>
-                            <div>{item.title}</div>
+                            <div>{item.title?.slice(0, 16)}</div>
                             <div>{item.town}</div>
                             <div>{item.date}</div>
                             <div>

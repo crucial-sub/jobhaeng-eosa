@@ -71,7 +71,9 @@ const ChatLists = (props: Props) => {
                         <Link key={a.id} href={`chats/${a.requestId}`}>
                             <S.ChatBox data-id={a.id} onClick={handleOnClick}>
                                 <S.TitleNTown>
-                                    <S.Title>의뢰: {a.title} </S.Title>
+                                    <S.Title>
+                                        의뢰: {a.title?.slice(0, 14)}{' '}
+                                    </S.Title>
                                     <S.Town>{a.town}</S.Town>
                                 </S.TitleNTown>
                                 <S.OpponentNick>

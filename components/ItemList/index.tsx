@@ -99,7 +99,7 @@ const ItemList = (props: Props) => {
                 filterInfo.filteredItem?.map((item) => (
                     <Link key={item.id} href={`/items/${item.id}`}>
                         <S.PostBox>
-                            <div>{item.title}</div>
+                            <div>{item.title?.slice(0, 16)}</div>
                             <div>{item.town}</div>
                             <div>{item.date}</div>
                             <div>
