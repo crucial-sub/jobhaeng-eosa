@@ -8,6 +8,8 @@ export const MyPageContainer = styled.div`
 
 export const LogoutBtn = styled.div`
     width: 100%;
+    position: sticky;
+    bottom: 0;
     background-color: ${colors.gold};
     color: ${colors.lightDark};
     font-weight: bold;

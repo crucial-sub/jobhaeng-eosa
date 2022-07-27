@@ -96,6 +96,7 @@ export const ChatInfo = styled.div`
     padding: 20px;
     display: flex;
     justify-content: space-around;
+    cursor: pointer;
     box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px,
         rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
 `;
@@ -140,10 +141,11 @@ export const Container = styled.form`
 `;
 export const TextArea = styled.textarea`
     width: 80%;
-    height: 100%;
+    height: auto;
     padding: 0;
     border-radius: 5px;
     border: none;
+    resize: none;
 `;
 
 export const Send = styled.input`
