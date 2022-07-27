@@ -3,7 +3,7 @@ import colors from 'styles/colors';
 
 export const SearchBox = styled.form`
     position: relative;
-    flex: 8 1 0;
+    flex: 7 1 0;
     height: 100%;
     background-color: ${colors.white};
     & svg {
