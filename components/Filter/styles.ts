@@ -51,7 +51,7 @@ export const DistrictItem = styled.div`
     line-height: 30px;
     text-align: center;
     cursor: pointer;
-    &.clicked {
+    &.clicked-dist {
         background-color: burlywood;
     }
 `;

@@ -6,14 +6,15 @@ type Props = {
     townArray: PlaceCodeTypes[];
     setClickedTown: Dispatch<SetStateAction<PlaceCodeTypes>>;
     clickedTown: PlaceCodeTypes;
+    clickedDist: string;
 };
 
 const Town = (props: Props) => {
-    const { townArray, setClickedTown, clickedTown } = props;
+    const { townArray, setClickedTown, clickedTown, clickedDist } = props;
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         const town = e.currentTarget.dataset.town;
         const code = e.currentTarget.dataset.code;
-        setClickedTown({ name: town!, code: code! });
+        setClickedTown({ name: town!, code: code!, district: clickedDist });
     };
     return (
         <S.TownWrapper>

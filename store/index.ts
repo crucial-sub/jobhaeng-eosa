@@ -173,6 +173,7 @@ export interface FilterTypes {
     filterInfo: {
         name: string;
         code: string;
+        district: string;
         filteredItem: ItemTypes[];
     };
 }
@@ -181,6 +182,7 @@ const filterInitialState: FilterTypes = {
     filterInfo: {
         name: '',
         code: '',
+        district: '',
         filteredItem: [],
     },
 };

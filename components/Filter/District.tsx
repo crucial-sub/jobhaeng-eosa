@@ -19,7 +19,10 @@ const District = (props: Props) => {
                         data-code={dist.code}
                         data-name={dist.name}
                         onClick={handleClick}
-                        className={dist.name === clickedDist ? 'clicked' : ''}
+                        className={
+                            dist.name === clickedDist ? 'clicked-dist' : ''
+                        }
+                        id={dist.name === clickedDist ? 'clicked-dist' : ''}
                     >
                         {dist.name}
                     </S.DistrictItem>
