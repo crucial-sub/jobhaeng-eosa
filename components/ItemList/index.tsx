@@ -41,6 +41,7 @@ const ItemList = (props: Props) => {
         dispatch(docIdAction.docId(''));
         return unsubscribe;
     }, []);
+    console.log('필터 리스트ㅡㅡㅡ', filterInfo);
 
     useEffect(() => {
         if (!filterInfo.name) {
@@ -50,6 +51,7 @@ const ItemList = (props: Props) => {
 
             dispatch(
                 filterAction.filter({
+                    ...filterInfo,
                     name: currentUser?.town,
                     code: '',
                     filteredItem: myTownItem,

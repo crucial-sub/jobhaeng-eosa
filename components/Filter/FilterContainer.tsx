@@ -15,15 +15,18 @@ type Props = {
 export interface PlaceCodeTypes {
     code: string;
     name: string;
+    district: string;
 }
 
 const FilterContainer = (props: Props) => {
     const { setIsOpen } = props;
+    const { filterInfo } = useSelector((state: RootState) => state.filter);
     const [districtArray, setDistrictArray] = useState([]);
     const [townArray, setTownArray] = useState<PlaceCodeTypes[]>([]);
     const [clickedTown, setClickedTown] = useState<PlaceCodeTypes>({
         name: '',
         code: '',
+        district: '',
     });
     const [clickedDist, setClickedDist] = useState('');
     const { itemList } = useSelector((state: RootState) => state.itemList);
@@ -37,11 +40,16 @@ const FilterContainer = (props: Props) => {
                 const district = {
                     ...regcodes[0],
                     name: `${regcodes[0].name.split(' ')[1]} 전체`,
+                    district: targetName,
                 };
                 const towns = regcodes
                     .slice(1)
                     .map((town: PlaceCodeTypes) => {
-                        return { ...town, name: town.name.split(' ')[2] };
+                        return {
+                            ...town,
+                            name: town.name.split(' ')[2],
+                            district: targetName,
+                        };
                     })
                     .sort((a: PlaceCodeTypes, b: PlaceCodeTypes) =>
                         a.name > b.name ? 1 : -1,
@@ -54,6 +62,12 @@ const FilterContainer = (props: Props) => {
             setClickedDist(targetName);
         }
     };
+
+    useEffect(() => {
+        const d = document.getElementById('clicked-dist');
+        d?.click();
+    }, [clickedDist]);
+
     useEffect(() => {
         const getData = async () => {
             const { regcodes } = await getDistrict();
@@ -68,6 +82,7 @@ const FilterContainer = (props: Props) => {
                     a.name > b.name ? 1 : -1,
                 );
             setDistrictArray(districtCodes);
+            setClickedDist(filterInfo.district);
         };
         getData();
     }, []);
@@ -104,6 +119,7 @@ const FilterContainer = (props: Props) => {
                     townArray={townArray}
                     setClickedTown={setClickedTown}
                     clickedTown={clickedTown}
+                    clickedDist={clickedDist}
                 />
             </S.FilterList>
             <S.ApplyBtn onClick={selectTown}>적용하기</S.ApplyBtn>
