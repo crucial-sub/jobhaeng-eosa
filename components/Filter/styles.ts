@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const FilterButton = styled.button`
-    flex: 2 0 0;
+    flex: 3 0 0;
     height: 100%;
     text-align: center;
     border: none;
