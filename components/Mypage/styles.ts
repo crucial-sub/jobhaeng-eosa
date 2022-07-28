@@ -61,6 +61,20 @@ export const MyEmail = styled.div``;
 export const MyPhoneNumber = styled.div``;
 export const MyAddress = styled.div``;
 
+export const EmailValidateBtn = styled.div`
+    background-color: ${colors.lightDark};
+    color: ${colors.white};
+    border-radius: 10px;
+    padding: 7px;
+    font-size: 0.8rem;
+    user-select: none;
+    cursor: pointer;
+
+    :hover {
+        color: ${colors.gold};
+    }
+`;
+
 export const EditBtn = styled.div`
     background-color: ${colors.lightDark};
     color: ${colors.white};
@@ -161,4 +175,50 @@ export const ItemBox = styled.div`
 
 export const NoList = styled.div`
     margin: 15px;
+`;
+
+export const EmailContainer = styled.div`
+    width: 90%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const Emailbox = styled.div`
+    width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+`;
+
+export const VerifyBtn = styled.button<{ isEmailSended: boolean }>`
+    width: 33%;
+    height: 40px;
+    border-radius: 15px;
+    background-color: ${colors.lightDark};
+    color: ${colors.white};
+    cursor: ${(props) => (props.isEmailSended ? '' : 'pointer')};
+    opacity: ${(props) => (props.isEmailSended ? 0.5 : 1)};
+    :hover {
+        background-color: ${(props) =>
+            props.isEmailSended ? colors.lightDark : colors.dark};
+        color: ${(props) => (props.isEmailSended ? colors.white : colors.gold)};
+    }
+`;
+
+export const CheckVerified = styled.button<{ isEmailSended: boolean }>`
+    width: 33%;
+    height: 40px;
+    border-radius: 15px;
+    background-color: ${colors.lightDark};
+    color: ${colors.white};
+    cursor: ${(props) => (props.isEmailSended ? 'pointer' : '')};
+    opacity: ${(props) => (props.isEmailSended ? 1 : 0.5)};
+    :hover {
+        background-color: ${(props) =>
+            props.isEmailSended ? colors.dark : colors.lightDark};
+        color: ${(props) => (props.isEmailSended ? colors.gold : colors.white)};
+    }
 `;

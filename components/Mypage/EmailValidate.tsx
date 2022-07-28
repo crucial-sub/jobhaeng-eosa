@@ -9,7 +9,7 @@ import * as S from './styles';
 
 type Props = {};
 
-const EmailVerify = (props: Props) => {
+const EmailValidate = (props: Props) => {
     const router = useRouter();
     const dispatch = useDispatch();
     const [loginUser, setLoginUser] = useState<User | null>();
@@ -46,25 +46,27 @@ const EmailVerify = (props: Props) => {
         router.reload();
     };
     return (
-        <S.Emailbox>
-            <S.VerifyBtn
-                type="button"
-                onClick={handleOnClick}
-                disabled={isEmailSended ? true : false}
-                isEmailSended={isEmailSended}
-            >
-                이메일 인증하기
-            </S.VerifyBtn>
-            <S.CheckVerified
-                onClick={handleCheck}
-                type="button"
-                disabled={isEmailSended ? false : true}
-                isEmailSended={isEmailSended}
-            >
-                인증 확인하기
-            </S.CheckVerified>
-        </S.Emailbox>
+        <S.EmailContainer>
+            <S.Emailbox>
+                <S.VerifyBtn
+                    type="button"
+                    onClick={handleOnClick}
+                    disabled={isEmailSended ? true : false}
+                    isEmailSended={isEmailSended}
+                >
+                    이메일 인증하기
+                </S.VerifyBtn>
+                <S.CheckVerified
+                    onClick={handleCheck}
+                    type="button"
+                    disabled={isEmailSended ? false : true}
+                    isEmailSended={isEmailSended}
+                >
+                    인증 확인하기
+                </S.CheckVerified>
+            </S.Emailbox>
+        </S.EmailContainer>
     );
 };
 
-export default EmailVerify;
+export default EmailValidate;
