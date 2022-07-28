@@ -103,7 +103,6 @@ const EditUserForm = (props: Props) => {
                     <S.UpdateUser type="submit" value={'update User'} />
                 </S.UpdateBtnBox>
             </S.EditForm>
-            <Logout />
         </>
     );
 };
