@@ -44,7 +44,7 @@ const JoinPage = (props: Props) => {
                 uid: data.user.uid,
                 email: data.user.email,
             });
-            router.push('/user/edit');
+            router.push('/');
         } catch (err: any) {
             switch (err.code) {
                 case 'auth/email-already-in-use':
