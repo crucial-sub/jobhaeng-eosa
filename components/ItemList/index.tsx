@@ -41,22 +41,30 @@ const ItemList = (props: Props) => {
         dispatch(docIdAction.docId(''));
         return unsubscribe;
     }, []);
-    console.log('필터 리스트ㅡㅡㅡ', filterInfo);
 
     useEffect(() => {
         if (!filterInfo.name) {
-            const myTownItem = itemList.filter(
-                (item) => item.town === currentUser?.town,
-            );
+            if (currentUser.town) {
+                const myTownItem = itemList.filter(
+                    (item) => item.town === currentUser?.town,
+                );
 
-            dispatch(
-                filterAction.filter({
-                    ...filterInfo,
-                    name: currentUser?.town,
-                    code: '',
-                    filteredItem: myTownItem,
-                }),
-            );
+                dispatch(
+                    filterAction.filter({
+                        ...filterInfo,
+                        name: currentUser?.town,
+                        code: '',
+                        filteredItem: myTownItem,
+                    }),
+                );
+            } else {
+                dispatch(
+                    filterAction.filter({
+                        ...filterInfo,
+                        filteredItem: itemList,
+                    }),
+                );
+            }
         } else {
             if (filterInfo.name.match('전체')) {
                 const getData = async () => {

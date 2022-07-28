@@ -16,7 +16,7 @@ const Filter = (props: Props) => {
     return (
         <>
             <S.FilterButton onClick={handleClick}>
-                {filterInfo.name}
+                {filterInfo.name ? filterInfo.name : '모든 요청글'}
             </S.FilterButton>
             {isOpen && <FilterContainer setIsOpen={setIsOpen} />}
         </>
