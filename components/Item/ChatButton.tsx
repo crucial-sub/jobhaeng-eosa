@@ -8,6 +8,7 @@ import {
     where,
 } from 'firebase/firestore';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -26,6 +27,19 @@ const ChatButton = (props: Props) => {
     );
     const dispatch = useDispatch();
     const { itemDocId } = useSelector((state: RootState) => state.itemDoc);
+
+    const router = useRouter();
+    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (!currentUser.emailVerified) {
+            confirm(
+                '이메일 인증 후 내 동네와 닉네임을 설정해야만 채팅이 가능합니다! 이메일 인증 페이지로 이동하시겠습니까?',
+            ) && router.push('/validate');
+        } else if (!currentUser.town) {
+            confirm(
+                '내 동네와 닉네임을 설정해야만 요청글 작성이 가능합니다! 프로필 수정 페이지로 이동하시겠습니까?',
+            ) && router.push('/user/edit');
+        } else router.push(`/chats/${id}`);
+    };
 
     useEffect(() => {
         const chatsRef = collection(dbService, 'chats');
@@ -52,11 +66,7 @@ const ChatButton = (props: Props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [item]);
 
-    return (
-        <Link href={`/chats/${id}`}>
-            <S.ChatBtn>채팅하기</S.ChatBtn>
-        </Link>
-    );
+    return <S.ChatBtn onClick={handleClick}>채팅하기</S.ChatBtn>;
 };
 
 export default ChatButton;
