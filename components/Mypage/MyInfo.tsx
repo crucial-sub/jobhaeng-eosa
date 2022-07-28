@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { MdEmail, MdOutlinePhoneIphone } from 'react-icons/md';
 import { ImHome } from 'react-icons/im';
 import * as S from './styles';
+import { useRouter } from 'next/router';
 
 type Props = {};
 
@@ -12,6 +13,14 @@ const MyInfo = (props: Props) => {
     const { currentUser } = useSelector(
         (state: RootState) => state.currentUser,
     );
+    const router = useRouter();
+    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (!currentUser.emailVerified) {
+            confirm(
+                '이메일 인증 유저만 프로필 수정이 가능합니다! 이메일 인증 페이지로 이동하시겠습니까?',
+            ) && router.push('/validate');
+        } else router.push('/user/edit');
+    };
 
     return (
         <S.MyInfoBox>
@@ -28,9 +37,7 @@ const MyInfo = (props: Props) => {
                         <S.EmailValidateBtn>이메일 인증</S.EmailValidateBtn>
                     </Link>
                 )}
-                <Link href="/user/edit">
-                    <S.EditBtn>프로필 수정</S.EditBtn>
-                </Link>
+                <S.EditBtn onClick={handleClick}>프로필 수정</S.EditBtn>
             </S.MyInfoTop>
             <S.MyInfoBottom>
                 <S.MyEmail>
