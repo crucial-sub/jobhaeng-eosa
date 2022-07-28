@@ -16,7 +16,18 @@ const MyInfo = (props: Props) => {
     return (
         <S.MyInfoBox>
             <S.MyInfoTop>
-                <S.MyNickName>{currentUser?.nickName}</S.MyNickName>
+                <S.MyNickName>
+                    {currentUser.nickName
+                        ? currentUser.nickName
+                        : '닉네임 미설정'}
+                </S.MyNickName>
+                {currentUser.emailVerified ? (
+                    <div>이메일 인증 완료</div>
+                ) : (
+                    <Link href={'/validate'}>
+                        <S.EmailValidateBtn>이메일 인증</S.EmailValidateBtn>
+                    </Link>
+                )}
                 <Link href="/user/edit">
                     <S.EditBtn>프로필 수정</S.EditBtn>
                 </Link>
@@ -32,13 +43,21 @@ const MyInfo = (props: Props) => {
                     <S.SvgBackground>
                         <MdOutlinePhoneIphone />
                     </S.SvgBackground>
-                    <div>{currentUser?.phoneNumber}</div>
+                    <div>
+                        {currentUser.phoneNumber
+                            ? currentUser.phoneNumber
+                            : '전화번호를 등록해주세요!'}
+                    </div>
                 </S.MyPhoneNumber>
                 <S.MyAddress>
                     <S.SvgBackground>
                         <ImHome />
                     </S.SvgBackground>
-                    <div>{currentUser?.address}</div>
+                    <div>
+                        {currentUser.address
+                            ? currentUser.address
+                            : '주소를 등록해주세요!'}
+                    </div>
                 </S.MyAddress>
             </S.MyInfoBottom>
         </S.MyInfoBox>

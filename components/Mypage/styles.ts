@@ -61,6 +61,20 @@ export const MyEmail = styled.div``;
 export const MyPhoneNumber = styled.div``;
 export const MyAddress = styled.div``;
 
+export const EmailValidateBtn = styled.div`
+    background-color: ${colors.lightDark};
+    color: ${colors.white};
+    border-radius: 10px;
+    padding: 7px;
+    font-size: 0.8rem;
+    user-select: none;
+    cursor: pointer;
+
+    :hover {
+        color: ${colors.gold};
+    }
+`;
+
 export const EditBtn = styled.div`
     background-color: ${colors.lightDark};
     color: ${colors.white};
