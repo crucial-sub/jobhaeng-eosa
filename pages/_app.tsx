@@ -19,7 +19,6 @@ import { useSelector } from 'react-redux';
 import LoginJoin from 'components/LoginJoin';
 import { dbService } from 'fbase';
 import { createStore } from '@reduxjs/toolkit';
-import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import {
     collection,
@@ -32,9 +31,6 @@ import {
 import TopLogo from 'layout/TopLogo';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import EmailVerify from 'components/EditUser/EmailVerify';
-import EditUser from 'components/EditUser';
-import Logout from 'components/Mypage/Logout';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     const router = useRouter();
