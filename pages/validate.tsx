@@ -1,8 +1,9 @@
 import EmailValidate from 'components/Mypage/EmailValidate';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { RootState } from 'store';
+import { emailSendingAction, RootState } from 'store';
 
 type Props = {};
 
@@ -11,14 +12,22 @@ const validate = (props: Props) => {
         (state: RootState) => state.currentUser,
     );
     const router = useRouter();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (currentUser.emailVerified) {
-            alert('이미 이메일 인증이 완료되었습니다!');
+            alert('이메일 인증이 완료되었습니다!');
+            dispatch(emailSendingAction.emailSending(false));
             router.push('/user');
         }
     }, [currentUser.emailVerified]);
-    return <>{!currentUser.emailVerified && <EmailValidate />}</>;
+    return (
+        <>
+            {!currentUser.emailVerified && currentUser.email && (
+                <EmailValidate />
+            )}
+        </>
+    );
 };
 
 export default validate;
