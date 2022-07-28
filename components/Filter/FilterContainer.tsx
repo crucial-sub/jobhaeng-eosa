@@ -87,7 +87,7 @@ const FilterContainer = (props: Props) => {
         getData();
     }, []);
     const selectTown = () => {
-        if (!clickedTown) {
+        if (!clickedTown.name) {
             alert('동을 선택해 주세요!');
             return;
         }
