@@ -93,22 +93,11 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
                 {checkLogin ? (
                     <>
                         <TopLogo />
-                        {currentUser.emailVerified === false ? (
-                            <>
-                                <EmailVerify />
-                                <Logout />
-                            </>
-                        ) : !currentUser.address || !currentUser.nickName ? (
-                            <EditUser />
-                        ) : (
-                            <>
-                                <Header pathname={pathname} />
-                                <ContentsBox>
-                                    <Component {...pageProps} />
-                                </ContentsBox>
-                                <Footer />
-                            </>
-                        )}
+                        <Header pathname={pathname} />
+                        <ContentsBox>
+                            <Component {...pageProps} />
+                        </ContentsBox>
+                        <Footer />
                     </>
                 ) : (
                     <>
