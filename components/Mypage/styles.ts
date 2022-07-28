@@ -200,12 +200,12 @@ export const VerifyBtn = styled.button<{ isEmailSended: boolean }>`
     background-color: ${colors.lightDark};
     color: ${colors.white};
     cursor: ${(props) => (props.isEmailSended ? '' : 'pointer')};
+    opacity: ${(props) => (props.isEmailSended ? 0.5 : 1)};
     :hover {
         background-color: ${(props) =>
             props.isEmailSended ? colors.lightDark : colors.dark};
         color: ${(props) => (props.isEmailSended ? colors.white : colors.gold)};
     }
-    opacity: ${(props) => (props.isEmailSended ? 0.5 : 1)};
 `;
 
 export const CheckVerified = styled.button<{ isEmailSended: boolean }>`
@@ -215,10 +215,10 @@ export const CheckVerified = styled.button<{ isEmailSended: boolean }>`
     background-color: ${colors.lightDark};
     color: ${colors.white};
     cursor: ${(props) => (props.isEmailSended ? 'pointer' : '')};
+    opacity: ${(props) => (props.isEmailSended ? 1 : 0.5)};
     :hover {
         background-color: ${(props) =>
             props.isEmailSended ? colors.dark : colors.lightDark};
         color: ${(props) => (props.isEmailSended ? colors.gold : colors.white)};
-        opacity: ${(props) => (props.isEmailSended ? 1 : 0.5)};
     }
 `;
