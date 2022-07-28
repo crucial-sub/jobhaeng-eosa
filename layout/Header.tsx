@@ -39,6 +39,7 @@ const Header = (props: Props) => {
                 {pathname === '/user/edit' && <GoBack />}
                 {pathname === '/items/[id]' && <GoBack />}
                 {pathname === '/edititem/[id]' && <GoBack />}
+                {pathname === '/validate' && <GoBack />}
             </HeaderBox>
         </HeaderContainer>
     );
