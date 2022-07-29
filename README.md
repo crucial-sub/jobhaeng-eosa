@@ -71,7 +71,7 @@ alt=""
 
 ```
 # clone the project
-$ git clone https://github.com/console-lo9/messenger.git
+$ git clone https://github.com/Space-Belt/job-hang-a-sa
 
 # install modules
 $ cd job-hang-a-sa
