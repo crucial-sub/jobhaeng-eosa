@@ -7,7 +7,7 @@ import { emailSendingAction, RootState } from 'store';
 
 type Props = {};
 
-const validate = (props: Props) => {
+const ValidatePage = (props: Props) => {
     const { currentUser } = useSelector(
         (state: RootState) => state.currentUser,
     );
@@ -30,4 +30,4 @@ const validate = (props: Props) => {
     );
 };
 
-export default validate;
+export default ValidatePage;

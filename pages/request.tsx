@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 
 type Props = {};
 
-const request = (props: Props) => {
+const RequestPage = (props: Props) => {
     const { currentUser } = useSelector(
         (state: RootState) => state.currentUser,
     );
@@ -57,4 +57,4 @@ const RequestWrapper = styled.div`
     background-color: ${colors.white};
 `;
 
-export default request;
+export default RequestPage;
