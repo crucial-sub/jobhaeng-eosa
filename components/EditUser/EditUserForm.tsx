@@ -1,4 +1,3 @@
-import Logout from 'components/Mypage/Logout';
 import { dbService } from 'fbase';
 import {
     collection,

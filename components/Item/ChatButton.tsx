@@ -7,7 +7,6 @@ import {
     QueryDocumentSnapshot,
     where,
 } from 'firebase/firestore';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
