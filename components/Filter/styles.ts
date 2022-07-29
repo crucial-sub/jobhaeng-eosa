@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import colors from 'styles/colors';
 
 export const FilterButton = styled.button`
     flex: 3 0 0;
@@ -16,7 +17,8 @@ export const FilterWrapper = styled.div`
     display: flex;
     width: 390px;
     height: 85vh;
-    background-color: azure;
+    background-color: ${colors.lightDark};
+    color: ${colors.white};
     z-index: 99;
     flex-direction: column;
     user-select: none;
@@ -34,7 +36,8 @@ export const ApplyBtn = styled.div`
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
-    background-color: bisque;
+    background-color: ${colors.white};
+    color: ${colors.dark};
     cursor: pointer;
 `;
 
@@ -52,7 +55,8 @@ export const DistrictItem = styled.div`
     text-align: center;
     cursor: pointer;
     &.clicked-dist {
-        background-color: burlywood;
+        background-color: ${colors.dark};
+        color: ${colors.gold};
     }
 `;
 
@@ -70,6 +74,7 @@ export const TownItem = styled.div`
     text-align: center;
     cursor: pointer;
     &.clicked {
-        background-color: burlywood;
+        background-color: ${colors.dark};
+        color: ${colors.gold};
     }
 `;
