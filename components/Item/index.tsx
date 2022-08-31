@@ -53,11 +53,10 @@ const Item = (props: Props) => {
     }, []);
 
     useEffect(() => {
-        if (isChatOpen || isEditOpen) {
-            document.addEventListener('click', close);
-        } else {
+        document.addEventListener('click', close);
+        return () => {
             document.removeEventListener('click', close);
-        }
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isChatOpen, isEditOpen]);
 
