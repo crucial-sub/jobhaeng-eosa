@@ -63,15 +63,12 @@ export const PostBox = styled.div`
 
 export const NoResult = styled.div`
     width: 100%;
-    height: 80%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 50px;
-    background-color: ${colors.lightDark};
     & h1 {
         font-size: 20px;
         text-align: center;
-        color: ${colors.gold};
     }
 `;

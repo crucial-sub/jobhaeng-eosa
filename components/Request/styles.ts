@@ -45,7 +45,7 @@ export const Button = styled.div`
     bottom: 7%;
     right: 10%;
     & svg {
-        color: #222831;
+        color: ${colors.dark};
         font-size: 50px;
         cursor: pointer;
     }
