@@ -61,60 +61,27 @@ const ChatLists = (props: Props) => {
     const chatOpponent = () => {};
     return (
         <>
-            {chatsList.map((a) => {
-                if (
-                    a.user?.indexOf(currentUseruid) === 0 &&
-                    a.onOff?.indexOf('on') === 0
-                ) {
-                    return (
-                        <Link key={a.id} href={`chats/${a.requestId}`}>
-                            <S.ChatBox data-id={a.id} onClick={handleOnClick}>
-                                <S.TitleNTown>
-                                    <S.Title>
-                                        의뢰: {a.title?.slice(0, 14)}{' '}
-                                    </S.Title>
-                                    <S.Town>{a.town}</S.Town>
-                                </S.TitleNTown>
-                                <S.OpponentNick>
-                                    {a.nickNames !== undefined &&
-                                        a.nickNames[1]}{' '}
-                                    님과의 채팅
-                                </S.OpponentNick>
-                                <S.LastMessages>
-                                    <span>메시지: </span>
-                                    {a.lastChat?.slice(0, 10)}
-                                    <div>
-                                        {a.ongoing ? (
-                                            a.requestEnd ? (
-                                                <div>완료 !</div>
-                                            ) : (
-                                                <div>진행중</div>
-                                            )
-                                        ) : null}
-                                    </div>
-                                </S.LastMessages>
-                            </S.ChatBox>
-                        </Link>
-                    );
-                }
-                if (
-                    a.user?.indexOf(currentUseruid) === 1 &&
-                    a.onOff?.lastIndexOf('on') === 1
-                ) {
-                    return (
-                        <>
+            {chatsList.length ? (
+                chatsList.map((a) => {
+                    if (
+                        a.user?.indexOf(currentUseruid) === 0 &&
+                        a.onOff?.indexOf('on') === 0
+                    ) {
+                        return (
                             <Link key={a.id} href={`chats/${a.requestId}`}>
                                 <S.ChatBox
                                     data-id={a.id}
                                     onClick={handleOnClick}
                                 >
                                     <S.TitleNTown>
-                                        <S.Title>의뢰: {a.title}</S.Title>
+                                        <S.Title>
+                                            의뢰: {a.title?.slice(0, 14)}{' '}
+                                        </S.Title>
                                         <S.Town>{a.town}</S.Town>
                                     </S.TitleNTown>
                                     <S.OpponentNick>
                                         {a.nickNames !== undefined &&
-                                            a.nickNames[0]}
+                                            a.nickNames[1]}{' '}
                                         님과의 채팅
                                     </S.OpponentNick>
                                     <S.LastMessages>
@@ -132,10 +99,52 @@ const ChatLists = (props: Props) => {
                                     </S.LastMessages>
                                 </S.ChatBox>
                             </Link>
-                        </>
-                    );
-                }
-            })}
+                        );
+                    }
+                    if (
+                        a.user?.indexOf(currentUseruid) === 1 &&
+                        a.onOff?.lastIndexOf('on') === 1
+                    ) {
+                        return (
+                            <>
+                                <Link key={a.id} href={`chats/${a.requestId}`}>
+                                    <S.ChatBox
+                                        data-id={a.id}
+                                        onClick={handleOnClick}
+                                    >
+                                        <S.TitleNTown>
+                                            <S.Title>의뢰: {a.title}</S.Title>
+                                            <S.Town>{a.town}</S.Town>
+                                        </S.TitleNTown>
+                                        <S.OpponentNick>
+                                            {a.nickNames !== undefined &&
+                                                a.nickNames[0]}
+                                            님과의 채팅
+                                        </S.OpponentNick>
+                                        <S.LastMessages>
+                                            <span>메시지: </span>
+                                            {a.lastChat?.slice(0, 10)}
+                                            <div>
+                                                {a.ongoing ? (
+                                                    a.requestEnd ? (
+                                                        <div>완료 !</div>
+                                                    ) : (
+                                                        <div>진행중</div>
+                                                    )
+                                                ) : null}
+                                            </div>
+                                        </S.LastMessages>
+                                    </S.ChatBox>
+                                </Link>
+                            </>
+                        );
+                    }
+                })
+            ) : (
+                <S.NoResult>
+                    <h1>대화 중인 채팅 목록이 없습니다!</h1>
+                </S.NoResult>
+            )}
         </>
     );
 };
