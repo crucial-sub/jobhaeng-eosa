@@ -1,23 +1,27 @@
-import type { NextPage } from 'next';
 import styled from '@emotion/styled';
-import ItemList from 'components/ItemList';
 import RequestBtn from 'components/Request/RequestBtn';
+import SearchResult from 'components/Search/SearchResult';
+import React from 'react';
+import colors from 'styles/colors';
 
-const Home: NextPage = () => {
+type Props = {};
+
+const search = (props: Props) => {
     return (
         <ItemWrapper>
-            <ItemList />
+            <SearchResult />
             <RequestBtn />
         </ItemWrapper>
     );
 };
 
 const ItemWrapper = styled.div`
+    position: relative;
     max-width: 90%;
     height: 90%;
     margin: 7.5% auto;
     overflow: auto;
-    background-color: #eeeeee;
+    background-color: ${colors.white};
 `;
 
-export default Home;
+export default search;
